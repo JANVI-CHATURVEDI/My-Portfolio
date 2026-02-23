@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 export const Portfolio = () => {
   return (
     <HelmetProvider>
-      <Container className="About-header">
+      <Container className="Portfolio-header">
         <Helmet>
           <meta charSet="utf-8" />
           <title> Portfolio | {meta.title} </title>{" "}

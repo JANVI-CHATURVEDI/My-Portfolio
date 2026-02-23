@@ -3,12 +3,12 @@ import { SiDjango, SiTailwindcss, SiSqlite, SiPostgresql, SiGithub, SiFirebase, 
 import { GiPositionMarker } from "react-icons/gi"; // for Leaflet map (marker icon)
 
 
-import img from "./assets/images/homeimg.jfif";
+import img from "./assets/images/bg.jpg";
 import tweetimg from "./assets/images/tweetlanding.png" ;
 import cofeeimg from "./assets/images/cofeelanding.png" ;
-import devlinktreeimg from "./assets/images/devlinktreelanding.png" ;
+import devlinktreeimg from "./assets/images/devlinktree.png" ;
 import travelimg from "./assets/images/travellanding.png" ;
-import onetimeimg from "./assets/images/onetimelanding.png" ;
+import onetimeimg from "./assets/images/onetimemsg.png" ;
 
 
 const logotext = "JANVI";
@@ -28,16 +28,6 @@ const introdata = {
     },
     description: "Full-stack developer passionate about creating clean, scalable, and user-friendly applications. Skilled in both frontend and backend technologies, I enjoy transforming ideas into impactful digital solutions.",
     your_img_url: img,
-};
-
-
-const dataabout = {
-    title: "About Me",
-    aboutme: [
-        "I am a full-stack developer with expertise in Python, Django, React, and modern CSS frameworks like Tailwind and Bootstrap. I design and develop end-to-end web applications — from intuitive UIs to robust backends and databases. I thrive on solving real-world problems, continuously improving my skills, and building scalable digital products with clean architecture and responsive design.",
-       
-        "Outside of tech, I am a sports enthusiast who has won medals in Kho-Kho, and I enjoy listening to music, which keeps me inspired and creative."
-    ],
 };
 
 
@@ -95,7 +85,7 @@ const dataportfolio = [
     name: "Tweet",
     img: tweetimg,
     description:
-      "A mini Twitter-like platform where users can share and view posts in real-time. Focused on clean UI and efficient backend handling.",
+      "Full-stack microblogging platform with posts, likes, follows, authentication, media uploads, and optimized performance.",
     link: "https://tweet-hveo.onrender.com",
     github: "https://github.com/JANVI-CHATURVEDI/TWEET",
     status: "completed",
@@ -105,37 +95,37 @@ const dataportfolio = [
     name: "Dev LinkTree",
     img: devlinktreeimg,
     description:
-      "A fully customizable 'Link in Bio' builder where users can add images, notes, social links, and backgrounds with live preview.",
+      "Drag-and-drop link-in-bio builder with live preview, instant saving via localStorage, and backend integration in progress.",
     link: "https://dev-link-tree.vercel.app/",
     github: "https://github.com/JANVI-CHATURVEDI/DevLinkTree",
     status: "in-progress",
     tags: ["HTML", "Tailwind CSS", "Vanilla JS"],
   },
   {
-    name: "Cofeeshop Landing Page",
-    img: cofeeimg,
-    description:
-      "A modern, responsive landing page design for a coffee shop, optimized for mobile and desktop screens.",
-    link: "https://cofeeshop-kappa.vercel.app/",
-    github: "https://github.com/JANVI-CHATURVEDI/Cofeeshop",
-    status: "completed",
-    tags: ["Tailwind CSS", "HTML"],
-  },
-  {
     name: "One-Time Secret App",
     img: onetimeimg,
     description:
-      "A secure messaging app where messages auto-delete after being read once. Ensures privacy with backend integration.",
+      "Secure messaging app where each message can be read only once, with safe media storage, expiry logic, and robust Appwrite backend integration.",
     link: "https://one-time-msg.vercel.app/",
     github: "https://github.com/JANVI-CHATURVEDI/one-time-msg",
     status: "completed",
     tags: ["React", "Appwrite", "Tailwind CSS"],
   },
   {
+    name: "Cofeeshop Landing Page",
+    img: cofeeimg,
+    description:
+      "Modern, responsive landing page for a coffee shop with clean design, mobile-first optimization, and smooth user experience.",
+    link: "https://cofeeshop-kappa.vercel.app/",
+    github: "https://github.com/JANVI-CHATURVEDI/Cofeeshop",
+    status: "completed",
+    tags: ["Tailwind CSS", "HTML"],
+  },
+  {
     name: "Travel Destination Explorer",
     img: travelimg,
     description:
-      "A map-based explorer to discover destinations, filter by vibe, and view interactive maps with rich details.",
+      "Interactive map-based travel explorer with filters, responsive design, rich destination details, and optimized performance using React and Leaflet.js.",
     link: "https://travel-destination-explorer-neon.vercel.app/",
     github: "https://github.com/JANVI-CHATURVEDI/Travel-Destination-Explorer",
     status: "in-progress",
@@ -164,7 +154,6 @@ const socialprofils = {
 
 export {
     meta,
-    dataabout,
     dataportfolio,
     skills,
     services,

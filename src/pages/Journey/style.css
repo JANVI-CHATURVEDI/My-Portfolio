@@ -1,0 +1,103 @@
+.sec_sp {
+  margin-bottom: calc(3rem + 5.128vw);
+
+}
+
+.t_border {
+  border-color: var(--text-color) !important;
+}
+
+.title{
+    margin-bottom: 4rem;
+}
+
+@media (max-width: 968px) {
+  .title {
+    margin-bottom: 0;
+  }
+}
+
+.experience_item {
+  position: relative;
+  padding-left: 20px;
+  border-left: 1px solid var(--secondary-color);
+  margin-bottom: 20px;
+  transition: 0.3s all ease;
+}
+
+.experience_item:hover {
+  border-left: 3px solid var(--text-color);
+  background: rgba(128, 128, 128, 0.03); /* Very subtle highlight */
+}
+
+.exp_title {
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.exp_date {
+  font-size: 0.85rem;
+  color: var(--text-color);
+  opacity: 0.7;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.exp_company {
+  color: #b1a793; /* Adjust this color to match your portfolio accent */
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  margin-top: 5px;
+}
+
+.exp_list {
+  padding-left: 1.2rem;
+  list-style-type: square;
+}
+
+.exp_point {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 8px;
+  color: var(--text-color);
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .experience_item .d-flex {
+    flex-direction: column;
+  }
+  .exp_date {
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+}
+
+
+
+
+.view_pr_link {
+  color: #6c6b69; /* Matches common portfolio accent colors */
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  transition: 0.3s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.view_pr_link:hover {
+  color: var(--text-color);
+  border-bottom: 1px solid var(--text-color);
+  padding-left: 5px; /* Subtle "nudge" effect */
+}
+
+.view_pr_link svg {
+  transition: transform 0.3s ease;
+}
+
+.view_pr_link:hover svg {
+  transform: translateX(5px); /* Moves the arrow on hover */
+}

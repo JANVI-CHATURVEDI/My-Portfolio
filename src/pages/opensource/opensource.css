@@ -1,0 +1,64 @@
+.pr_card {
+  border: 1px solid var(--secondary-color);
+  background: transparent;
+  transition: 0.3s all ease;
+  border-radius: 4px; /* Keeping it sharp to match your theme */
+}
+
+.pr_card:hover {
+  border-color: var(--text-color);
+  transform: translateX(10px);
+}
+
+.pr_title {
+  font-weight: 700;
+  color: var(--text-color);
+  line-height: 1.4;
+}
+
+.repo_name {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  opacity: 0.7;
+  margin-top: 10px;
+}
+
+.pr_link {
+  color: var(--text-color);
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+.pr_link:hover {
+  opacity: 1;
+  color: #d79a5c; /* Accent color */
+}
+
+/* Status Badges */
+.status_badge {
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+
+.status_badge.merged {
+  background: #6f42c1;
+  color: white;
+}
+
+.status_badge.open {
+  background: #28a745;
+  color: white;
+}
+
+.status_badge.closed {
+  background: #dc3545;
+  color: white;
+}
+
+.t_border {
+  border-color: var(--text-color) !important;
+}

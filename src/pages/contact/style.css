@@ -29,6 +29,22 @@ button.btn.ac_btn:hover {
     animation-delay: .3s;
 }
 
+.mb{
+    margin-bottom: 60px;
+}
+
+@media (max-width: 888px) {
+  .mb {
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 588px) {
+  .mb {
+    margin-bottom: 0px;
+  }
+}
+
 @keyframes shift-rightwards {
     0% {
         transform: translateX(-100%);

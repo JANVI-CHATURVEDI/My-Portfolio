@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 import { Portfolio } from "../portfolio";
 import { ContactUs } from "../contact";
 import { About } from "../about";
+import { Experience } from "../Journey";
 import Footer from "../../components/Footer";
-
 
 export const Home = () => {
   return (
@@ -47,20 +47,27 @@ export const Home = () => {
 
                   <p className="mt-2 mb-6   items-center gap-2">
                     <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                    Currently looking for <span className="font-semibold text-[#9942ea]">remote opportunities</span>.
-                    If you have an opportunity where I can add value, let’s talk.
+                    Currently looking for{" "}
+                    <span className="font-semibold text-[#9942ea]">
+                      remote opportunities
+                    </span>
+                    . If you have an opportunity where I can add value, let’s
+                    talk.
                   </p>
 
-
                   <div className="intro_btn-action pb-5">
-                    <Link to="/portfolio" className="text_2">
+                    <a
+                      href="https://drive.google.com/file/d/1g0GwPBHDKujaJC139ezyFvS5kRWNYGq1/view?usp=sharing"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <div id="button_p" className="ac_btn btn ">
-                        My Portfolio
+                        My Resume
                         <div className="ring one"></div>
                         <div className="ring two"></div>
                         <div className="ring three"></div>
                       </div>
-                    </Link>
+                    </a>
                     <Link to="/contact">
                       <div id="button_h" className="ac_btn btn">
                         Contact Me
@@ -75,26 +82,25 @@ export const Home = () => {
             </div>
           </div>
         </section>
-
-
       </HelmetProvider>
 
-      <div className="mt-16 sm:mt-20">
+      <div className=" sec ">
+        <Experience />
+      </div>
+
+      <div className=" sec ">
         <Portfolio />
       </div>
 
-      <div className="mt-16 sm:mt-20">
+      <div className=" sec ">
         <About />
       </div>
 
-      <div className="mt-16 sm:mt-20 ">
+      <div className=" sec ">
         <ContactUs />
       </div>
 
       <Footer />
-
-
-
     </>
   );
 };
