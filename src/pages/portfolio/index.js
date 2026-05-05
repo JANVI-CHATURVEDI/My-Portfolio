@@ -56,8 +56,16 @@ export const Portfolio = () => {
 
 
                   <div className="flex gap-2 justify-between absolute bottom-1 left-0 w-full px-4">
-                    <a href={data.link} className="underline">Live</a>
-                    <a href={data.github} className="underline" >Github</a>
+                      {/* If link exists, show it. If not, render an empty div to hold the space */}
+                      {data.link ? (
+                        <a href={data.link} className="underline">Live</a>
+                      ) : (
+                        <div />
+                      )}
+
+                      <a href={data.github} className="underline">
+                        Github
+                      </a>
                   </div>
                 </div>
               </div>

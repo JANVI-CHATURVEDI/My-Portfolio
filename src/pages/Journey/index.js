@@ -8,6 +8,16 @@ import { meta } from "../../content_option";
 
 const experiences = [
   {
+    title: "Backend Developer Intern (Django)",
+    company: "Ayursh",
+    date: "Mar 2026 – Present",
+    points: [
+      "Designed, integrated, and tested API endpoints in a production environment, focusing on scalability and maintainability.",
+      "Implemented dynamic filters and new features from scratch, translating complex requirements into functional, production-grade code.",
+      "Diagnosed and resolved bugs across the application stack while collaborating via Git in a professional team workflow.",
+    ],
+  },
+  {
     title: "Open Source Contributor",
     company: "Zulip · CircuitVerse · wger · bugOpsX",
     date: "2025 – Present",

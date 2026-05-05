@@ -86,7 +86,7 @@ const dataportfolio = [
     img: tweetimg,
     description:
       "Full-stack microblogging platform with posts, likes, follows, authentication, media uploads, and optimized performance.",
-    link: "https://janvi-tweet.up.railway.app",
+    link: null,
     github: "https://github.com/JANVI-CHATURVEDI/TWEET",
     status: "completed",
     tags: ["Django", "Python", "Tailwind CSS", "PostgreSQL"],
