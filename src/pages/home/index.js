@@ -57,7 +57,7 @@ export const Home = () => {
 
                   <div className="intro_btn-action pb-5">
                     <a
-                      href="https://drive.google.com/file/d/1g0GwPBHDKujaJC139ezyFvS5kRWNYGq1/view?usp=sharing"
+                      href="https://drive.google.com/file/d/1HyZ1PbW3TBUVSlSIu6PLxsqDcvfjVzdm/view?usp=sharing"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
