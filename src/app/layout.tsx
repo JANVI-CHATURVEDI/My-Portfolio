@@ -1,0 +1,60 @@
+import './globals.css';
+import { Manrope, Cormorant_Garamond, Fraunces, JetBrains_Mono } from 'next/font/google';
+import type { Metadata } from 'next';
+import Navbar from '../components/Navbar';
+import HeroSidebar from '../components/HeroSidebar';
+import PageTransition from '../components/PageTransition';
+import MotionProvider from '../components/MotionProvider';
+import FooterBar from '../components/FooterBar';
+
+const manrope = Manrope({ subsets: ['latin'], variable: '--font-manrope' });
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-cormorant',
+});
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  axes: ['opsz', 'SOFT', 'WONK'],
+  style: ['normal', 'italic'],
+  variable: '--font-fraunces',
+});
+const jetbrains = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains' });
+
+export const metadata: Metadata = {
+  title: 'Janvi Chaturvedi — Full-Stack Software Architect',
+  description: 'Crafting digital products & high-performance web architecture.',
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml', sizes: 'any' },
+      { url: '/icon.png', type: 'image/png', sizes: '32x32' },
+    ],
+    apple: '/apple-icon.png',
+  },
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" className={`${manrope.variable} ${cormorant.variable} ${fraunces.variable} ${jetbrains.variable}`}>
+      <body className={`${manrope.className} antialiased`}>
+        <div className="fixed inset-0 z-[-1] pointer-events-none opacity-10">
+          <div className="fixed inset-0 bg-gradient-to-br from-emerald-950/5 via-slate-900 to-slate-950/50" />
+        </div>
+        {/* Persistent shell — rendered once, survives route changes so the
+            nav underline slides between links and the sidebar never flickers.
+            MotionProvider applies the global reduced-motion policy. */}
+        <MotionProvider>
+          <Navbar />
+          <HeroSidebar />
+          <PageTransition>{children}</PageTransition>
+          <FooterBar />
+        </MotionProvider>
+      </body>
+    </html>
+  );
+}

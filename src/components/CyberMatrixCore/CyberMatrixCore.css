@@ -1,0 +1,287 @@
+.cyber-workbench-container {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: transform 0.15s cubic-bezier(0.2, 0, 0.4, 1), box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+  user-select: none;
+}
+
+/* Floating Telemetry Badges */
+.telemetry-badge {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-color);
+  font-size: 0.75rem;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  z-index: 20;
+  pointer-events: none;
+}
+
+.telemetry-badge-top {
+  top: -14px;
+  right: 20px;
+  animation: floatBadge1 5s ease-in-out infinite;
+}
+
+.telemetry-badge-bottom {
+  bottom: -14px;
+  left: 20px;
+  animation: floatBadge2 6s ease-in-out infinite;
+}
+
+.badge-icon.success {
+  color: #10b981;
+}
+
+.badge-icon.cpu {
+  color: var(--text-color);
+}
+
+@keyframes floatBadge1 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes floatBadge2 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(6px); }
+}
+
+/* Workbench Header */
+.workbench-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid var(--card-border);
+}
+
+[data-theme="light"] .workbench-header {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.window-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dot-red { background: #ef4444; }
+.dot-yellow { background: #f59e0b; }
+.dot-green { background: #10b981; }
+
+.window-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--muted-text);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+  background: var(--text-color);
+  color: var(--bg-color);
+  border-color: var(--text-color);
+}
+
+.tab-icon {
+  font-size: 0.85rem;
+}
+
+.header-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--muted-text);
+  font-family: monospace;
+}
+
+/* Workbench Body */
+.workbench-body {
+  display: flex;
+  min-height: 220px;
+}
+
+@media (max-width: 576px) {
+  .workbench-body {
+    flex-direction: column;
+  }
+}
+
+.code-editor-side {
+  flex: 1 1 65%;
+  display: flex;
+  padding: 16px;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  background: rgba(0, 0, 0, 0.2);
+  overflow-x: auto;
+}
+
+[data-theme="light"] .code-editor-side {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.code-line-numbers {
+  display: flex;
+  flex-direction: column;
+  padding-right: 14px;
+  margin-right: 14px;
+  border-right: 1px solid var(--card-border);
+  color: var(--muted-text);
+  opacity: 0.5;
+  font-size: 0.78rem;
+}
+
+.code-display {
+  margin: 0;
+  color: var(--text-color);
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.code-cursor {
+  animation: blinkCursor 1s infinite;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+@keyframes blinkCursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* 3D Quantum Node Mesh Side */
+.workbench-quantum-side {
+  flex: 1 1 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  border-left: 1px solid var(--card-border);
+  background: rgba(255, 255, 255, 0.02);
+  position: relative;
+}
+
+.quantum-canvas-wrapper {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantum-mesh-canvas {
+  position: relative;
+  z-index: 2;
+}
+
+.quantum-core-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90px;
+  height: 90px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+[data-theme="light"] .quantum-core-glow {
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.08) 0%, transparent 70%);
+}
+
+.quantum-info-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  font-size: 0.72rem;
+  color: var(--text-color);
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+.play-icon {
+  font-size: 0.75rem;
+  color: #10b981;
+}
+
+/* Workbench Footer */
+.workbench-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.3);
+  border-top: 1px solid var(--card-border);
+  font-size: 0.74rem;
+  color: var(--muted-text);
+  font-family: monospace;
+}
+
+[data-theme="light"] .workbench-footer {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+}
+
+.footer-right {
+  display: flex;
+  gap: 12px;
+}

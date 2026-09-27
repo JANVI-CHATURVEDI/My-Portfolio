@@ -1,0 +1,38 @@
+.sound-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  color: var(--text-color);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+  margin-right: 12px;
+}
+
+.sound-toggle-btn:hover {
+  background: rgba(168, 85, 247, 0.3);
+  border-color: #a855f7;
+  transform: translateY(-1px);
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.35);
+}
+
+.sound-toggle-btn.muted {
+  opacity: 0.6;
+  border-color: rgba(150, 150, 150, 0.3);
+  background: rgba(150, 150, 150, 0.1);
+}
+
+@media (max-width: 576px) {
+  .sound-toggle-text {
+    display: none;
+  }
+  .sound-toggle-btn {
+    padding: 6px 8px;
+  }
+}

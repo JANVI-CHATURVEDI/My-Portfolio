@@ -1,0 +1,68 @@
+.tech-hologram-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 240px;
+  height: 250px;
+  animation: floatOrbital 5s ease-in-out infinite;
+}
+
+.tech-hologram-canvas {
+  position: relative;
+  z-index: 2;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.hologram-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+[data-theme="light"] .hologram-glow {
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.05) 0%, transparent 70%);
+}
+
+.hologram-ring-accent {
+  position: absolute;
+  bottom: 20px;
+  width: 90px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.25) 0%, transparent 80%);
+  z-index: 0;
+  animation: pulseAccent 5s ease-in-out infinite;
+}
+
+[data-theme="light"] .hologram-ring-accent {
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.15) 0%, transparent 80%);
+}
+
+@keyframes floatOrbital {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pulseAccent {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.9;
+  }
+}

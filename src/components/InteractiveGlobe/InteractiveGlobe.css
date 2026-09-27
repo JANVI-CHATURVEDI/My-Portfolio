@@ -1,0 +1,115 @@
+.interactive-globe-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  user-select: none;
+}
+
+.globe-canvas-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: grab;
+  transition: transform 0.3s ease;
+}
+
+.globe-canvas-container:active {
+  cursor: grabbing;
+}
+
+.interactive-globe-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 440px;
+  max-height: 440px;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 35px rgba(168, 85, 247, 0.35));
+  transition: filter 0.3s ease;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.globe-canvas-container:hover .interactive-globe-canvas {
+  filter: drop-shadow(0 0 50px rgba(6, 182, 212, 0.55));
+}
+
+.globe-meta-pill {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(15, 12, 30, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  border-radius: 30px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  white-space: nowrap;
+  pointer-events: auto;
+  z-index: 10;
+}
+
+.globe-live-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #06b6d4;
+  box-shadow: 0 0 8px #06b6d4;
+  animation: globePulse 2s infinite ease-in-out;
+}
+
+@keyframes globePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.6;
+  }
+}
+
+.globe-reset-btn {
+  background: rgba(168, 85, 247, 0.25);
+  border: 1px solid rgba(168, 85, 247, 0.5);
+  color: #ffffff;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.globe-reset-btn:hover {
+  background: rgba(168, 85, 247, 0.55);
+  border-color: #a855f7;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .interactive-globe-canvas {
+    max-width: 320px;
+    max-height: 320px;
+  }
+  
+  .globe-meta-pill {
+    bottom: -10px;
+    font-size: 0.72rem;
+    padding: 4px 10px;
+  }
+}

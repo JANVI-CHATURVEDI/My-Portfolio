@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #080808;
+  --fg: #ffffff;
+  --muted: #94a3b8;
+  --card-bg: rgba(18, 18, 18, 0.85);
+  --card-border: rgba(255,255,255,0.1);
+  --accent: #34d399;
+  --accent2: #22d3ee;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Inter', 'Geist', sans-serif;
+  overflow-x: hidden;
+}
+
+.grain-overlay {
+  position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--card-border);
+  border-radius: 1rem;
+}
+
+.glass-card-hover:hover {
+  border-color: rgba(52,211,153,0.3);
+  box-shadow: 0 0 30px rgba(52,211,153,0.08);
+}
+
+.glow-border { position: relative; }
+.glow-border::before {
+  content: ''; position: absolute; inset: -1px; border-radius: inherit; padding: 1px;
+  background: linear-gradient(135deg, rgba(52,211,153,0.4), transparent 50%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  pointer-events: none;
+}
+
+.section-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--accent); opacity: 0.8;
+}
+
+/* Terminal */
+.terminal {
+  background: rgba(10,10,15,0.95);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px; overflow: hidden; font-family: 'JetBrains Mono', monospace;
+}
+.terminal-header { background: rgba(255,255,255,0.04); padding: 10px 16px; display: flex; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
+.terminal-body { padding: 20px; font-size: 0.85rem; line-height: 1.6; color: #cbd5e1; }
+
+/* Status pill */
+.status-pill {
+  display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px;
+  border-radius: 9999px; border: 1px solid rgba(52,211,153,0.3);
+  background: rgba(52,211,153,0.08); font-size: 0.8rem; color: #34d399;
+}
+.status-pill .dot { width: 8px; height: 8px; border-radius: 50%; background: #34d399; animation: pulse-dot 2s infinite; }
+@keyframes pulse-dot { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.5; transform:scale(1.3); } }
+
+/* Magnetic button */
+.magnetic-btn { transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: pointer; }
+.magnetic-btn:hover { transform: scale(1.04); box-shadow: 0 0 24px rgba(52,211,153,0.2); }
+
+/* Spotlight */
+.spotlight {
+  position: fixed; inset: 0; pointer-events: none; z-index: 1;
+  background: radial-gradient(circle 200px at var(--mx, 50%) var(--my, 50%), rgba(52,211,153,0.06), transparent 60%);
+}
+
+/* Timeline */
+.timeline-node { position: relative; padding-left: 32px; }
+.timeline-node::before { content:''; position:absolute; left:7px; top:24px; bottom:-12px; width:2px; background: linear-gradient(to bottom, #34d399, transparent); }
+.timeline-node:last-child::before { display: none; }
+.timeline-dot { position:absolute; left:0; top:6px; width:16px; height:16px; border-radius:50%; background:#34d399; box-shadow: 0 0 12px rgba(52,211,153,0.5); }
+
+/* Marquee */
+.marquee-track { display:flex; gap:48px; animation: marquee 30s linear infinite; white-space:nowrap; }
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* Floating label */
+.float-label { position:relative; }
+.float-label input, .float-label textarea {
+  background: transparent; border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:16px 12px 8px; width:100%; color:#fff; font-size:0.95rem; outline:none; transition: border-color 0.2s;
+}
+.float-label input:focus, .float-label textarea:focus { border-color: #34d399; }
+.float-label label {
+  position:absolute; left:12px; top:14px; font-size:0.85rem; color:#94a3b8; transition: all 0.2s; pointer-events:none;
+}
+.float-label input:focus ~ label, .float-label input:not(:placeholder-shown) ~ label,
+.float-label textarea:focus ~ label, .float-label textarea:not(:placeholder-shown) ~ label {
+  top:4px; font-size:0.7rem; color:#34d399;
+}
+
+/* ── Experience section: editorial timeline cards ── */
+.exp-card {
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.exp-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(52, 211, 153, 0.16);
+  background-color: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 18px 48px -28px rgba(52, 211, 153, 0.35);
+}
+
+/* Arrow markers: shift right + brighten on card hover */
+.exp-arrow {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), color 0.35s ease;
+}
+.exp-card:hover .exp-arrow {
+  transform: translateX(3px);
+  color: rgba(52, 211, 153, 0.85);
+}
+
+/* Refined tech tags: muted by default, emerald only on hover */
+.exp-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  font-size: 11px;
+  line-height: 1.5;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.3);
+  color: rgba(148, 163, 184, 0.65);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.exp-card:hover .exp-tag {
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(148, 163, 184, 0.9);
+}
+.exp-tag:hover {
+  transform: translateY(-1px);
+  border-color: rgba(52, 211, 153, 0.35);
+  color: #34d399;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exp-card, .exp-arrow, .exp-tag { transition: none; }
+  .exp-card:hover { transform: none; box-shadow: none; }
+  .exp-card:hover .exp-arrow { transform: none; }
+  .exp-tag:hover { transform: none; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb { background: #34d399; border-radius:3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+  .status-pill .dot { animation: none; }
+}

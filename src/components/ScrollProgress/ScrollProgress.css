@@ -1,0 +1,29 @@
+.scroll-progress-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 3px;
+  z-index: 1000000;
+  pointer-events: none;
+  background: transparent;
+}
+
+.scroll-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #a855f7, #06b6d4, #ec4899);
+  position: relative;
+  transition: width 0.08s ease-out;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.7);
+}
+
+.scroll-progress-glow {
+  position: absolute;
+  right: 0;
+  top: -2px;
+  width: 10px;
+  height: 7px;
+  border-radius: 50%;
+  background: #06b6d4;
+  box-shadow: 0 0 12px 3px #06b6d4;
+}

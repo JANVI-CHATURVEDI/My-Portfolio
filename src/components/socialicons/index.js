@@ -1,0 +1,50 @@
+import React from "react";
+import "./style.css";
+import {
+  FaGithub,
+  FaTwitter,
+  FaFacebookF,
+  FaLinkedin,
+  FaYoutube,
+  FaTwitch,
+  FaInstagram,
+  FaSnapchatGhost,
+  FaTiktok,
+  FaCircle
+} from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { socialprofils } from "../../content_option";
+
+const ICON_MAPPING = {
+  default: FaCircle,
+  facebook: FaFacebookF,
+  github: FaGithub,
+  instagram: FaInstagram,
+  linkedin: FaLinkedin,
+  snapchat: FaSnapchatGhost,
+  tiktok: FaTiktok,
+  twitter: FaTwitter,
+  twitch: FaTwitch,
+  youtube: FaYoutube,
+  email: MdEmail,
+};
+
+export const Socialicons = (params) => {
+  return (
+    <div className="stick_follow_icon">
+      <ul>
+        {Object.entries(socialprofils).map(([platform, url]) => {
+          const IconComponent = ICON_MAPPING[platform] || ICON_MAPPING.default;
+          return (
+            <li key={platform}>
+              <a href={url}>
+                <IconComponent />
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+      <p>Contact Me</p>
+    </div>
+  );
+};
