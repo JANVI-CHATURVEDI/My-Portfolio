@@ -1,5 +1,5 @@
 import './globals.css';
-import { Manrope, Cormorant_Garamond, Fraunces, JetBrains_Mono } from 'next/font/google';
+import { Manrope, Cormorant_Garamond, Fraunces, JetBrains_Mono, Permanent_Marker } from 'next/font/google';
 import type { Metadata } from 'next';
 import Navbar from '../components/Navbar';
 import HeroSidebar from '../components/HeroSidebar';
@@ -21,6 +21,7 @@ const fraunces = Fraunces({
   variable: '--font-fraunces',
 });
 const jetbrains = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains' });
+const marker = Permanent_Marker({ weight: '400', subsets: ['latin'], variable: '--font-marker' });
 
 export const metadata: Metadata = {
   title: 'Janvi Chaturvedi — Full-Stack Software Architect',
@@ -40,7 +41,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${manrope.variable} ${cormorant.variable} ${fraunces.variable} ${jetbrains.variable}`}>
+    <html lang="en" className={`${manrope.variable} ${cormorant.variable} ${fraunces.variable} ${jetbrains.variable} ${marker.variable}`}>
       <body className={`${manrope.className} antialiased`}>
         <div className="fixed inset-0 z-[-1] pointer-events-none opacity-10">
           <div className="fixed inset-0 bg-gradient-to-br from-emerald-950/5 via-slate-900 to-slate-950/50" />

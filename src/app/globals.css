@@ -32,6 +32,7 @@ body {
 .font-serif { font-family: var(--font-cormorant), ui-serif, Georgia, serif; }
 .font-display { font-family: var(--font-fraunces), ui-serif, Georgia, serif; font-variation-settings: 'SOFT' 20, 'WONK' 1; }
 .font-mono { font-family: var(--font-jetbrains), 'Fira Code', ui-monospace, monospace; }
+.font-marker { font-family: var(--font-marker), 'Segoe Print', cursive; }
 
 .glass {
   background: var(--card);

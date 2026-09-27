@@ -150,7 +150,7 @@ export const skillMatrix: SkillCategory[] = [
 
 export const experience: Experience[] = [
   {
-    title: "Backend Developer Intern · Python/Django",
+    title: "Software Developer Intern",
     company: "Ayursh",
     period: "Mar 2026 — Present",
     current: true,

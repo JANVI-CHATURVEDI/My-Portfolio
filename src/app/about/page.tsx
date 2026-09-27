@@ -1,10 +1,10 @@
 "use client";
 import { motion, useReducedMotion } from 'framer-motion';
 import Link from 'next/link';
-import { Terminal, MapPin, Coffee, Rocket } from 'lucide-react';
+import { Terminal, Coffee, Rocket } from 'lucide-react';
 import ExperienceArrow from '../../components/ExperienceArrow';
 import LiquidBg from '../../components/LiquidBg';
-import { experience, skillMatrix, portfolio } from '../../data/content';
+import { experience, skillMatrix } from '../../data/content';
 
 const stats = [
   { label: 'Merged PRs', value: '6+' },
@@ -18,117 +18,275 @@ const interests = [
   { icon: '🌍', label: 'Open Source Advocate' },
 ];
 
+/* Hand-drawn sticker set scattered around the polaroid */
+const stickers = [
+  {
+    label: 'green-sparkle',
+    pos: '-top-5 right-1',
+    svg: (
+      <svg width="44" height="44" viewBox="0 0 24 24" className="drop-shadow-[0_0_10px_rgba(52,211,153,0.5)]">
+        <path
+          d="M12 0 C13.2 8.4 15.6 10.8 24 12 C15.6 13.2 13.2 15.6 12 24 C10.8 15.6 8.4 13.2 0 12 C8.4 10.8 10.8 8.4 12 0 Z"
+          fill="#34d399"
+        />
+      </svg>
+    ),
+  },
+  {
+    label: 'ring',
+    pos: 'left-2 -top-8',
+    svg: (
+      <svg width="26" height="26" viewBox="0 0 26 26">
+        <circle cx="13" cy="13" r="11" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" />
+      </svg>
+    ),
+  },
+  {
+    label: 'star-outline',
+    pos: '-left-4 top-[38%]',
+    svg: (
+      <svg width="30" height="30" viewBox="0 0 24 24">
+        <path
+          d="M12 2 L14.9 8.6 L22 9.3 L16.7 14.1 L18.2 21.2 L12 17.5 L5.8 21.2 L7.3 14.1 L2 9.3 L9.1 8.6 Z"
+          fill="none"
+          stroke="rgba(255,255,255,0.65)"
+          strokeWidth="1.5"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
+  },
+  {
+    label: 'cross-ink',
+    pos: 'left-3 bottom-[3%]',
+    svg: (
+      <svg width="20" height="20" viewBox="0 0 22 22">
+        <path d="M4 4 L18 18 M18 4 L4 18" stroke="rgba(12,12,14,0.55)" strokeWidth="2" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    label: 'cross-left',
+    pos: '-left-3 bottom-[18%]',
+    svg: (
+      <svg width="18" height="18" viewBox="0 0 22 22">
+        <path d="M4 4 L18 18 M18 4 L4 18" stroke="rgba(255,255,255,0.4)" strokeWidth="2.5" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    label: 'scribble',
+    pos: '-bottom-5 right-3',
+    svg: (
+      <svg width="72" height="14" viewBox="0 0 72 14" fill="none">
+        <path
+          d="M2 8 Q 12 1, 22 7 T 42 7 T 62 6 T 70 8"
+          stroke="rgba(255,255,255,0.35)"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
+  },
+];
+
 export default function AboutPage() {
   const reduced = useReducedMotion();
   return (
     <main className="min-h-screen bg-[#0c0c0e] text-white">
       <LiquidBg />
-      <div className="relative z-10 max-w-6xl mx-auto px-6 lg:pl-24 pt-28 pb-20">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 lg:pl-24 pt-24 pb-20">
 
-        {/* ── Section 1: Eyebrow + Heading + portrait floating right ── */}
-        <div className="grid lg:grid-cols-5 gap-10 items-start mb-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-3"
+        {/* ── Section 1: scrapbook hero — tilted polaroid + editorial collage ── */}
+        <section
+          aria-label="Introduction"
+          className="relative mb-24 flex flex-col justify-center overflow-hidden pb-4 lg:min-h-[calc(100vh-12rem)]"
+        >
+          {/* Oversized marker word — outlined texture behind the composition */}
+          <span
+            aria-hidden
+            className="pointer-events-none absolute bottom-2 right-0 select-none rotate-[-6deg] font-marker text-[6.5rem] leading-none text-transparent sm:text-[9rem] lg:text-[13rem] [-webkit-text-stroke:2px_rgba(255,255,255,0.11)]"
           >
-            <p className="text-xs font-mono tracking-[0.3em] text-emerald-400/70 uppercase mb-4">
-              01 — Introduction
-            </p>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.05] tracking-tight mb-6">
-              I turn ideas into
-              <br />
-              <span className="font-display italic font-normal text-emerald-400">revenue-generating</span>
-              <br />
-              <span className="text-white/55 text-2xl sm:text-3xl lg:text-4xl font-light block mt-4">
-                digital products.
-              </span>
-            </h1>
+            ABOUT.
+          </span>
 
-            <p className="text-white/75 font-[450] leading-relaxed max-w-xl mb-6 text-base">
-              You have a vision. I have the technical depth to ship it — production-ready
-              backend architecture, pixel-perfect frontend, and a track record of delivering
-              on deadline. Every project I touch is built to scale.
-            </p>
+          <div className="relative z-10 grid w-full items-center gap-y-12 lg:grid-cols-12 lg:gap-x-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="order-1 lg:order-2 lg:col-span-8 lg:ml-10"
+            >
+                <p className="inline-block -rotate-[2deg] border border-white/25 bg-white/[0.04] px-3 py-1.5 text-[11px] font-mono uppercase tracking-[0.3em] text-white/60">
+                  01 — A LITTLE ABOUT ME
+                </p>
 
-            <div className="flex flex-wrap gap-4 mb-8">
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 text-black font-bold text-sm hover:shadow-[0_0_28px_rgba(52,211,153,0.35)] hover:-translate-y-[2px] transition-all duration-300"
-              >
-                Start a Project →
-              </Link>
-              <a
-                href="https://drive.google.com/file/d/1HyZ1PbW3TBUVSlSIu6PLxsqDcvfjVzdm/view"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/15 text-white/75 hover:text-white hover:border-white/30 font-medium text-sm hover:-translate-y-[2px] transition-all duration-300"
-              >
-                Hire Me — Resume
-              </a>
-            </div>
+                <h1 className="mb-6 mt-6 text-4xl font-extrabold leading-[1.04] tracking-tight text-white sm:text-5xl lg:text-[4.25rem]">
+                  Wanna{' '}
+                  <span className="relative inline-block whitespace-nowrap font-display font-normal italic text-emerald-400">
+                    know me?
+                    {/* hand-drawn green underline */}
+                    <svg
+                      aria-hidden
+                      viewBox="0 0 300 12"
+                      preserveAspectRatio="none"
+                      className="absolute -bottom-1.5 left-0 h-2.5 w-full overflow-visible"
+                    >
+                      <path
+                        d="M3 8 C 62 2, 118 10, 176 5 S 262 3, 297 7"
+                        fill="none"
+                        stroke="#34d399"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        vectorEffect="non-scaling-stroke"
+                      />
+                    </svg>
+                  </span>
+                </h1>
 
-            {/* Stat counters */}
-            <div className="flex gap-8 mb-6 pt-6 border-t border-white/5">
-              {stats.map((s) => (
-                <div key={s.label}>
-                  <div className="text-3xl font-bold text-white">{s.value}</div>
-                  <div className="text-[11px] font-mono font-medium text-white/55 uppercase tracking-wider">{s.label}</div>
+                <p className="mb-5 max-w-xl text-sm font-[450] leading-relaxed text-white/65 sm:text-base">
+                  Started as a kid who was curious about how things worked.
+                  <br />
+                  Now I build things, break things, fix them, and ship them.
+                </p>
+
+                <div className="flex flex-wrap gap-4">
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 text-black font-bold text-sm hover:shadow-[0_0_28px_rgba(52,211,153,0.35)] hover:-translate-y-[2px] transition-all duration-300"
+                  >
+                    Start a Project →
+                  </Link>
+                  <a
+                    href="https://drive.google.com/file/d/1HyZ1PbW3TBUVSlSIu6PLxsqDcvfjVzdm/view"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/15 text-white/75 hover:text-white hover:border-white/30 font-medium text-sm hover:-translate-y-[2px] transition-all duration-300"
+                  >
+                    Hire Me — Resume
+                  </a>
                 </div>
-              ))}
-            </div>
 
-            <div className="flex flex-wrap items-center gap-4 text-xs font-mono font-medium text-white/55">
-              <span className="flex items-center gap-1.5"><MapPin size={13} className="text-emerald-400/80" /> {portfolio.location}</span>
-              <span className="w-1 h-1 rounded-full bg-white/35" />
-              <span className="flex items-center gap-1.5"><Terminal size={13} className="text-emerald-400/80" /> Building since 2024</span>
-              <span className="w-1 h-1 rounded-full bg-white/35" />
-              <span className="flex items-center gap-1.5"><Rocket size={13} className="text-emerald-400/80" /> Open to remote roles</span>
-            </div>
-          </motion.div>
+                {/* Stat stickers */}
+                <div className="mb-5 mt-5 flex flex-wrap gap-3">
+                  {stats.map((s, i) => (
+                    <div
+                      key={s.label}
+                      className={`border border-white/15 bg-[#0c0c0e]/60 px-3.5 py-2 ${i === 1 ? 'rotate-[1.25deg]' : i === 2 ? '-rotate-1' : '-rotate-[0.75deg]'}`}
+                    >
+                      <div className="text-xl font-bold leading-none text-white">{s.value}</div>
+                      <div className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-white/55">
+                        {s.label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
 
-          {/* Portrait card */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="lg:col-span-2 relative"
-          >
-            <div className="glass rounded-3xl overflow-hidden p-1">
-              <div className="relative aspect-[3/4] overflow-hidden rounded-[1.4rem]">
-                <img
-                  src="/images/about-portrait.jpg"
-                  alt="Janvi Chaturvedi"
-                  className="w-full h-full object-cover"
+                {/* identity tags */}
+                <div className="flex flex-wrap items-center gap-4 font-mono text-[11px] uppercase tracking-wider [&>span]:bg-[#0c0c0e]/60">
+                  <span className="flex -rotate-[1deg] items-center gap-1.5 border border-dashed border-white/20 px-2.5 py-1.5 text-white/55">
+                    <Terminal size={12} className="text-white/45" /> Developer
+                  </span>
+                  <span className="flex rotate-[1deg] items-center gap-1.5 border border-dashed border-white/20 px-2.5 py-1.5 text-white/55">
+                    <Coffee size={12} className="text-white/45" /> Freelancer
+                  </span>
+                  <span className="flex -rotate-[0.5deg] items-center gap-1.5 border border-dashed border-white/20 px-2.5 py-1.5 text-white/55">
+                    <Rocket size={12} className="text-white/45" /> Open Source · Builder
+                  </span>
+                </div>
+            </motion.div>
+
+            {/* Polaroid composition — left on desktop, after the text on mobile */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="order-2 flex flex-col items-center self-start pt-10 lg:order-1 lg:col-span-4 lg:items-start"
+            >
+              <div className="relative ml-0 w-fit lg:ml-6">
+                {/* backing sheet */}
+                <div
+                  aria-hidden
+                  className="absolute inset-0 translate-x-3 translate-y-4 rotate-[2.5deg] border border-white/10 bg-white/[0.04]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0e]/90 via-transparent to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-5 [text-shadow:0_1px_4px_rgba(0,0,0,0.65)]">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="status-dot" />
-                    <span className="text-xs font-mono font-medium text-white/85">Available for work</span>
-                  </div>
-                  <p className="text-lg font-semibold text-white">Janvi Chaturvedi</p>
-                  <p className="text-xs text-white/70 font-mono">Backend · Full-Stack · Open Source</p>
-                </div>
-              </div>
-            </div>
+                {/* washi tape */}
+                <div
+                  aria-hidden
+                  className="absolute -top-3 left-1/2 z-10 h-7 w-24 -translate-x-1/2 -rotate-[6deg] border-y border-white/10 bg-white/30"
+                />
 
-            {/* Floating interests */}
-            <div className="absolute -left-4 top-6 flex flex-col gap-2">
-              {interests.map((it, i) => (
-                <motion.div
-                  key={it.label}
-                  animate={reduced ? { y: 0 } : { y: [0, i % 2 === 0 ? -5 : 5, 0] }}
-                  transition={reduced ? { duration: 0 } : { duration: 3 + i, repeat: Infinity, ease: 'easeInOut' }}
-                  className="glass px-3 py-1.5 rounded-full text-xs text-white/70 flex items-center gap-1.5 shadow-lg whitespace-nowrap"
-                >
-                  <span>{it.icon}</span> {it.label}
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
+                {/* The polaroid */}
+                <figure className="relative w-[260px] -rotate-[3.5deg] bg-white px-3 pb-3 pt-3 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.85)] sm:w-[300px]">
+                  <div className="aspect-square overflow-hidden bg-[#0c0c0e]">
+                    <img
+                      src="/images/about-portrait.jpg"
+                      alt="Janvi Chaturvedi"
+                      className="h-full w-full object-cover object-[50%_35%] contrast-[1.05] grayscale"
+                    />
+                  </div>
+                  <figcaption className="px-1 pt-2.5 text-center">
+                    <p className="font-marker text-[1.35rem] leading-tight text-[#0c0c0e]">Janvi Chaturvedi</p>
+                    <p className="mt-1 font-mono text-[8.5px] uppercase tracking-[0.16em] text-black/55">
+                      Backend · Full-Stack · Open Source
+                    </p>
+                    <p className="mt-1.5 flex items-center justify-center gap-1.5 font-mono text-[9.5px] uppercase tracking-[0.14em] text-black/70">
+                      <span className="status-dot" /> Available for work
+                    </p>
+                  </figcaption>
+                </figure>
+
+                {/* Scattered stickers */}
+                {stickers.map((st, i) => (
+                  <motion.span
+                    key={st.label}
+                    aria-hidden
+                    initial={{ opacity: 0, scale: 0.4 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.55 + i * 0.08, type: 'spring', stiffness: 260, damping: 16 }}
+                    className={`absolute ${st.pos}`}
+                  >
+                    {st.svg}
+                  </motion.span>
+                ))}
+              </div>
+
+              {/* handwritten annotation */}
+              <div className="mt-3 flex items-start gap-1 self-start pl-1 lg:pl-6">
+                <span className="max-w-[260px] -rotate-3 font-marker text-lg leading-snug text-white/70">
+                  Currently building CivicConnect. Stay tuned.
+                </span>
+                <svg width="34" height="30" viewBox="0 0 34 30" fill="none" aria-hidden className="mb-1">
+                  <path
+                    d="M31 27 C 24 25, 14 20, 9 8"
+                    stroke="rgba(255,255,255,0.45)"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M9 8 L 12.7 16.2 M9 8 L 17.6 10.4"
+                    stroke="rgba(255,255,255,0.45)"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </div>
+
+              {/* interest stamps */}
+              <div className="mt-6 flex max-w-[340px] flex-wrap justify-center gap-2.5 lg:justify-start">
+                {interests.map((it, i) => (
+                  <motion.div
+                    key={it.label}
+                    animate={reduced ? { y: 0 } : { y: [0, i % 2 === 0 ? -5 : 5, 0] }}
+                    transition={reduced ? { duration: 0 } : { duration: 3 + i, repeat: Infinity, ease: 'easeInOut' }}
+                    className={`flex items-center gap-1.5 whitespace-nowrap border border-white/20 bg-[#0c0c0e]/75 px-3 py-1.5 text-[11px] text-white/70 backdrop-blur-sm ${i === 0 ? '-rotate-[1.5deg]' : i === 1 ? 'rotate-[1.5deg]' : '-rotate-1'}`}
+                  >
+                    <span>{it.icon}</span> {it.label}
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
 
         {/* ── Section 2: Experience — editorial timeline ── */}
         <motion.section
