@@ -16,7 +16,7 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0c0c0e] text-white">
+    <main className="section-stone min-h-screen text-white">
       <LiquidBg />
       <div className="relative z-10 max-w-5xl mx-auto px-6 lg:pl-24 pt-24 pb-20">
         <motion.div
@@ -28,7 +28,7 @@ export default function ContactPage() {
           <h1 className="text-5xl lg:text-6xl font-serif italic text-white leading-[1.1] mb-4">
             Let's <span className="font-display text-emerald-400">Connect</span>
           </h1>
-          <p className="text-white/60 text-sm font-mono font-medium tracking-wide">
+          <p className="text-white/85 text-sm font-mono font-medium tracking-wide">
             Have a project in mind or just want to discuss tech? My inbox is always open.
           </p>
         </motion.div>
@@ -43,7 +43,7 @@ export default function ContactPage() {
           >
             <div className="glass rounded-2xl p-6 lg:p-8">
               <h3 className="text-sm font-mono text-emerald-400 tracking-wide mb-4">Direct Channels</h3>
-              <p className="text-white/70 text-sm mb-6">Feel free to connect for collaboration, opportunities, or projects.</p>
+              <p className="text-white/85 text-sm mb-6">Feel free to connect for collaboration, opportunities, or projects.</p>
 
               {/* Email copy */}
               <div className="flex items-center gap-3 mb-2 p-3 rounded-xl bg-white/[0.02] border border-white/5">
@@ -53,7 +53,7 @@ export default function ContactPage() {
                   onClick={() => {
                     navigator.clipboard.writeText('janvichaturvedi82@gmail.com');
                   }}
-                  className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-white/5 text-white/65 hover:text-emerald-400 transition-colors border border-white/5"
+                  className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-white/5 text-white/85 hover:text-emerald-400 transition-colors border border-white/5"
                 >
                   Copy
                 </button>
@@ -102,7 +102,7 @@ export default function ContactPage() {
                   included — fits the first screen without scrolling. */}
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-[10px] font-mono font-medium text-white/60 tracking-wider uppercase block mb-2">Your Name</label>
+                  <label className="text-[10px] font-mono font-medium text-white/75 tracking-wider uppercase block mb-2">Your Name</label>
                   <input
                     name="name"
                     type="text"
@@ -112,7 +112,7 @@ export default function ContactPage() {
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] font-mono font-medium text-white/60 tracking-wider uppercase block mb-2">Your Email</label>
+                  <label className="text-[10px] font-mono font-medium text-white/75 tracking-wider uppercase block mb-2">Your Email</label>
                   <input
                     name="email"
                     type="email"
@@ -123,7 +123,7 @@ export default function ContactPage() {
                 </div>
               </div>
               <div>
-                <label className="text-[10px] font-mono font-medium text-white/60 tracking-wider uppercase block mb-2">Message</label>
+                <label className="text-[10px] font-mono font-medium text-white/75 tracking-wider uppercase block mb-2">Message</label>
                 <textarea
                   name="message"
                   required
@@ -134,7 +134,7 @@ export default function ContactPage() {
               </div>
               <button
                 type="submit"
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-black font-semibold text-sm hover:shadow-[0_0_24px_rgba(52,211,153,0.3)] hover:-translate-y-[2px] transition-all duration-300"
+                className="btn-primary w-full justify-center py-3 rounded-xl font-semibold text-sm hover:-translate-y-[2px] transition-all duration-300"
               >
                 Send Message
               </button>

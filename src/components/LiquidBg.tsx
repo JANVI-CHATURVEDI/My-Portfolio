@@ -6,19 +6,20 @@ import { useEffect, useRef, useState } from 'react';
 // three.js is ~700 kB — load it only after mount, never on the server.
 const LiquidEther = dynamic(() => import('./LiquidEther'), { ssr: false });
 
-// Brand palette sampled by fluid speed: deep emerald (ambient drift) →
-// emerald → cyan (fast strokes) — matches the emerald→cyan gradient CTAs.
-const PALETTE = ['#064e3b', '#34d399', '#22d3ee'];
+// Brand palette sampled by fluid speed: warm rosewood (ambient drift) →
+// dusty rose → muted sage — a muted, printed-feel echo of the editorial
+// palettes. Rendered at very low opacity as a subtle top wash (see below).
+const PALETTE = ['#9B7464', '#C18D8D', '#A4A48F'];
 
 /**
- * Liquid-ether backdrop (React Bits). Renders a fixed, full-viewport layer
- * behind the content of the element it is placed inside:
+ * Liquid-ether backdrop (React Bits). Renders a fixed, full-viewport layer:
  *
- *  - mounts only while that region intersects the viewport (on the home page
- *    the region starts below the hero, so the first slide stays untouched);
+ *  - mounts only while its host region intersects the viewport;
  *  - never renders under prefers-reduced-motion;
- *  - z-0 + pointer-events-none: content layers sit above it and it can never
- *    swallow clicks.
+ *  - z-30 + pointer-events-none + low opacity: a gentle warm wash drifting
+ *    over the color-blocked sections (they paint solid backgrounds, so the
+ *    layer sits above them at ~7% intensity — printed/editorial, not neon —
+ *    and can never swallow clicks).
  */
 export default function LiquidBg() {
   const hostRef = useRef<HTMLDivElement | null>(null);
@@ -62,7 +63,7 @@ export default function LiquidBg() {
       ref={hostRef}
       aria-hidden="true"
       data-liquid-bg=""
-      className="fixed inset-0 z-0 pointer-events-none opacity-50"
+      className="fixed inset-0 z-30 pointer-events-none opacity-[0.07]"
     >
       {active ? (
         <LiquidEther colors={PALETTE} resolution={0.4} iterationsPoisson={16} />

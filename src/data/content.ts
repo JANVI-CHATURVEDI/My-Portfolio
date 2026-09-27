@@ -27,6 +27,14 @@ export interface Experience {
   tech?: string[];
 }
 
+export interface Education {
+  degree: string;
+  institution: string;
+  location: string;
+  period: string;
+  current?: boolean;
+}
+
 export interface Quote {
   text: string;
   source: string;
@@ -184,6 +192,22 @@ export const experience: Experience[] = [
       "Received a Certificate of Recognition for design contribution and team collaboration.",
     ],
     tech: ["Figma", "UI/UX", "Prototyping"],
+  },
+];
+
+export const education: Education[] = [
+  {
+    degree: "Bachelor of Computer Applications (BCA)",
+    institution: "Dr. Virendra Swarup Institute of Computer Studies",
+    location: "Kanpur, India",
+    period: "2024 — 2027",
+    current: true,
+  },
+  {
+    degree: "Senior Secondary (Class XII)",
+    institution: "Gulmohar Public School",
+    location: "Kanpur, India · CBSE",
+    period: "2023 — 2024",
   },
 ];
 

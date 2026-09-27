@@ -2,29 +2,157 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --bg: #0c0c0e;
-  --bg-dark: #080808;
-  --card: rgba(18,18,22,0.7);
-  --card-border: rgba(255,255,255,0.06);
-  --text: #ffffff;
-  --muted: #94a3b8;
-  --accent: #34d399;
+/* ══════════════════════════════════════════════════════════════════════
+   EDITORIAL COLOR SYSTEM — centralized, section-scoped palettes.
+   Every color in the site derives from the channel tokens (--t-*) below.
+   Section classes (.section-*) re-scope the tokens for that block.
+   Tailwind maps white/black/emerald/cyan/amber/slate onto these tokens
+   (see tailwind.config.js), so existing utilities become palette-aware.
+   ══════════════════════════════════════════════════════════════════════ */
 
-  /* Typography contrast hierarchy (L1 → L4).
-     Components use matching Tailwind values (text-white/75 etc.);
-     these vars are the documented source of truth. */
-  --text-1: #ffffff;                      /* primary — headings, name, key CTAs */
-  --text-2: rgba(255, 255, 255, 0.75);    /* secondary — descriptions, metadata */
-  --text-3: rgba(255, 255, 255, 0.60);    /* supporting — dates, small text */
-  --text-4: rgba(255, 255, 255, 0.40);    /* decorative — separators, labels */
+:root {
+  /* Fixed tones (site-wide constants) */
+  --t-ink: 41 35 34;      /* deep espresso — scrims, dark chips, photo wells */
+  --t-cream: 241 232 223; /* warm off-white — text on ink */
+  --scrim-a: rgb(242 234 227 / 0.90); /* hero photo wash (warm cream) */
+  --scrim-b: rgb(242 234 227 / 0.78);
+  --scrim-c: rgb(242 234 227 / 0.96);
+  --ink-scrim: rgb(41 35 34 / 0.72);  /* dark scrim over imagery */
+  --nav-bg: rgb(242 234 227 / 0.78);  /* navbar tint */
+  --nav-bg-solid: rgb(242 234 227 / 0.95);
+  --paper: rgb(244 238 230 / 0.95);   /* polaroid paper / stat stickers */
+  --tape: rgb(245 239 230 / 0.72);    /* washi tape */
+
+  /* PALETTE 01 — LIGHT NUDE (default / root) */
+  --t-bg: 232 221 211;
+  --t-bg2: 216 200 188;
+  --t-surface: 242 234 227;
+  --t-fg: 64 56 52;
+  --t-fg2: 116 104 97;
+  --t-accent: 155 116 100;
+  --t-hi: 184 154 136;
+  --t-accent-2: 184 154 136;
+  --t-btn-bg: 64 56 52;
+  --t-btn-fg: 242 234 227;
+
+  /* Legacy aliases (root scope — documented source of truth) */
+  --bg: rgb(var(--t-bg));
+  --bg-dark: rgb(var(--t-bg2));
+  --card: rgb(var(--t-surface));
+  --card-border: rgb(var(--t-fg) / 0.12);
+  --text: rgb(var(--t-fg));
+  --muted: rgb(var(--t-fg2));
+  --accent: rgb(var(--t-accent));
+  --text-1: rgb(var(--t-fg) / 1);       /* primary — headings, key CTAs */
+  --text-2: rgb(var(--t-fg) / 0.75);    /* secondary — descriptions, metadata */
+  --text-3: rgb(var(--t-fg) / 0.60);    /* supporting — dates, small text */
+  --text-4: rgb(var(--t-fg) / 0.40);    /* decorative — separators, labels */
+}
+
+/* ── Palette sections ────────────────────────────────────────────────
+   Each class: bg + surface + primary/secondary text + accent + highlight
+   + button pair. Apply to <main> (whole page) or to a block (color journey). */
+
+.section-nude { /* PALETTE 01 — signature warm nude */
+  --t-bg: 232 221 211; --t-bg2: 216 200 188; --t-surface: 242 234 227;
+  --t-fg: 64 56 52; --t-fg2: 116 104 97;
+  --t-accent: 155 116 100; --t-hi: 184 154 136; --t-accent-2: 184 154 136;
+  --t-btn-bg: 64 56 52; --t-btn-fg: 242 234 227;
+  background-color: rgb(var(--t-bg));
+  color: rgb(var(--t-fg));
+}
+
+.section-chocolate { /* PALETTE 02 — dark espresso */
+  --t-bg: 41 35 34; --t-bg2: 54 46 43; --t-surface: 68 58 54;
+  --t-fg: 241 232 223; --t-fg2: 189 174 164;
+  --t-accent: 181 143 124; --t-hi: 210 183 165; --t-accent-2: 210 183 165;
+  --t-btn-bg: 241 232 223; --t-btn-fg: 41 35 34;
+  background-color: rgb(var(--t-bg));
+  color: rgb(var(--t-fg));
+}
+
+.section-rose { /* PALETTE 03 — dusty rose */
+  --t-bg: 220 201 198; --t-bg2: 201 176 174; --t-surface: 233 220 218;
+  --t-fg: 73 59 58; --t-fg2: 119 101 99;
+  --t-accent: 166 111 114; --t-hi: 193 141 141; --t-accent-2: 193 141 141;
+  --t-btn-bg: 73 59 58; --t-btn-fg: 233 220 218;
+  background-color: rgb(var(--t-bg));
+  color: rgb(var(--t-fg));
+}
+
+.section-olive { /* PALETTE 04 — muted olive / sage */
+  --t-bg: 185 185 165; --t-bg2: 164 164 143; --t-surface: 208 207 189;
+  --t-fg: 53 55 47; --t-fg2: 100 102 90;
+  --t-accent: 111 116 93; --t-hi: 140 146 117; --t-accent-2: 140 146 117;
+  --t-btn-bg: 53 55 47; --t-btn-fg: 208 207 189;
+  background-color: rgb(var(--t-bg));
+  color: rgb(var(--t-fg));
+}
+
+.section-taupe { /* PALETTE 05 — warm taupe / greige (mid neutral).
+     Cards use the palette's Secondary tone (darker block) so the
+     light primary text stays readable on the dense project cards. */
+  --t-bg: 146 138 128; --t-bg2: 117 109 100; --t-surface: 117 109 100;
+  --t-fg: 255 240 231; --t-fg2: 230 221 209;
+  --t-accent: 66 58 51; --t-hi: 206 196 184; --t-accent-2: 206 196 184;
+  --t-btn-bg: 66 58 51; --t-btn-fg: 255 240 231;
+  background-color: rgb(var(--t-bg));
+  color: rgb(var(--t-fg));
+}
+
+.section-cream { /* PALETTE 06 — coffee & cream paper */
+  --t-bg: 237 229 216; --t-bg2: 221 209 193; --t-surface: 245 239 230;
+  --t-fg: 65 57 50; --t-fg2: 118 105 94;
+  --t-accent: 128 100 83; --t-hi: 169 141 120; --t-accent-2: 169 141 120;
+  --t-btn-bg: 65 57 50; --t-btn-fg: 245 239 230;
+  background-color: rgb(var(--t-bg));
+  color: rgb(var(--t-fg));
+}
+
+.section-graphite { /* PALETTE 07 — warm graphite / charcoal (dramatic dark) */
+  --t-bg: 53 51 47; --t-bg2: 64 61 56; --t-surface: 78 75 68;
+  --t-fg: 242 232 228; --t-fg2: 188 181 170;
+  --t-accent: 207 191 166; --t-hi: 224 210 188; --t-accent-2: 224 210 188;
+  --t-btn-bg: 242 232 228; --t-btn-fg: 53 51 47;
+  background-color: rgb(var(--t-bg));
+  color: rgb(var(--t-fg));
+}
+
+.section-stone { /* PALETTE 08 — soft stone / greige (neutral reset) */
+  --t-bg: 213 208 200; --t-bg2: 194 188 179; --t-surface: 228 224 217;
+  --t-fg: 61 58 55; --t-fg2: 113 108 102;
+  --t-accent: 140 119 104; --t-hi: 170 149 132; --t-accent-2: 170 149 132;
+  --t-btn-bg: 61 58 55; --t-btn-fg: 228 224 217;
+  background-color: rgb(var(--t-bg));
+  color: rgb(var(--t-fg));
+}
+
+/* Full-bleed helper: lets a block inside the centered container paint its
+   palette edge-to-edge without changing the DOM structure.
+   Note: the wrapper's lg:pl-24 vs px-6 pushes the container's content box
+   36px right of the viewport center at lg — compensate so the strip always
+   covers the full width (body overflow-x:hidden clips the overshoot). */
+.bleed { position: relative; }
+.bleed::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: rgb(var(--t-bg));
+  z-index: -1;
+  pointer-events: none;
+}
+@media (min-width: 1024px) {
+  .bleed::before { left: calc(50% - 36px); }
 }
 
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--bg);
-  color: var(--text);
+  background: rgb(var(--t-bg));
+  color: rgb(var(--t-fg));
   font-family: var(--font-manrope), system-ui, sans-serif;
   overflow-x: hidden;
 }
@@ -34,20 +162,121 @@ body {
 .font-mono { font-family: var(--font-jetbrains), 'Fira Code', ui-monospace, monospace; }
 .font-marker { font-family: var(--font-marker), 'Segoe Print', cursive; }
 
+/* ── Editorial panel (was: dark glass card) ── */
 .glass {
-  background: var(--card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--card-border);
+  background: rgb(var(--t-surface));
+  border: 1px solid rgb(var(--t-fg) / 0.12);
   border-radius: 1rem;
+  box-shadow: 0 1px 2px rgb(var(--t-ink) / 0.05),
+              0 16px 40px -32px rgb(var(--t-ink) / 0.35);
 }
 
 .glass-strong {
-  background: rgba(18,18,22,0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgb(var(--t-surface));
+  border: 1px solid rgb(var(--t-fg) / 0.16);
   border-radius: 1rem;
+  box-shadow: 0 1px 2px rgb(var(--t-ink) / 0.06),
+              0 18px 44px -32px rgb(var(--t-ink) / 0.4);
+}
+
+/* ── Buttons: editorial labels, palette-aware ── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgb(var(--t-btn-bg));
+  color: rgb(var(--t-btn-fg));
+  border: 1px solid transparent;
+  transition: filter 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-primary:hover {
+  filter: brightness(1.14);
+  box-shadow: 0 14px 28px -18px rgb(var(--t-ink) / 0.6);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: rgb(var(--t-fg) / 0.9);
+  border: 1px solid rgb(var(--t-fg) / 0.25);
+  transition: border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              background-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-ghost:hover {
+  border-color: rgb(var(--t-accent) / 0.7);
+  color: rgb(var(--t-fg));
+  background: rgb(var(--t-accent) / 0.08);
+}
+
+/* Dark inverse chip (reads on every palette) */
+.chip-dark {
+  background: rgb(var(--t-ink));
+  color: rgb(var(--t-cream));
+  border: 1px solid rgb(var(--t-cream) / 0.14);
+}
+
+/* ── Quote canvas — frosted glass (glassmorphism) backdrop for the
+   Gita verse. The fill is translucent with a backdrop blur so the
+   section palette shows through; a glossy sheen, hairline rim, faint
+   grain and a whisper of breathing emerald keep the vibe. ── */
+.quote-canvas {
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(
+    135deg,
+    rgb(255 255 255 / 0.34),
+    rgb(255 255 255 / 0.12) 55%,
+    rgb(255 255 255 / 0.24)
+  );
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  border: 1px solid rgb(255 255 255 / 0.45);
+  box-shadow:
+    0 24px 50px -30px rgb(41 35 34 / 0.55),
+    inset 0 1px 0 rgb(255 255 255 / 0.55);
+}
+/* glossy diagonal sheen + faint film grain */
+.quote-canvas::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, rgb(255 255 255 / 0.4), transparent 42%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+/* soft emerald light that slowly breathes */
+.quote-canvas::after {
+  content: '';
+  position: absolute;
+  inset: -25%;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgb(16 185 129 / 0.12), transparent 70%);
+  animation: quote-glow 9s ease-in-out infinite;
+}
+@keyframes quote-glow {
+  0%, 100% { opacity: 0.45; transform: scale(0.94); }
+  50%      { opacity: 1;    transform: scale(1.06); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .quote-canvas::after { animation: none; }
+}
+
+/* Sidebar rail pill — keeps the fixed rail legible over any section */
+.rail-pill {
+  background: rgb(var(--t-surface) / 0.85);
+  border: 1px solid rgb(var(--t-fg) / 0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 1.25rem;
 }
 
 .bg-mountain {
@@ -58,21 +287,21 @@ body {
 }
 
 .bg-overlay {
-  background: linear-gradient(135deg, rgba(12,12,14,0.92) 0%, rgba(12,12,14,0.7) 50%, rgba(12,12,14,0.95) 100%);
+  background: linear-gradient(135deg, rgb(41 35 34 / 0.85) 0%, rgb(41 35 34 / 0.6) 50%, rgb(41 35 34 / 0.9) 100%);
 }
 
 .status-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--accent);
+  background: rgb(var(--t-accent));
   display: inline-block;
   animation: status-pulse 2s infinite;
 }
 
 @keyframes status-pulse {
-  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(52,211,153,0.4); }
-  50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(52,211,153,0); }
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgb(var(--t-accent) / 0.4); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 6px rgb(var(--t-accent) / 0); }
 }
 
 .tech-pill {
@@ -83,16 +312,29 @@ body {
   border-radius: 9999px;
   font-size: 0.75rem;
   font-weight: 500;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  color: var(--muted);
+  background: rgb(var(--t-fg) / 0.05);
+  border: 1px solid rgb(var(--t-fg) / 0.14);
+  color: rgb(var(--t-fg) / 0.8);
   transition: all 0.2s;
 }
 .tech-pill:hover {
-  border-color: rgba(52,211,153,0.3);
-  color: var(--accent);
-  background: rgba(52,211,153,0.06);
+  border-color: rgb(var(--t-accent) / 0.45);
+  color: rgb(var(--t-accent));
+  background: rgb(var(--t-accent) / 0.1);
 }
+/* Taupe: light text tops out ~3:1 on the mid-tone pill — flip to espresso ink
+   on a lightened (cream-tinted) pill so the label reaches ~4.5:1 */
+.section-taupe .tech-pill {
+  color: rgb(var(--t-ink));
+  background: rgb(var(--t-fg) / 0.3);
+}
+.section-taupe .tech-pill:hover {
+  color: rgb(var(--t-ink));
+  border-color: rgb(var(--t-ink) / 0.5);
+  background: rgb(var(--t-fg) / 0.45);
+}
+/* Taupe cards: keep CTAs at full-strength fg for the palette's best ratio */
+.section-taupe .btn-ghost { color: rgb(var(--t-fg)); }
 
 .social-pill {
   display: inline-flex;
@@ -102,15 +344,15 @@ body {
   border-radius: 9999px;
   font-size: 0.875rem;
   font-weight: 500;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
-  color: var(--text-2);
+  background: rgb(var(--t-fg) / 0.04);
+  border: 1px solid rgb(var(--t-fg) / 0.14);
+  color: rgb(var(--t-fg) / 0.85);
   transition: all 0.25s ease;
 }
 .social-pill:hover {
-  border-color: rgba(52,211,153,0.3);
-  color: var(--accent);
-  background: rgba(52,211,153,0.06);
+  border-color: rgb(var(--t-accent) / 0.45);
+  color: rgb(var(--t-accent));
+  background: rgb(var(--t-accent) / 0.1);
   transform: translateY(-2px);
 }
 
@@ -121,13 +363,13 @@ body {
     box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
-/* The 4px hover lift is done with Framer whileHover on the motion.article:
+/* The 4px hover lift is done with Framer WhileHover on the motion.article:
    framer writes an inline transform that would block this CSS rule.
    Under prefers-reduced-motion there is simply no lift. */
 .exp-card:hover {
-  border-color: rgba(52, 211, 153, 0.16);
-  background-color: rgba(255, 255, 255, 0.03);
-  box-shadow: 0 18px 48px -28px rgba(52, 211, 153, 0.35);
+  border-color: rgb(var(--t-accent) / 0.35);
+  background-color: rgb(var(--t-fg) / 0.04);
+  box-shadow: 0 18px 48px -34px rgb(var(--t-ink) / 0.5);
 }
 
 /* Custom hand-drawn swoosh arrow (Experience bullets) */
@@ -136,9 +378,9 @@ body {
   display: block;
   width: 26px;
   margin-top: 1px;
-  /* Solid muted emerald (visually = rgba(52,211,153,.6) over #0c0c0e) so the
-     overlapping head/body shapes blend seamlessly instead of double-darkening. */
-  color: #248361;
+  /* Solid accent (matches the section palette) so the overlapping
+     head/body shapes blend seamlessly instead of double-darkening. */
+  color: rgb(var(--t-accent) / 0.75);
   user-select: none;
   transition:
     transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
@@ -152,11 +394,11 @@ body {
 }
 .exp-card:hover .exp-arrow {
   transform: translate(6px, -2px) scale(1.05);
-  color: #34d399;
-  filter: drop-shadow(0 0 4px rgba(52, 211, 153, 0.35));
+  color: rgb(var(--t-accent));
+  filter: drop-shadow(0 0 4px rgb(var(--t-accent) / 0.3));
 }
 
-/* Refined tech tags: muted by default, emerald only on hover */
+/* Refined tech tags: muted by default, accent only on hover */
 .exp-tag {
   display: inline-flex;
   align-items: center;
@@ -164,19 +406,19 @@ body {
   font-size: 11px;
   line-height: 1.5;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  background: rgba(0, 0, 0, 0.3);
-  color: var(--text-3);
+  border: 1px solid rgb(var(--t-fg) / 0.14);
+  background: rgb(var(--t-fg) / 0.06);
+  color: rgb(var(--t-fg) / 0.8);
   transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .exp-card:hover .exp-tag {
-  border-color: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.75);
+  border-color: rgb(var(--t-fg) / 0.22);
+  color: rgb(var(--t-fg) / 0.95);
 }
 .exp-tag:hover {
   transform: translateY(-1px);
-  border-color: rgba(52, 211, 153, 0.35);
-  color: #34d399;
+  border-color: rgb(var(--t-accent) / 0.55);
+  color: rgb(var(--t-accent));
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -200,5 +442,5 @@ body {
 }
 
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #0a0a0a; }
-::-webkit-scrollbar-thumb { background: #34d39933; border-radius: 4px; }
+::-webkit-scrollbar-track { background: rgb(var(--t-bg2)); }
+::-webkit-scrollbar-thumb { background: rgb(var(--t-accent) / 0.4); border-radius: 4px; }

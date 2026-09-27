@@ -28,12 +28,12 @@ export default function Navbar() {
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-[#0c0c0e]/80 backdrop-blur-xl border-b border-white/5' : 'bg-transparent'
+      scrolled ? 'bg-[var(--nav-bg-solid)] backdrop-blur-xl border-b border-white/5' : 'bg-[var(--nav-bg)] backdrop-blur-md'
     }`}>
       <div className="max-w-6xl mx-auto px-6 lg:pl-24 h-16 flex items-center justify-between">
         {/* Brand lockup: flowing-J monogram + custom JANVI wordmark.
-            Hover → a light-emerald trace draws along the J's curve
-            (root → flick, ~360ms); wordmark brightens to white and
+            Hover → a soft accent trace draws along the J's curve
+            (root → flick, ~360ms); wordmark deepens to full ink and
             opens its tracking by 1u per gap. No scale, no glow. */}
         <Link href="/" aria-label="Janvi — home" className="group flex items-center gap-2.5">
           <BrandMark size={28} className="text-emerald-400" />
@@ -53,7 +53,7 @@ export default function Navbar() {
                 href={link.href}
                 aria-current={active ? 'page' : undefined}
                 className={`relative text-sm font-medium tracking-wide transition-colors duration-300 ${
-                  active ? 'text-white' : 'text-white/70 hover:text-white'
+                  active ? 'text-white' : 'text-white/80 hover:text-white'
                 }`}
               >
                 {link.label}
@@ -73,7 +73,7 @@ export default function Navbar() {
         <button
           onClick={() => setOpen(!open)}
           aria-label={open ? 'Close menu' : 'Open menu'}
-          className="md:hidden text-white/70 hover:text-white transition-colors duration-300"
+          className="md:hidden text-white/80 hover:text-white transition-colors duration-300"
         >
           {open ? <X size={18} /> : <Menu size={18} />}
         </button>
@@ -85,7 +85,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t border-white/5 bg-[#0c0c0e]/95 backdrop-blur-xl"
+            className="md:hidden border-t border-white/5 bg-[var(--nav-bg-solid)] backdrop-blur-xl"
           >
             <div className="px-6 lg:pl-24 py-4 flex flex-col gap-3">
               {navLinks.map((link) => {

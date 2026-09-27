@@ -5,7 +5,7 @@ import LiquidBg from '../components/LiquidBg';
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-[#0c0c0e] text-white overflow-hidden relative">
+    <main className="section-nude min-h-screen text-white overflow-hidden relative">
       <Hero />
       {/* Everything after the hero (the only image background): liquid backdrop */}
       <div>

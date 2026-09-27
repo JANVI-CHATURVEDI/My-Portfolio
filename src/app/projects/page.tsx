@@ -16,7 +16,7 @@ export default function ProjectsPage() {
   const reduced = useReducedMotion();
 
   return (
-    <main className="min-h-screen bg-[#0c0c0e] text-white">
+    <main className="section-taupe min-h-screen text-white">
       <LiquidBg />
       <div className="relative z-10 max-w-6xl mx-auto px-6 lg:pl-24 pt-28 pb-20">
         <motion.div
@@ -25,13 +25,13 @@ export default function ProjectsPage() {
           transition={{ duration: 0.6 }}
           className="mb-14"
         >
-          <p className="text-xs font-mono tracking-[0.3em] text-emerald-400/70 uppercase mb-4">
+          <p className="text-xs font-mono tracking-[0.3em] text-[rgb(var(--t-ink))] uppercase mb-4">
             01 — Work
           </p>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.05] tracking-tight mb-5">
             Things I've <span className="font-display italic font-normal text-emerald-400">shipped.</span>
           </h1>
-          <p className="text-white/60 text-sm font-mono font-medium tracking-wide">
+          <p className="text-[rgb(var(--t-ink))] text-sm font-mono font-medium tracking-wide">
             Five projects — full-stack platforms, secure messaging, and polished landing pages.
           </p>
         </motion.div>
@@ -58,13 +58,13 @@ export default function ProjectsPage() {
                   alt={project.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0e]/70 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink-scrim)] via-transparent to-transparent" />
 
                 {/* Status badge floating */}
                 <span className={`absolute top-3 left-3 text-[10px] font-mono px-2.5 py-1 rounded-full border backdrop-blur-sm ${
                   project.status === 'completed'
-                    ? 'bg-emerald-950/60 text-emerald-400 border-emerald-400/30'
-                    : 'bg-amber-950/60 text-amber-400 border-amber-400/30'
+                    ? 'bg-emerald-400/75 text-white border-emerald-400/60'
+                    : 'bg-amber-400/80 text-[rgb(var(--t-ink))] border-amber-400/70'
                 }`}>
                   {project.status === 'completed' ? '● Live' : '● Building'}
                 </span>
@@ -79,13 +79,13 @@ export default function ProjectsPage() {
 
               {/* Compact content */}
               <div className="p-5 flex-1 flex flex-col">
-                <h2 className="text-xl font-bold text-white mb-1.5 group-hover:text-emerald-300 transition-colors">
+                <h2 className="text-xl font-bold text-white mb-1.5 transition-colors">
                   {project.name}
                 </h2>
-                <p className="text-xs text-emerald-400/80 font-display italic mb-3">
+                <p className="text-xs text-white font-display italic mb-3">
                   {project.description}
                 </p>
-                <p className="text-sm text-white/75 leading-relaxed mb-4 line-clamp-2">
+                <p className="text-sm text-white leading-relaxed mb-4 line-clamp-2">
                   {project.longDescription || project.description}
                 </p>
 
@@ -93,12 +93,12 @@ export default function ProjectsPage() {
                 {project.features && (
                   <div className="mb-4 space-y-1">
                     {project.features.slice(0, 3).map((f) => (
-                      <div key={f} className="flex items-center gap-2 text-xs text-white/60">
+                      <div key={f} className="flex items-center gap-2 text-xs text-white">
                         <span>{f}</span>
                       </div>
                     ))}
                     {project.features.length > 3 && (
-                      <span className="text-[10px] font-mono text-white/45">+{project.features.length - 3} more</span>
+                      <span className="text-[10px] font-mono text-white">+{project.features.length - 3} more</span>
                     )}
                   </div>
                 )}
@@ -117,7 +117,7 @@ export default function ProjectsPage() {
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-black font-semibold text-xs hover:shadow-[0_0_20px_rgba(52,211,153,0.25)] hover:-translate-y-[2px] transition-all duration-300"
+                      className="btn-primary flex-1 items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-semibold text-xs hover:-translate-y-[2px] transition-all duration-300"
                     >
                       <ExternalLink size={13} /> Demo
                     </a>
@@ -127,7 +127,7 @@ export default function ProjectsPage() {
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl border border-white/10 text-white/65 font-medium hover:text-white hover:border-white/20 hover:-translate-y-[2px] text-xs transition-all duration-300 ${
+                      className={`btn-ghost items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-medium hover:-translate-y-[2px] text-xs transition-all duration-300 ${
                         project.link ? 'flex-1' : 'flex-1'
                       }`}
                     >
@@ -147,14 +147,14 @@ export default function ProjectsPage() {
             className="glass rounded-2xl flex flex-col items-center justify-center gap-4 min-h-[280px] border-dashed hover:border-emerald-400/20 transition-all"
           >
             <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500/15 to-cyan-500/10 flex items-center justify-center">
-              <ArrowUpRight size={24} className="text-emerald-400/70" />
+              <ArrowUpRight size={24} className="text-white" />
             </div>
-            <p className="text-sm text-white/55 font-mono">More experiments brewing</p>
+            <p className="text-sm text-white font-mono">More experiments brewing</p>
             <a
               href="https://github.com/JANVI-CHATURVEDI"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-mono font-medium text-emerald-400/80 hover:text-emerald-400 transition-colors flex items-center gap-1"
+              className="text-xs font-mono font-medium text-white hover:text-white transition-colors flex items-center gap-1"
             >
               Follow on GitHub <ArrowUpRight size={12} />
             </a>

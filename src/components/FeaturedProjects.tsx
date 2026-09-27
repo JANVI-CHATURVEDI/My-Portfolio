@@ -17,7 +17,7 @@ export default function FeaturedProjects() {
   const featured = projects.slice(0, 3);
 
   return (
-    <section id="projects" className="relative py-24 lg:py-32">
+    <section id="projects" className="section-chocolate relative py-24 lg:py-32">
       <div className="max-w-6xl mx-auto px-6 lg:pl-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -29,7 +29,7 @@ export default function FeaturedProjects() {
           <h2 className="section-title text-4xl sm:text-5xl lg:text-6xl text-white font-serif italic leading-[1.1] mb-4">
             Featured <span className="font-display text-emerald-400">Projects</span>
           </h2>
-          <p className="text-white/60 text-sm font-mono font-medium tracking-wide">A selection of things I&apos;ve built</p>
+          <p className="text-white/75 text-sm font-mono font-medium tracking-wide">A selection of things I&apos;ve built</p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -64,12 +64,12 @@ export default function FeaturedProjects() {
                 <div className="flex items-center justify-between mb-3">
                   <span className={`text-[10px] font-mono px-2 py-1 rounded-full border ${
                     project.status === 'completed'
-                      ? 'bg-emerald-950/30 text-emerald-400 border-emerald-400/20'
-                      : 'bg-amber-950/30 text-amber-400 border-amber-400/20'
+                      ? 'bg-emerald-400/10 text-white border-emerald-400/40'
+                      : 'bg-amber-400/10 text-white border-amber-400/40'
                   }`}>
                     {project.status === 'completed' ? 'Live' : 'Building'}
                   </span>
-                  {project.link && <ExternalLink size={14} className="text-white/45 group-hover:text-white/80 transition-colors" />}
+                  {project.link && <ExternalLink size={14} className="text-white/70 group-hover:text-white transition-colors" />}
                 </div>
 
                 <h3 className="text-lg font-semibold text-white mb-1 group-hover:text-emerald-300 transition-colors">{project.name}</h3>
@@ -83,12 +83,12 @@ export default function FeaturedProjects() {
 
                 <div className="flex items-center gap-3 text-xs font-medium">
                   {project.link && (
-                    <span className="flex items-center gap-1 text-white/60 group-hover:text-emerald-400 transition-colors">
+                    <span className="flex items-center gap-1 text-white/70 group-hover:text-emerald-400 transition-colors">
                       Live Demo <ArrowUpRight size={12} />
                     </span>
                   )}
                   {project.github && (
-                    <span className="flex items-center gap-1 text-white/60 group-hover:text-white transition-colors">
+                    <span className="flex items-center gap-1 text-white/70 group-hover:text-white transition-colors">
                       <Github size={12} /> Code
                     </span>
                   )}
@@ -108,7 +108,7 @@ export default function FeaturedProjects() {
         >
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 text-sm font-medium text-white/60 hover:text-white hover:border-white/20 hover:-translate-y-[2px] transition-all duration-300"
+            className="btn-ghost px-6 py-3 rounded-full text-sm font-medium hover:-translate-y-[2px] transition-all duration-300"
           >
             View All Projects <ArrowUpRight size={14} />
           </Link>

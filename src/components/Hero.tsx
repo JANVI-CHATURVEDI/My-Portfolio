@@ -6,16 +6,16 @@ export default function Hero() {
   const reduced = useReducedMotion();
 
   return (
-    <section id="home" className="relative z-10 min-h-screen flex items-center overflow-hidden">
-      {/* Mountain background */}
+    <section id="home" className="section-nude relative z-10 min-h-screen flex items-center overflow-hidden">
+      {/* Mountain background — natural photo under a warm editorial wash */}
       <div className="absolute inset-0 z-0">
         <img
           src="/images/hero-bg.jpg"
           alt=""
           className="w-full h-full object-cover opacity-70"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0c0c0e]/60 via-[#0c0c0e]/40 to-[#0c0c0e]/90" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0c0c0e]/80 via-transparent to-[#0c0c0e]/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--scrim-a)] via-[var(--scrim-b)] to-[var(--scrim-c)]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[var(--scrim-b)] via-transparent to-[var(--scrim-a)]" />
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 lg:pl-24 w-full">
@@ -69,7 +69,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.55, ease: [0.22, 1, 0.36, 1] }}
-              className="text-sm font-mono font-semibold text-white/70 tracking-[0.18em] uppercase"
+              className="text-sm font-mono font-semibold text-white/80 tracking-[0.18em] uppercase"
             >
               Based in India
             </motion.p>
@@ -89,7 +89,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="flex items-center gap-2.5 text-[11px] font-mono font-medium text-white/55 tracking-wide"
+              className="flex items-center gap-2.5 text-[11px] font-mono font-medium text-white/80 tracking-wide"
             >
               <span aria-hidden="true" className="inline-block w-4 h-px bg-white/25" />
               <span>
@@ -102,7 +102,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.65, ease: [0.22, 1, 0.36, 1] }}
-              className="flex items-center gap-3 text-xs font-mono font-medium text-white/70"
+              className="flex items-center gap-3 text-xs font-mono font-medium text-white/80"
             >
               <span>Kanpur, India</span>
               <span className="w-1 h-1 rounded-full bg-emerald-400/90" />

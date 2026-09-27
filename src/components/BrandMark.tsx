@@ -45,10 +45,10 @@ export default function BrandMark({ size = 28, className = "" }: BrandMarkProps)
         strokeLinejoin="round"
       />
       {/* hover trace — draws along the curve, narrower than the base
-          stroke so the emerald silhouette stays present throughout */}
+          stroke so the accent silhouette stays present throughout */}
       <path
         d={d}
-        stroke="#a7f3d0"
+        style={{ stroke: 'rgb(var(--t-hi))' }}
         strokeWidth={5}
         strokeLinecap="butt"
         strokeLinejoin="round"
