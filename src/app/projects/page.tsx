@@ -1,6 +1,7 @@
 "use client";
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight, Github, ExternalLink } from 'lucide-react';
+import LiquidBg from '../../components/LiquidBg';
 import { projects } from '../../data/content';
 
 const projectImages: Record<number, string> = {
@@ -16,7 +17,8 @@ export default function ProjectsPage() {
 
   return (
     <main className="min-h-screen bg-[#0c0c0e] text-white">
-      <div className="max-w-6xl mx-auto px-6 lg:pl-24 pt-28 pb-20">
+      <LiquidBg />
+      <div className="relative z-10 max-w-6xl mx-auto px-6 lg:pl-24 pt-28 pb-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

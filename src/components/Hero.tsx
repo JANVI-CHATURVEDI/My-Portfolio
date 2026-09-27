@@ -6,7 +6,7 @@ export default function Hero() {
   const reduced = useReducedMotion();
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
+    <section id="home" className="relative z-10 min-h-screen flex items-center overflow-hidden">
       {/* Mountain background */}
       <div className="absolute inset-0 z-0">
         <img

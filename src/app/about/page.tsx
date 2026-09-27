@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import Link from 'next/link';
 import { Terminal, MapPin, Coffee, Rocket } from 'lucide-react';
 import ExperienceArrow from '../../components/ExperienceArrow';
+import LiquidBg from '../../components/LiquidBg';
 import { experience, skillMatrix, portfolio } from '../../data/content';
 
 const stats = [
@@ -21,7 +22,8 @@ export default function AboutPage() {
   const reduced = useReducedMotion();
   return (
     <main className="min-h-screen bg-[#0c0c0e] text-white">
-      <div className="max-w-6xl mx-auto px-6 lg:pl-24 pt-28 pb-20">
+      <LiquidBg />
+      <div className="relative z-10 max-w-6xl mx-auto px-6 lg:pl-24 pt-28 pb-20">
 
         {/* ── Section 1: Eyebrow + Heading + portrait floating right ── */}
         <div className="grid lg:grid-cols-5 gap-10 items-start mb-24">

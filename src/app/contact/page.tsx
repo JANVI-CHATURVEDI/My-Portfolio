@@ -1,6 +1,7 @@
 "use client";
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Mail, Github, Linkedin, Twitter } from 'lucide-react';
+import LiquidBg from '../../components/LiquidBg';
 import { socials } from '../../data/content';
 
 export default function ContactPage() {
@@ -16,7 +17,8 @@ export default function ContactPage() {
 
   return (
     <main className="min-h-screen bg-[#0c0c0e] text-white">
-      <div className="max-w-5xl mx-auto px-6 lg:pl-24 pt-24 pb-20">
+      <LiquidBg />
+      <div className="relative z-10 max-w-5xl mx-auto px-6 lg:pl-24 pt-24 pb-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
