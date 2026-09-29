@@ -43,15 +43,20 @@ export default function HeroSidebar() {
         ))}
       </div>
 
-      {/* Vertical line + Contact Me (rotated opposite) */}
+      {/* Vertical line + Contact Me (rotated opposite).
+          The label lives in a fixed-size slot matching its rotated
+          footprint, so the line and the pill share one exact center
+          axis and the line can't overlap the rotated text. */}
       <div className="flex flex-col items-center mt-6">
-        <div className="w-px h-16 bg-gradient-to-b from-[rgb(var(--t-accent)/0.5)] to-transparent" />
-        <Link
-          href="/contact"
-          className="rail-pill text-[10px] font-mono font-semibold tracking-[0.25em] text-white/75 mt-3 -rotate-90 origin-center whitespace-nowrap px-2 py-1 hover:text-emerald-400 transition-colors duration-300"
-        >
-          Contact Me
-        </Link>
+        <div className="w-px h-16 self-center bg-gradient-to-b from-[rgb(var(--t-accent)/0.5)] to-transparent" />
+        <div className="relative mt-3 h-32 w-6">
+          <Link
+            href="/contact"
+            className="rail-pill absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 origin-center text-[10px] font-mono font-semibold tracking-[0.25em] text-white/75 px-2 py-1 whitespace-nowrap hover:text-emerald-400 transition-colors duration-300"
+          >
+            Contact Me
+          </Link>
+        </div>
       </div>
     </motion.aside>
   );

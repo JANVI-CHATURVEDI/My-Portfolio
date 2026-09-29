@@ -4,12 +4,13 @@ import Link from 'next/link';
 import { Terminal, Coffee, Rocket } from 'lucide-react';
 import ExperienceArrow from '../../components/ExperienceArrow';
 import LiquidBg from '../../components/LiquidBg';
+import CountUp from '../../components/CountUp';
 import { education, experience, skillMatrix } from '../../data/content';
 
 const stats = [
-  { label: 'Merged PRs', value: '6+' },
-  { label: 'Shipped Apps', value: '5+' },
-  { label: 'Open Source Orgs', value: '4' },
+  { label: 'Merged PRs', value: 6, suffix: '+' },
+  { label: 'Shipped Apps', value: 5, suffix: '+' },
+  { label: 'Open Source Orgs', value: 4, suffix: '' },
 ];
 
 const interests = [
@@ -175,7 +176,9 @@ export default function AboutPage() {
                       key={s.label}
                       className={`border border-white/15 bg-[var(--paper)] px-3.5 py-2 ${i === 1 ? 'rotate-[1.25deg]' : i === 2 ? '-rotate-1' : '-rotate-[0.75deg]'}`}
                     >
-                      <div className="text-xl font-bold leading-none text-white">{s.value}</div>
+                      <div className="text-xl font-bold leading-none text-white">
+                        <CountUp to={s.value} suffix={s.suffix} />
+                      </div>
                       <div className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-white/80">
                         {s.label}
                       </div>

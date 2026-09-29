@@ -14,9 +14,9 @@
   /* Fixed tones (site-wide constants) */
   --t-ink: 41 35 34;      /* deep espresso — scrims, dark chips, photo wells */
   --t-cream: 241 232 223; /* warm off-white — text on ink */
-  --scrim-a: rgb(242 234 227 / 0.90); /* hero photo wash (warm cream) */
-  --scrim-b: rgb(242 234 227 / 0.78);
-  --scrim-c: rgb(242 234 227 / 0.96);
+  --scrim-a: rgb(242 234 227 / 0.65); /* hero photo wash (warm cream) */
+  --scrim-b: rgb(242 234 227 / 0.30);
+  --scrim-c: rgb(242 234 227 / 0.88);
   --ink-scrim: rgb(41 35 34 / 0.72);  /* dark scrim over imagery */
   --nav-bg: rgb(242 234 227 / 0.78);  /* navbar tint */
   --nav-bg-solid: rgb(242 234 227 / 0.95);
@@ -268,6 +268,316 @@ body {
 }
 @media (prefers-reduced-motion: reduce) {
   .quote-canvas::after { animation: none; }
+  .quote-blob { animation: none !important; }
+}
+
+/* ── Quote card motion layers ── */
+
+/* Aurora: colour blobs orbiting slowly *inside* the glass */
+.quote-blob {
+  position: absolute;
+  z-index: 0;
+  border-radius: 9999px;
+  filter: blur(46px);
+  pointer-events: none;
+  opacity: 0.55;
+  will-change: transform;
+}
+.quote-blob--emerald {
+  width: 46%; padding-bottom: 46%;
+  left: -8%; top: -18%;
+  background: radial-gradient(circle, rgb(16 185 129 / 0.5), transparent 70%);
+  animation: quote-drift-a 16s ease-in-out infinite;
+}
+.quote-blob--rose {
+  width: 55%; padding-bottom: 55%;
+  right: -12%; bottom: -25%;
+  background: radial-gradient(circle, rgb(217 144 138 / 0.55), transparent 70%);
+  animation: quote-drift-b 20s ease-in-out infinite;
+}
+.quote-blob--gold {
+  width: 34%; padding-bottom: 34%;
+  left: 38%; top: 30%;
+  background: radial-gradient(circle, rgb(224 196 152 / 0.45), transparent 70%);
+  animation: quote-drift-c 13s ease-in-out infinite;
+}
+@keyframes quote-drift-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(28%, 22%) scale(1.15); }
+}
+@keyframes quote-drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1.05); }
+  50%      { transform: translate(-24%, -18%) scale(0.9); }
+}
+@keyframes quote-drift-c {
+  0%, 100% { transform: translate(0, 0) scale(0.95); }
+  33%      { transform: translate(-30%, 18%) scale(1.1); }
+  66%      { transform: translate(24%, -14%) scale(1); }
+}
+
+/* Spotlight: light patch tracking the pointer across the pane */
+.quote-spotlight {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  background: radial-gradient(
+    300px circle at var(--mx, 50%) var(--my, 45%),
+    rgb(255 255 255 / 0.55),
+    rgb(255 255 255 / 0.16) 45%,
+    transparent 70%
+  );
+}
+.quote-canvas:hover .quote-spotlight { opacity: 1; }
+
+/* Sheen: one-shot glare sweeping across the glass */
+.quote-sheen {
+  position: absolute;
+  top: -25%;
+  bottom: -25%;
+  left: 0;
+  width: 40%;
+  z-index: 4;
+  pointer-events: none;
+  transform: rotate(10deg);
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgb(255 255 255 / 0.55) 50%,
+    transparent
+  );
+  filter: blur(3px);
+}
+
+/* ── Custom cursor — only on precise pointers, opt-in via html class ── */
+@media (hover: hover) and (pointer: fine) {
+  html.custom-cursor,
+  html.custom-cursor * { cursor: none !important; }
+  html.custom-cursor a,
+  html.custom-cursor button,
+  html.custom-cursor [role="button"] { cursor: none !important; }
+  html.custom-cursor input,
+  html.custom-cursor textarea { cursor: text !important; }
+}
+
+/* ══ Home page — continuous project marquee ══
+   Structure:  .projects-viewport (clips) > .projects-track (slides)
+               > .projects-slot (sized) > .project-card (hover pop-out)
+   Behaviour is CSS-only: transform keyframes for the glide,
+   animation-play-state for the pause, transitions for the pop-out. */
+.projects-viewport {
+  /* ⚙ tune the gallery speed here — seconds per full loop */
+  --project-scroll-duration: 38s;
+  /* horizontal gap between cards (spec: 20–28px) */
+  --project-gap: 24px;
+
+  container-type: inline-size;
+  position: relative;
+  overflow: hidden;
+  /* breathing room inside the clip so the pop-out never gets cut off… */
+  padding-block: 20px;
+  /* …while the layout box stays exactly the same size */
+  margin-block: -20px;
+  /* soft mask so cards dissolve at the edges instead of hard-cutting */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 56px,
+    #000 calc(100% - 56px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 56px,
+    #000 calc(100% - 56px),
+    transparent 100%
+  );
+}
+.projects-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: projectScroll var(--project-scroll-duration) linear infinite;
+}
+/* gap as trailing margin (not flex gap) so -50% is an exact,
+   mathematically seamless loop period */
+.projects-track > * {
+  flex: 0 0 auto;
+  margin-right: var(--project-gap);
+}
+@keyframes projectScroll {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+/* card sizes: portrait editorial cards. Fixed pixel widths keep every
+   card perfectly aligned — ~2.7 up on desktop, 2 on tablet, ~1.2 mobile */
+.projects-slot {
+  width: min(80cqw, 300px);
+  /* flex stretch → every card fills the tallest slot, so all cards
+     in the row share one identical height (min-height still floors it) */
+  display: flex;
+}
+.projects-slot > .project-card {
+  width: 100%;
+}
+@container (min-width: 640px) {
+  .projects-slot { width: 330px; }
+}
+@container (min-width: 960px) {
+  .projects-slot { width: 370px; }
+}
+/* graceful fallback for browsers without container queries */
+@supports not (width: 1cqw) {
+  .projects-slot { width: 360px; }
+}
+
+/* ══ Editorial project card — printed card stock with aged corners ══ */
+.project-card {
+  /* muted print palette, adapted to the chocolate section (no neon) */
+  --pc-surface: #403733;
+  --pc-text: #f0e5dc;
+  --pc-muted: #c0b0a5;
+  --pc-accent: #b08a78;
+
+  position: relative;
+  z-index: 1;
+  min-height: 440px;
+  color: var(--pc-text);
+  /* slightly lifted surface so the card reads as its own object */
+  background: linear-gradient(160deg, #4a403b 0%, var(--pc-surface) 55%, #3a322e 100%);
+  border: 1px solid rgba(236, 220, 208, 0.16);
+  border-radius: 1rem;
+  will-change: transform;
+  transition:
+    transform 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 320ms ease;
+}
+/* inner rim + soft worn edge — card stock, never a glowing border */
+.project-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow:
+    inset 0 0 0 1px rgba(236, 220, 208, 0.10),
+    inset 0 0 28px rgba(56, 38, 28, 0.32);
+}
+/* aged / "burnt" corners — tight charred cores sit right in each
+   corner, warm scorch halos spread away from them. Deliberately
+   asymmetric sizes/alphas so it reads organic, not mirrored. */
+.project-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    /* charred cores */
+    radial-gradient(95px 75px at 0% 0%, rgba(14, 8, 5, 0.82), transparent 70%),
+    radial-gradient(80px 65px at 100% 0%, rgba(18, 10, 6, 0.62), transparent 70%),
+    radial-gradient(65px 50px at 0% 100%, rgba(12, 7, 4, 0.55), transparent 72%),
+    radial-gradient(75px 60px at 100% 100%, rgba(15, 9, 5, 0.55), transparent 70%),
+    /* warm scorch halos — brown spreading into the surface */
+    radial-gradient(230px 175px at 0% 0%, rgba(86, 46, 24, 0.55), transparent 76%),
+    radial-gradient(200px 150px at 100% 0%, rgba(128, 84, 48, 0.40), transparent 76%),
+    radial-gradient(225px 160px at 0% 100%, rgba(78, 42, 22, 0.48), transparent 77%),
+    radial-gradient(215px 160px at 100% 100%, rgba(96, 56, 30, 0.44), transparent 76%),
+    /* faint overall sepia ageing across the sheet */
+    linear-gradient(135deg, rgba(74, 46, 28, 0.14), transparent 30%, transparent 70%, rgba(64, 38, 24, 0.12));
+}
+.project-card h3 { color: var(--pc-text); }
+.project-card p { color: var(--pc-muted); }
+
+/* hard separation between image plate and info area */
+.project-card__body { border-top: 1px solid rgba(236, 220, 208, 0.12); }
+
+/* status pill dot — reads ● LIVE without an emoji/extra span */
+.project-status::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  vertical-align: 0.08em;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  /* freeze the whole gallery the moment the pointer enters it —
+     play-state keeps the exact position, no restart, no flicker
+     when moving between cards */
+  .projects-viewport:hover .projects-track {
+    animation-play-state: paused;
+  }
+  /* the ENTIRE card lifts off the table — one transform, one object */
+  .project-card:hover {
+    transform: translateY(-10px) scale(1.035);
+    z-index: 20;
+    border-color: rgba(236, 220, 208, 0.30);
+    box-shadow:
+      0 24px 55px rgba(25, 18, 15, 0.42),
+      0 10px 26px rgba(94, 62, 44, 0.30),
+      0 2px 6px rgba(25, 18, 15, 0.25);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  /* static, fully reachable gallery */
+  .projects-track { animation: none; }
+  .projects-viewport { overflow-x: auto; }
+  .project-card { transition: border-color 320ms ease; }
+  .project-card:hover { transform: none; box-shadow: none; }
+  .tech-chip { transition: none; }
+}
+
+/* ── Project tech stack — brand glyphs (Simple Icons) on espresso discs.
+   Resting: discs overlap left-to-right like a stacked deck.
+   Card hover: they fan open — transform only, the row already reserves
+   the fanned width, so the card never shifts. (see TechStack.tsx) */
+.tech-stack {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tech-chip {
+  position: relative;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: rgba(236, 220, 208, 0.72);
+  background: rgba(24, 17, 13, 0.55);
+  border: 1px solid rgba(236, 220, 208, 0.16);
+  box-shadow: 0 2px 5px rgba(20, 14, 11, 0.3);
+  transition:
+    transform 440ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 300ms ease,
+    border-color 300ms ease;
+}
+/* precise pointers: rest overlapped (chip i sits i*16px left → 10px of
+   overlap), fan fully open while the card is hovered or keyboard-focused */
+@media (hover: hover) and (pointer: fine) {
+  .tech-chip { transform: translateX(calc(var(--i, 0) * -16px)); }
+  .group:hover .tech-chip,
+  .group:focus-visible .tech-chip {
+    transform: translateX(0);
+    color: rgb(240 229 220);
+    border-color: rgba(236, 220, 208, 0.34);
+  }
+}
+/* touch devices have no hover — discs simply sit open, still readable */
+@media (hover: none), (pointer: coarse) {
+  .tech-chip { transform: translateX(0); }
 }
 
 /* Sidebar rail pill — keeps the fixed rail legible over any section */
@@ -302,6 +612,15 @@ body {
 @keyframes status-pulse {
   0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgb(var(--t-accent) / 0.4); }
   50% { opacity: 0.7; box-shadow: 0 0 0 6px rgb(var(--t-accent) / 0); }
+}
+
+/* Hero copy — soft creme halo behind the ink so the type stays
+   prominent over the photo without darkening the slide. */
+.hero-type {
+  text-shadow:
+    0 0 20px rgb(244 238 230 / 0.95),
+    0 0 6px rgb(244 238 230 / 0.85),
+    0 1px 2px rgb(244 238 230 / 0.6);
 }
 
 .tech-pill {

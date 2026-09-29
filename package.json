@@ -9,10 +9,13 @@
     "next": "^14.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^5.7.0",
     "three": "^0.180.0"
   },
   "scripts": {
     "dev": "next dev",
+    "dev:warm": "node scripts/warmup.mjs --with-dev",
+    "warmup": "node scripts/warmup.mjs",
     "build": "next build",
     "start": "next start"
   },

@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import HeroSidebar from '../components/HeroSidebar';
 import PageTransition from '../components/PageTransition';
 import MotionProvider from '../components/MotionProvider';
+import CustomCursor from '../components/CustomCursor';
 import FooterBar from '../components/FooterBar';
 
 const manrope = Manrope({ subsets: ['latin'], variable: '--font-manrope' });
@@ -50,6 +51,7 @@ export default function RootLayout({
             nav underline slides between links and the sidebar never flickers.
             MotionProvider applies the global reduced-motion policy. */}
         <MotionProvider>
+          <CustomCursor />
           <Navbar />
           <HeroSidebar />
           <PageTransition>{children}</PageTransition>

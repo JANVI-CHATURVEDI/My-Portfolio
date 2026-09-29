@@ -2,6 +2,7 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight, Github, ExternalLink } from 'lucide-react';
 import LiquidBg from '../../components/LiquidBg';
+import TechStack from '../../components/TechStack';
 import { projects } from '../../data/content';
 
 const projectImages: Record<number, string> = {
@@ -103,11 +104,9 @@ export default function ProjectsPage() {
                   </div>
                 )}
 
-                {/* Tags */}
-                <div className="flex flex-wrap gap-1.5 mb-4 mt-auto">
-                  {project.tags.map((tag) => (
-                    <span key={tag} className="tech-pill text-[11px] px-2.5 py-1">{tag}</span>
-                  ))}
+                {/* Tags — overlapping icon stack, fans open on card hover */}
+                <div className="mt-auto">
+                  <TechStack tags={project.tags} />
                 </div>
 
                 {/* Actions */}
