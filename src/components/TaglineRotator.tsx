@@ -63,7 +63,7 @@ export default function TaglineRotator() {
           >
             {line.top}
             <br />
-            <span className="font-display text-emerald-400">{line.accent}</span>
+            <span className="font-display text-[#B45D67]">{line.accent}</span>
           </motion.span>
         );
       })}

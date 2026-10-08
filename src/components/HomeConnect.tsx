@@ -7,7 +7,7 @@ import QuoteCard from './QuoteCard';
 
 export default function HomeConnect() {
   return (
-    <section className="section-rose relative py-20">
+    <section className="section-rose contact-ground relative py-20">
       <div className="max-w-6xl mx-auto px-6 lg:pl-24">
         {/* Connect CTA */}
         <motion.div
@@ -18,7 +18,7 @@ export default function HomeConnect() {
           className="glass rounded-3xl p-10 lg:p-14 text-center mb-16 relative overflow-hidden"
         >
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl" />
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif italic text-white relative z-10 mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif italic text-[#231A18] relative z-10 mb-6">
             Let's build something <br />
             <span className="font-display text-emerald-400">extraordinary together.</span>
           </h2>

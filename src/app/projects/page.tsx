@@ -1,5 +1,5 @@
 "use client";
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowUpRight, Github, ExternalLink } from 'lucide-react';
 import LiquidBg from '../../components/LiquidBg';
 import TechStack from '../../components/TechStack';
@@ -11,13 +11,13 @@ const projectImages: Record<number, string> = {
   3: '/images/project-onetime.png',
   4: '/images/project-coffee.png',
   5: '/images/project-travel.png',
+  6: '/images/project-swachdrishti.png',
+  7: '/images/project-civicconnect.png',
 };
 
 export default function ProjectsPage() {
-  const reduced = useReducedMotion();
-
   return (
-    <main className="section-taupe min-h-screen text-white">
+    <main className="section-taupe projects-ground min-h-screen text-white">
       <LiquidBg />
       <div className="relative z-10 max-w-6xl mx-auto px-6 lg:pl-24 pt-28 pb-20">
         <motion.div
@@ -26,18 +26,20 @@ export default function ProjectsPage() {
           transition={{ duration: 0.6 }}
           className="mb-14"
         >
-          <p className="text-xs font-mono tracking-[0.3em] text-[rgb(var(--t-ink))] uppercase mb-4">
+          <p className="text-xs font-mono tracking-[0.3em] text-[#5A524A] uppercase mb-4">
             01 — Work
           </p>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.05] tracking-tight mb-5">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#1F1A17] leading-[1.05] tracking-tight mb-5">
             Things I've <span className="font-display italic font-normal text-emerald-400">shipped.</span>
           </h1>
-          <p className="text-[rgb(var(--t-ink))] text-sm font-mono font-medium tracking-wide">
-            Five projects — full-stack platforms, secure messaging, and polished landing pages.
+          <p className="text-[#5A524A] text-sm font-mono font-medium tracking-wide">
+            Selected work — built end-to-end, from schema to interface.
           </p>
         </motion.div>
 
-        {/* Compact 2-column grid */}
+        {/* Compact 2-column grid — the slot owns perspective + :hover and
+            never moves, so the spinning card can't interrupt its own hover;
+            the inner .pj-card is the element that actually twirls. */}
         <div className="grid md:grid-cols-2 gap-5 mb-10">
           {projects.map((project, i) => (
             <motion.div
@@ -45,13 +47,9 @@ export default function ProjectsPage() {
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: i * 0.07 }}
-              whileHover={
-                reduced
-                  ? undefined
-                  : { y: -4, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } }
-              }
-              className="glass rounded-2xl overflow-hidden group hover:border-emerald-400/15 transition-[border-color,background-color,box-shadow] duration-300 flex flex-col"
+              className="pj-slot group [perspective:1000px]"
             >
+              <div className="pj-card glass rounded-3xl overflow-hidden flex flex-col h-full">
               {/* Compact image */}
               <div className="relative aspect-[16/9] overflow-hidden">
                 <img
@@ -71,22 +69,22 @@ export default function ProjectsPage() {
                 </span>
 
                 {/* Year + role floating bottom — translucent chip for readability */}
-                <div className="absolute bottom-2 left-3 flex items-center gap-2 text-[10px] font-mono font-medium text-white/75 bg-black/35 backdrop-blur-[2px] px-2.5 py-1 rounded-full">
+                <div className="absolute bottom-2 left-3 flex items-center gap-2 text-[10px] font-mono font-medium text-[#C2B8B2] bg-black/35 backdrop-blur-[2px] px-2.5 py-1 rounded-full">
                   <span>{project.year}</span>
                   <span className="w-0.5 h-0.5 rounded-full bg-white/50" />
                   <span>{project.role}</span>
                 </div>
               </div>
 
-              {/* Compact content */}
-              <div className="p-5 flex-1 flex flex-col">
-                <h2 className="text-xl font-bold text-white mb-1.5 transition-colors">
+              {/* Compact content — warm espresso glass container */}
+              <div className="pj-content p-5 flex-1 flex flex-col">
+                <h2 className="text-xl font-bold text-[#FAF7F2] mb-1.5 transition-colors">
                   {project.name}
                 </h2>
-                <p className="text-xs text-white font-display italic mb-3">
+                <p className="text-xs text-[#C2B8B2] font-display italic mb-3">
                   {project.description}
                 </p>
-                <p className="text-sm text-white leading-relaxed mb-4 line-clamp-2">
+                <p className="text-sm text-[#C2B8B2] leading-relaxed mb-4 line-clamp-2">
                   {project.longDescription || project.description}
                 </p>
 
@@ -94,12 +92,12 @@ export default function ProjectsPage() {
                 {project.features && (
                   <div className="mb-4 space-y-1">
                     {project.features.slice(0, 3).map((f) => (
-                      <div key={f} className="flex items-center gap-2 text-xs text-white">
+                      <div key={f} className="flex items-center gap-2 text-xs text-[#C2B8B2]">
                         <span>{f}</span>
                       </div>
                     ))}
                     {project.features.length > 3 && (
-                      <span className="text-[10px] font-mono text-white">+{project.features.length - 3} more</span>
+                      <span className="text-[10px] font-mono text-[#C2B8B2]">+{project.features.length - 3} more</span>
                     )}
                   </div>
                 )}
@@ -134,6 +132,7 @@ export default function ProjectsPage() {
                     </a>
                   )}
                 </div>
+              </div>
               </div>
             </motion.div>
           ))}

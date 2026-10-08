@@ -11,10 +11,12 @@ const projectImages: Record<number, string> = {
   3: '/images/project-onetime.png',
   4: '/images/project-coffee.png',
   5: '/images/project-travel.png',
+  6: '/images/project-swachdrishti.png',
+  7: '/images/project-civicconnect.png',
 };
 
 export default function FeaturedProjects() {
-  const featured = projects.slice(0, 5);
+  const featured = projects.slice(0, 7);
   /* duplicated set → seamless -50% loop (see .projects-track in globals.css).
      The copy is aria-hidden so assistive tech doesn't read projects twice. */
   const loop = [...featured, ...featured];
@@ -64,7 +66,7 @@ export default function FeaturedProjects() {
                     {/* Image plate — contained, rounded by the card's overflow */}
                     <div className="aspect-video overflow-hidden">
                       <img
-                        src={projectImages[project.id]}
+                        src={projectImages[project.id] || '/images/project-tweet.png'}
                         alt={project.name}
                         className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
                       />

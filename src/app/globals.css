@@ -14,9 +14,9 @@
   /* Fixed tones (site-wide constants) */
   --t-ink: 41 35 34;      /* deep espresso — scrims, dark chips, photo wells */
   --t-cream: 241 232 223; /* warm off-white — text on ink */
-  --scrim-a: rgb(242 234 227 / 0.65); /* hero photo wash (warm cream) */
-  --scrim-b: rgb(242 234 227 / 0.30);
-  --scrim-c: rgb(242 234 227 / 0.88);
+  --scrim-a: rgb(220 201 198 / 0.60); /* hero photo veil — the quote slide's pink */
+  --scrim-b: rgb(220 201 198 / 0.32);
+  --scrim-c: rgb(220 201 198 / 0.78);
   --ink-scrim: rgb(41 35 34 / 0.72);  /* dark scrim over imagery */
   --nav-bg: rgb(242 234 227 / 0.78);  /* navbar tint */
   --nav-bg-solid: rgb(242 234 227 / 0.95);
@@ -614,13 +614,106 @@ body {
   50% { opacity: 0.7; box-shadow: 0 0 0 6px rgb(var(--t-accent) / 0); }
 }
 
-/* Hero copy — soft creme halo behind the ink so the type stays
-   prominent over the photo without darkening the slide. */
-.hero-type {
-  text-shadow:
-    0 0 20px rgb(244 238 230 / 0.95),
-    0 0 6px rgb(244 238 230 / 0.85),
-    0 1px 2px rgb(244 238 230 / 0.6);
+/* ── Hero ground — warm cream base (#F7F4EF) + muted terracotta accent.
+     Paired with .section-rose for the remaining tokens; defined after the
+     palette block so these overrides win on the same element. ── */
+.hero-ground {
+  --t-bg: 247 244 239;       /* #F7F4EF warm cream */
+  --t-accent: 168 83 90;     /* #A8535A muted terracotta */
+  background-color: rgb(var(--t-bg));
+}
+
+/* ── Contact / quote ground — dusty-rose tinted cream (#F3E8E4) so the
+     section connects to the hero cream without clashing with the dark
+     Projects band. Accent + primary button in muted terracotta; body
+     copy (--t-ink within this scope only) in #4A3E3B. ── */
+.contact-ground {
+  --t-bg: 243 232 228;       /* #F3E8E4 dusty-rose cream */
+  --t-accent: 168 83 90;     /* #A8535A */
+  --t-btn-bg: 168 83 90;     /* primary button = muted terracotta */
+  --t-btn-fg: 255 253 250;
+  --t-ink: 74 62 59;         /* #4A3E3B body text */
+  background-color: rgb(var(--t-bg));
+}
+
+/* ── /projects ground — clean warm ivory (#F6F3EE) replacing the dull
+     grayish-brown taupe. Scoped to the projects <main> only: navbar,
+     footer and every other section keep their own palettes. ── */
+.projects-ground {
+  --t-bg: 246 243 238;       /* #F6F3EE warm ivory */
+  background-color: rgb(var(--t-bg));
+}
+
+/* /projects cards — resting hairline + soft lift off the ivory ground.
+   .glass itself stays untouched (shared by home/about): width/style
+   remain with .glass, only the color + shadow are re-specified here,
+   and the existing hover accent borders are re-stated so they keep
+   winning above the new resting border. */
+.projects-ground .glass {
+  border-color: rgba(0, 0, 0, 0.06);
+  box-shadow: 0 12px 32px -8px rgba(35, 26, 24, 0.08);
+}
+.projects-ground .glass:hover {
+  border-color: rgb(var(--t-accent) / 0.15);
+}
+.projects-ground .glass.border-dashed:hover {
+  border-color: rgb(var(--t-accent) / 0.2);
+}
+
+/* ── /projects card — lower text section: warm espresso glass container ── */
+.pj-content {
+  background: rgba(30, 24, 22, 0.85);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+}
+
+/* ── /projects card — 3D twirl & pop: exactly one clean spin per hover.
+     Perspective: 1000px and :hover live on the .pj-slot wrapper (page.tsx),
+     which never moves — so the spinning card cannot interrupt its own hover.
+     The transform transition sits ONLY on the :hover rule: entering runs the
+     twirl once, leaving snaps straight back (360deg ≡ 0deg, so just the
+     lift/scale pops — never a reverse spin). Moving card→card therefore
+     shows a single flip: the one you are heading to. ── */
+.pj-card {
+  transform-style: preserve-3d;
+  transition: box-shadow 0.4s ease;
+}
+.projects-ground .pj-slot:hover .pj-card {
+  transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+  transform: translateY(-12px) scale(1.04) rotateY(360deg);
+  box-shadow: 0 24px 48px -12px rgba(200, 109, 81, 0.25), 0 12px 24px -8px rgba(0, 0, 0, 0.3);
+  border-color: rgba(200, 109, 81, 0.4);
+}
+/* tags — warm terracotta accent glyphs (home marquee keeps its cream) */
+.projects-ground .tech-chip { color: #c86d51; }
+.projects-ground .group:hover .tech-chip,
+.projects-ground .group:focus-visible .tech-chip { color: #c86d51; }
+@media (prefers-reduced-motion: reduce) {
+  .pj-card { transition: none; }
+  .projects-ground .pj-slot:hover .pj-card { transform: none; transition: none; }
+}
+
+/* Hero copy card — floating glassmorphism over the subtle poster art */
+.hero-card {
+  position: relative;
+  background: rgba(255, 253, 250, 0.65);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 20px 40px -15px rgba(60, 40, 30, 0.07);
+}
+/* the live dot stays green inside the card (palette accent renders rose here) */
+.hero-card .status-dot {
+  background: #10b981;
+  animation: status-pulse-live 2s infinite;
+}
+@keyframes status-pulse-live {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgb(16 185 129 / 0.4); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 6px rgb(16 185 129 / 0); }
 }
 
 .tech-pill {

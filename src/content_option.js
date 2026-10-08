@@ -8,6 +8,8 @@ import cofeeimg from "./assets/images/cofeelanding.png";
 import devlinktreeimg from "./assets/images/devlinktree.png";
 import travelimg from "./assets/images/travellanding.png";
 import onetimeimg from "./assets/images/onetimemsg.png";
+import swachdrishtiimg from "./assets/images/swachdrishti.png";
+import civicconnectimg from "./assets/images/civicconnect.png";
 
 const logotext = "Janvi";
 
@@ -72,6 +74,26 @@ const services = [
 ];
 
 const dataportfolio = [
+  {
+    name: "SwachDrishti",
+    img: swachdrishtiimg,
+    description:
+      "Full-stack civic-tech platform: GPS + photo waste reports, AI triage, live dispatch map, photo-proof resolution, and city insights.",
+    link: "https://swachdrishti.vercel.app",
+    github: "https://github.com/JANVI-CHATURVEDI/SwachDrishti",
+    status: "completed",
+    tags: ["Django", "React", "Tailwind CSS", "PostgreSQL", "Leaflet.js"],
+  },
+  {
+    name: "CivicConnect AI",
+    img: civicconnectimg,
+    description:
+      "Civic reporting with transparent AI triage: multilingual + voice reports, Gemini priority scoring, SLA tracking, and audit trail.",
+    link: null,
+    github: "https://github.com/JANVI-CHATURVEDI/CivicConnect",
+    status: "in-progress",
+    tags: ["Django", "Python", "PostgreSQL", "Docker", "Gemini AI"],
+  },
   {
     name: "Tweet",
     img: tweetimg,

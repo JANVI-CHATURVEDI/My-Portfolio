@@ -60,6 +60,31 @@ export const portfolio = {
 
 export const projects: Project[] = [
   {
+    id: 6,
+    name: "SwachDrishti",
+    description: "See the waste. Spark the action.",
+    longDescription: "Full-stack civic-tech platform: citizens report garbage with GPS + photo, AI triages and scores it, supervisors dispatch workers from a live map, workers resolve with photo proof, citizens verify, and admins steer the city with insights and forecasts.",
+    status: "completed",
+    tags: ["Django", "React", "Tailwind CSS", "PostgreSQL", "Leaflet.js"],
+    link: "https://swachdrishti.vercel.app",
+    github: "https://github.com/JANVI-CHATURVEDI/SwachDrishti",
+    features: ["GPS map-pin reports with AI triage", "Live dispatch queue + route optimizer", "Before/after AI cleanup audit", "Ward Cleanliness Index & forecasts", "Public transparency ledger + quiz"],
+    year: "2026",
+    role: "Solo Developer",
+  },
+  {
+    id: 7,
+    name: "CivicConnect AI",
+    description: "Report civic issues. Get them fixed.",
+    longDescription: "Civic reporting platform with transparent AI triage. Citizens file issues with photo + Hindi/Hinglish/English + voice, Gemini vision scores priority 0-100 with reasons, and staff resolve through a full lifecycle with SLA tracking, duplicates detection, and audit trail.",
+    status: "in-progress",
+    tags: ["Django", "Python", "PostgreSQL", "Docker", "Gemini AI"],
+    github: "https://github.com/JANVI-CHATURVEDI/CivicConnect",
+    features: ["Photo + multilingual + voice reports", "Gemini vision triage with fallback", "SLA tracking & escalation", "Duplicate detection + audit trail", "Dockerized deploy with health checks"],
+    year: "2026",
+    role: "Solo Developer",
+  },
+  {
     id: 1,
     name: "TWEET",
     description: "Speak Freely. Stay Anonymous.",
