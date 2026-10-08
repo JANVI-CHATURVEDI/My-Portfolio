@@ -21,7 +21,6 @@ const TechMarquee = () => {
     <div className="tech-marquee-wrapper" aria-hidden="true">
       <div className="marquee-fade-left"></div>
       <div className="marquee-track">
-        {/* Double array for seamless infinite scroll */}
         {[...techItems, ...techItems, ...techItems].map((item, index) => (
           <div key={index} className="marquee-item">
             <span className="marquee-icon">{item.icon}</span>

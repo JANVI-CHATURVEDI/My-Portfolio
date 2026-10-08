@@ -30,7 +30,6 @@ export default function Footer() {
   return (
     <footer className="mt-16 pt-8 pb-12 border-t border-stone-200 dark:border-stone-800 text-xs text-stone-500">
       <div className="narrow-container space-y-6">
-        {/* Real Contact Links Row */}
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center space-x-4">
             <a
@@ -91,7 +90,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Copyright notice */}
         <div className="flex items-center justify-between text-[11px] text-stone-400 pt-2 border-t border-stone-200/50 dark:border-stone-800/50">
           <span>© {new Date().getFullYear()} {logotext} Chaturvedi</span>
           <span className="italic font-serif">Crafted with care</span>

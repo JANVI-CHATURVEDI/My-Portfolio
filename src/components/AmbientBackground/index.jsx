@@ -20,7 +20,6 @@ export default function AmbientBackground() {
 
     window.addEventListener("resize", handleResize);
 
-    // Orbs parameters
     const orbs = [
       { x: width * 0.2, y: height * 0.25, radius: 240, vx: 0.3, vy: 0.2, colorLight: "rgba(234, 88, 12, 0.08)", colorDark: "rgba(234, 88, 12, 0.12)" },
       { x: width * 0.8, y: height * 0.6, radius: 300, vx: -0.2, vy: 0.3, colorLight: "rgba(217, 119, 6, 0.06)", colorDark: "rgba(217, 119, 6, 0.1)" },

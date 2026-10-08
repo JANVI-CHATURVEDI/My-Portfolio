@@ -1,4 +1,3 @@
-// Lightweight 60fps Canvas Confetti Cannon - Zero External Dependencies
 export function triggerConfetti(originX, originY) {
   if (typeof window === "undefined") return;
 
@@ -24,13 +23,13 @@ export function triggerConfetti(originX, originY) {
   const startY = originY !== undefined ? originY : height / 2;
 
   const colors = [
-    "#a855f7", // purple
-    "#06b6d4", // cyan
-    "#ec4899", // pink
-    "#3b82f6", // blue
-    "#10b981", // emerald
-    "#f59e0b", // amber
-    "#ffffff", // white
+    "#a855f7",
+    "#06b6d4",
+    "#ec4899",
+    "#3b82f6",
+    "#10b981",
+    "#f59e0b",
+    "#ffffff",
   ];
 
   const particleCount = 85;
@@ -66,8 +65,8 @@ export function triggerConfetti(originX, originY) {
 
       p.x += p.vx;
       p.y += p.vy;
-      p.vy += 0.22; // gravity
-      p.vx *= 0.98; // air drag
+      p.vy += 0.22;
+      p.vx *= 0.98;
       p.rotation += p.vRotation;
       p.opacity -= p.decay;
       p.wobble += 0.1;

@@ -47,9 +47,6 @@ export default function RootLayout({
         <div className="fixed inset-0 z-[-1] pointer-events-none opacity-10">
           <div className="fixed inset-0 bg-gradient-to-br from-[#D8C8BC] via-[#E8DDD3] to-[#C9B0AE]" />
         </div>
-        {/* Persistent shell — rendered once, survives route changes so the
-            nav underline slides between links and the sidebar never flickers.
-            MotionProvider applies the global reduced-motion policy. */}
         <MotionProvider>
           <CustomCursor />
           <Navbar />

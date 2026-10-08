@@ -2,18 +2,12 @@
 import { useRef } from 'react';
 import { motion, useMotionValue, useSpring, useReducedMotion } from 'framer-motion';
 
-/**
- * Magnetic wrapper — the child leans toward the cursor while it is near and
- * springs back on leave. Renders a plain block wrapper when motion is reduced.
- * Usage: <Magnetic><a className="btn-primary">…</a></Magnetic>
- */
 export default function Magnetic({
   children,
   strength = 0.35,
   className,
 }: {
   children: React.ReactNode;
-  /** how far it leans toward the cursor (0–1) */
   strength?: number;
   className?: string;
 }) {

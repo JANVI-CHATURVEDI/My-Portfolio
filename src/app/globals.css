@@ -2,28 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ══════════════════════════════════════════════════════════════════════
-   EDITORIAL COLOR SYSTEM — centralized, section-scoped palettes.
-   Every color in the site derives from the channel tokens (--t-*) below.
-   Section classes (.section-*) re-scope the tokens for that block.
-   Tailwind maps white/black/emerald/cyan/amber/slate onto these tokens
-   (see tailwind.config.js), so existing utilities become palette-aware.
-   ══════════════════════════════════════════════════════════════════════ */
-
 :root {
-  /* Fixed tones (site-wide constants) */
-  --t-ink: 41 35 34;      /* deep espresso — scrims, dark chips, photo wells */
-  --t-cream: 241 232 223; /* warm off-white — text on ink */
-  --scrim-a: rgb(220 201 198 / 0.60); /* hero photo veil — the quote slide's pink */
+  --t-ink: 41 35 34;
+  --t-cream: 241 232 223;
+  --scrim-a: rgb(220 201 198 / 0.60);
   --scrim-b: rgb(220 201 198 / 0.32);
   --scrim-c: rgb(220 201 198 / 0.78);
-  --ink-scrim: rgb(41 35 34 / 0.72);  /* dark scrim over imagery */
-  --nav-bg: rgb(242 234 227 / 0.78);  /* navbar tint */
+  --ink-scrim: rgb(41 35 34 / 0.72);
+  --nav-bg: rgb(242 234 227 / 0.78);
   --nav-bg-solid: rgb(242 234 227 / 0.95);
-  --paper: rgb(244 238 230 / 0.95);   /* polaroid paper / stat stickers */
-  --tape: rgb(245 239 230 / 0.72);    /* washi tape */
+  --paper: rgb(244 238 230 / 0.95);
+  --tape: rgb(245 239 230 / 0.72);
 
-  /* PALETTE 01 — LIGHT NUDE (default / root) */
   --t-bg: 232 221 211;
   --t-bg2: 216 200 188;
   --t-surface: 242 234 227;
@@ -35,7 +25,6 @@
   --t-btn-bg: 64 56 52;
   --t-btn-fg: 242 234 227;
 
-  /* Legacy aliases (root scope — documented source of truth) */
   --bg: rgb(var(--t-bg));
   --bg-dark: rgb(var(--t-bg2));
   --card: rgb(var(--t-surface));
@@ -43,17 +32,13 @@
   --text: rgb(var(--t-fg));
   --muted: rgb(var(--t-fg2));
   --accent: rgb(var(--t-accent));
-  --text-1: rgb(var(--t-fg) / 1);       /* primary — headings, key CTAs */
-  --text-2: rgb(var(--t-fg) / 0.75);    /* secondary — descriptions, metadata */
-  --text-3: rgb(var(--t-fg) / 0.60);    /* supporting — dates, small text */
-  --text-4: rgb(var(--t-fg) / 0.40);    /* decorative — separators, labels */
+  --text-1: rgb(var(--t-fg) / 1);
+  --text-2: rgb(var(--t-fg) / 0.75);
+  --text-3: rgb(var(--t-fg) / 0.60);
+  --text-4: rgb(var(--t-fg) / 0.40);
 }
 
-/* ── Palette sections ────────────────────────────────────────────────
-   Each class: bg + surface + primary/secondary text + accent + highlight
-   + button pair. Apply to <main> (whole page) or to a block (color journey). */
-
-.section-nude { /* PALETTE 01 — signature warm nude */
+.section-nude {
   --t-bg: 232 221 211; --t-bg2: 216 200 188; --t-surface: 242 234 227;
   --t-fg: 64 56 52; --t-fg2: 116 104 97;
   --t-accent: 155 116 100; --t-hi: 184 154 136; --t-accent-2: 184 154 136;
@@ -62,7 +47,7 @@
   color: rgb(var(--t-fg));
 }
 
-.section-chocolate { /* PALETTE 02 — dark espresso */
+.section-chocolate {
   --t-bg: 41 35 34; --t-bg2: 54 46 43; --t-surface: 68 58 54;
   --t-fg: 241 232 223; --t-fg2: 189 174 164;
   --t-accent: 181 143 124; --t-hi: 210 183 165; --t-accent-2: 210 183 165;
@@ -71,7 +56,7 @@
   color: rgb(var(--t-fg));
 }
 
-.section-rose { /* PALETTE 03 — dusty rose */
+.section-rose {
   --t-bg: 220 201 198; --t-bg2: 201 176 174; --t-surface: 233 220 218;
   --t-fg: 73 59 58; --t-fg2: 119 101 99;
   --t-accent: 166 111 114; --t-hi: 193 141 141; --t-accent-2: 193 141 141;
@@ -80,7 +65,7 @@
   color: rgb(var(--t-fg));
 }
 
-.section-olive { /* PALETTE 04 — muted olive / sage */
+.section-olive {
   --t-bg: 185 185 165; --t-bg2: 164 164 143; --t-surface: 208 207 189;
   --t-fg: 53 55 47; --t-fg2: 100 102 90;
   --t-accent: 111 116 93; --t-hi: 140 146 117; --t-accent-2: 140 146 117;
@@ -89,9 +74,7 @@
   color: rgb(var(--t-fg));
 }
 
-.section-taupe { /* PALETTE 05 — warm taupe / greige (mid neutral).
-     Cards use the palette's Secondary tone (darker block) so the
-     light primary text stays readable on the dense project cards. */
+.section-taupe {
   --t-bg: 146 138 128; --t-bg2: 117 109 100; --t-surface: 117 109 100;
   --t-fg: 255 240 231; --t-fg2: 230 221 209;
   --t-accent: 66 58 51; --t-hi: 206 196 184; --t-accent-2: 206 196 184;
@@ -100,7 +83,7 @@
   color: rgb(var(--t-fg));
 }
 
-.section-cream { /* PALETTE 06 — coffee & cream paper */
+.section-cream {
   --t-bg: 237 229 216; --t-bg2: 221 209 193; --t-surface: 245 239 230;
   --t-fg: 65 57 50; --t-fg2: 118 105 94;
   --t-accent: 128 100 83; --t-hi: 169 141 120; --t-accent-2: 169 141 120;
@@ -109,7 +92,7 @@
   color: rgb(var(--t-fg));
 }
 
-.section-graphite { /* PALETTE 07 — warm graphite / charcoal (dramatic dark) */
+.section-graphite {
   --t-bg: 53 51 47; --t-bg2: 64 61 56; --t-surface: 78 75 68;
   --t-fg: 242 232 228; --t-fg2: 188 181 170;
   --t-accent: 207 191 166; --t-hi: 224 210 188; --t-accent-2: 224 210 188;
@@ -118,7 +101,7 @@
   color: rgb(var(--t-fg));
 }
 
-.section-stone { /* PALETTE 08 — soft stone / greige (neutral reset) */
+.section-stone {
   --t-bg: 213 208 200; --t-bg2: 194 188 179; --t-surface: 228 224 217;
   --t-fg: 61 58 55; --t-fg2: 113 108 102;
   --t-accent: 140 119 104; --t-hi: 170 149 132; --t-accent-2: 170 149 132;
@@ -127,11 +110,6 @@
   color: rgb(var(--t-fg));
 }
 
-/* Full-bleed helper: lets a block inside the centered container paint its
-   palette edge-to-edge without changing the DOM structure.
-   Note: the wrapper's lg:pl-24 vs px-6 pushes the container's content box
-   36px right of the viewport center at lg — compensate so the strip always
-   covers the full width (body overflow-x:hidden clips the overshoot). */
 .bleed { position: relative; }
 .bleed::before {
   content: '';
@@ -162,7 +140,6 @@ body {
 .font-mono { font-family: var(--font-jetbrains), 'Fira Code', ui-monospace, monospace; }
 .font-marker { font-family: var(--font-marker), 'Segoe Print', cursive; }
 
-/* ── Editorial panel (was: dark glass card) ── */
 .glass {
   background: rgb(var(--t-surface));
   border: 1px solid rgb(var(--t-fg) / 0.12);
@@ -179,7 +156,6 @@ body {
               0 18px 44px -32px rgb(var(--t-ink) / 0.4);
 }
 
-/* ── Buttons: editorial labels, palette-aware ── */
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -214,17 +190,12 @@ body {
   background: rgb(var(--t-accent) / 0.08);
 }
 
-/* Dark inverse chip (reads on every palette) */
 .chip-dark {
   background: rgb(var(--t-ink));
   color: rgb(var(--t-cream));
   border: 1px solid rgb(var(--t-cream) / 0.14);
 }
 
-/* ── Quote canvas — frosted glass (glassmorphism) backdrop for the
-   Gita verse. The fill is translucent with a backdrop blur so the
-   section palette shows through; a glossy sheen, hairline rim, faint
-   grain and a whisper of breathing emerald keep the vibe. ── */
 .quote-canvas {
   position: relative;
   isolation: isolate;
@@ -241,7 +212,7 @@ body {
     0 24px 50px -30px rgb(41 35 34 / 0.55),
     inset 0 1px 0 rgb(255 255 255 / 0.55);
 }
-/* glossy diagonal sheen + faint film grain */
+
 .quote-canvas::before {
   content: '';
   position: absolute;
@@ -252,7 +223,7 @@ body {
     linear-gradient(115deg, rgb(255 255 255 / 0.4), transparent 42%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
 }
-/* soft emerald light that slowly breathes */
+
 .quote-canvas::after {
   content: '';
   position: absolute;
@@ -271,9 +242,6 @@ body {
   .quote-blob { animation: none !important; }
 }
 
-/* ── Quote card motion layers ── */
-
-/* Aurora: colour blobs orbiting slowly *inside* the glass */
 .quote-blob {
   position: absolute;
   z-index: 0;
@@ -315,7 +283,6 @@ body {
   66%      { transform: translate(24%, -14%) scale(1); }
 }
 
-/* Spotlight: light patch tracking the pointer across the pane */
 .quote-spotlight {
   position: absolute;
   inset: 0;
@@ -332,7 +299,6 @@ body {
 }
 .quote-canvas:hover .quote-spotlight { opacity: 1; }
 
-/* Sheen: one-shot glare sweeping across the glass */
 .quote-sheen {
   position: absolute;
   top: -25%;
@@ -351,7 +317,6 @@ body {
   filter: blur(3px);
 }
 
-/* ── Custom cursor — only on precise pointers, opt-in via html class ── */
 @media (hover: hover) and (pointer: fine) {
   html.custom-cursor,
   html.custom-cursor * { cursor: none !important; }
@@ -362,25 +327,15 @@ body {
   html.custom-cursor textarea { cursor: text !important; }
 }
 
-/* ══ Home page — continuous project marquee ══
-   Structure:  .projects-viewport (clips) > .projects-track (slides)
-               > .projects-slot (sized) > .project-card (hover pop-out)
-   Behaviour is CSS-only: transform keyframes for the glide,
-   animation-play-state for the pause, transitions for the pop-out. */
 .projects-viewport {
-  /* ⚙ tune the gallery speed here — seconds per full loop */
   --project-scroll-duration: 38s;
-  /* horizontal gap between cards (spec: 20–28px) */
   --project-gap: 24px;
 
   container-type: inline-size;
   position: relative;
   overflow: hidden;
-  /* breathing room inside the clip so the pop-out never gets cut off… */
   padding-block: 20px;
-  /* …while the layout box stays exactly the same size */
   margin-block: -20px;
-  /* soft mask so cards dissolve at the edges instead of hard-cutting */
   -webkit-mask-image: linear-gradient(
     to right,
     transparent 0,
@@ -402,8 +357,7 @@ body {
   will-change: transform;
   animation: projectScroll var(--project-scroll-duration) linear infinite;
 }
-/* gap as trailing margin (not flex gap) so -50% is an exact,
-   mathematically seamless loop period */
+
 .projects-track > * {
   flex: 0 0 auto;
   margin-right: var(--project-gap);
@@ -413,12 +367,8 @@ body {
   to   { transform: translate3d(-50%, 0, 0); }
 }
 
-/* card sizes: portrait editorial cards. Fixed pixel widths keep every
-   card perfectly aligned — ~2.7 up on desktop, 2 on tablet, ~1.2 mobile */
 .projects-slot {
   width: min(80cqw, 300px);
-  /* flex stretch → every card fills the tallest slot, so all cards
-     in the row share one identical height (min-height still floors it) */
   display: flex;
 }
 .projects-slot > .project-card {
@@ -430,14 +380,12 @@ body {
 @container (min-width: 960px) {
   .projects-slot { width: 370px; }
 }
-/* graceful fallback for browsers without container queries */
+
 @supports not (width: 1cqw) {
   .projects-slot { width: 360px; }
 }
 
-/* ══ Editorial project card — printed card stock with aged corners ══ */
 .project-card {
-  /* muted print palette, adapted to the chocolate section (no neon) */
   --pc-surface: #403733;
   --pc-text: #f0e5dc;
   --pc-muted: #c0b0a5;
@@ -447,7 +395,6 @@ body {
   z-index: 1;
   min-height: 440px;
   color: var(--pc-text);
-  /* slightly lifted surface so the card reads as its own object */
   background: linear-gradient(160deg, #4a403b 0%, var(--pc-surface) 55%, #3a322e 100%);
   border: 1px solid rgba(236, 220, 208, 0.16);
   border-radius: 1rem;
@@ -457,7 +404,7 @@ body {
     box-shadow 480ms cubic-bezier(0.22, 1, 0.36, 1),
     border-color 320ms ease;
 }
-/* inner rim + soft worn edge — card stock, never a glowing border */
+
 .project-card::before {
   content: '';
   position: absolute;
@@ -469,9 +416,7 @@ body {
     inset 0 0 0 1px rgba(236, 220, 208, 0.10),
     inset 0 0 28px rgba(56, 38, 28, 0.32);
 }
-/* aged / "burnt" corners — tight charred cores sit right in each
-   corner, warm scorch halos spread away from them. Deliberately
-   asymmetric sizes/alphas so it reads organic, not mirrored. */
+
 .project-card::after {
   content: '';
   position: absolute;
@@ -480,26 +425,21 @@ body {
   border-radius: inherit;
   pointer-events: none;
   background:
-    /* charred cores */
     radial-gradient(95px 75px at 0% 0%, rgba(14, 8, 5, 0.82), transparent 70%),
     radial-gradient(80px 65px at 100% 0%, rgba(18, 10, 6, 0.62), transparent 70%),
     radial-gradient(65px 50px at 0% 100%, rgba(12, 7, 4, 0.55), transparent 72%),
     radial-gradient(75px 60px at 100% 100%, rgba(15, 9, 5, 0.55), transparent 70%),
-    /* warm scorch halos — brown spreading into the surface */
     radial-gradient(230px 175px at 0% 0%, rgba(86, 46, 24, 0.55), transparent 76%),
     radial-gradient(200px 150px at 100% 0%, rgba(128, 84, 48, 0.40), transparent 76%),
     radial-gradient(225px 160px at 0% 100%, rgba(78, 42, 22, 0.48), transparent 77%),
     radial-gradient(215px 160px at 100% 100%, rgba(96, 56, 30, 0.44), transparent 76%),
-    /* faint overall sepia ageing across the sheet */
     linear-gradient(135deg, rgba(74, 46, 28, 0.14), transparent 30%, transparent 70%, rgba(64, 38, 24, 0.12));
 }
 .project-card h3 { color: var(--pc-text); }
 .project-card p { color: var(--pc-muted); }
 
-/* hard separation between image plate and info area */
 .project-card__body { border-top: 1px solid rgba(236, 220, 208, 0.12); }
 
-/* status pill dot — reads ● LIVE without an emoji/extra span */
 .project-status::before {
   content: '';
   display: inline-block;
@@ -512,13 +452,10 @@ body {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  /* freeze the whole gallery the moment the pointer enters it —
-     play-state keeps the exact position, no restart, no flicker
-     when moving between cards */
   .projects-viewport:hover .projects-track {
     animation-play-state: paused;
   }
-  /* the ENTIRE card lifts off the table — one transform, one object */
+
   .project-card:hover {
     transform: translateY(-10px) scale(1.035);
     z-index: 20;
@@ -530,7 +467,6 @@ body {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  /* static, fully reachable gallery */
   .projects-track { animation: none; }
   .projects-viewport { overflow-x: auto; }
   .project-card { transition: border-color 320ms ease; }
@@ -538,10 +474,6 @@ body {
   .tech-chip { transition: none; }
 }
 
-/* ── Project tech stack — brand glyphs (Simple Icons) on espresso discs.
-   Resting: discs overlap left-to-right like a stacked deck.
-   Card hover: they fan open — transform only, the row already reserves
-   the fanned width, so the card never shifts. (see TechStack.tsx) */
 .tech-stack {
   display: flex;
   align-items: center;
@@ -564,8 +496,7 @@ body {
     color 300ms ease,
     border-color 300ms ease;
 }
-/* precise pointers: rest overlapped (chip i sits i*16px left → 10px of
-   overlap), fan fully open while the card is hovered or keyboard-focused */
+
 @media (hover: hover) and (pointer: fine) {
   .tech-chip { transform: translateX(calc(var(--i, 0) * -16px)); }
   .group:hover .tech-chip,
@@ -575,12 +506,11 @@ body {
     border-color: rgba(236, 220, 208, 0.34);
   }
 }
-/* touch devices have no hover — discs simply sit open, still readable */
+
 @media (hover: none), (pointer: coarse) {
   .tech-chip { transform: translateX(0); }
 }
 
-/* Sidebar rail pill — keeps the fixed rail legible over any section */
 .rail-pill {
   background: rgb(var(--t-surface) / 0.85);
   border: 1px solid rgb(var(--t-fg) / 0.1);
@@ -614,41 +544,26 @@ body {
   50% { opacity: 0.7; box-shadow: 0 0 0 6px rgb(var(--t-accent) / 0); }
 }
 
-/* ── Hero ground — warm cream base (#F7F4EF) + muted terracotta accent.
-     Paired with .section-rose for the remaining tokens; defined after the
-     palette block so these overrides win on the same element. ── */
 .hero-ground {
-  --t-bg: 247 244 239;       /* #F7F4EF warm cream */
-  --t-accent: 168 83 90;     /* #A8535A muted terracotta */
+  --t-bg: 247 244 239;
+  --t-accent: 168 83 90;
   background-color: rgb(var(--t-bg));
 }
 
-/* ── Contact / quote ground — dusty-rose tinted cream (#F3E8E4) so the
-     section connects to the hero cream without clashing with the dark
-     Projects band. Accent + primary button in muted terracotta; body
-     copy (--t-ink within this scope only) in #4A3E3B. ── */
 .contact-ground {
-  --t-bg: 243 232 228;       /* #F3E8E4 dusty-rose cream */
-  --t-accent: 168 83 90;     /* #A8535A */
-  --t-btn-bg: 168 83 90;     /* primary button = muted terracotta */
+  --t-bg: 243 232 228;
+  --t-accent: 168 83 90;
+  --t-btn-bg: 168 83 90;
   --t-btn-fg: 255 253 250;
-  --t-ink: 74 62 59;         /* #4A3E3B body text */
+  --t-ink: 74 62 59;
   background-color: rgb(var(--t-bg));
 }
 
-/* ── /projects ground — clean warm ivory (#F6F3EE) replacing the dull
-     grayish-brown taupe. Scoped to the projects <main> only: navbar,
-     footer and every other section keep their own palettes. ── */
 .projects-ground {
-  --t-bg: 246 243 238;       /* #F6F3EE warm ivory */
+  --t-bg: 246 243 238;
   background-color: rgb(var(--t-bg));
 }
 
-/* /projects cards — resting hairline + soft lift off the ivory ground.
-   .glass itself stays untouched (shared by home/about): width/style
-   remain with .glass, only the color + shadow are re-specified here,
-   and the existing hover accent borders are re-stated so they keep
-   winning above the new resting border. */
 .projects-ground .glass {
   border-color: rgba(0, 0, 0, 0.06);
   box-shadow: 0 12px 32px -8px rgba(35, 26, 24, 0.08);
@@ -660,7 +575,6 @@ body {
   border-color: rgb(var(--t-accent) / 0.2);
 }
 
-/* ── /projects card — lower text section: warm espresso glass container ── */
 .pj-content {
   background: rgba(30, 24, 22, 0.85);
   -webkit-backdrop-filter: blur(12px);
@@ -669,13 +583,6 @@ body {
   border-radius: 20px;
 }
 
-/* ── /projects card — 3D twirl & pop: exactly one clean spin per hover.
-     Perspective: 1000px and :hover live on the .pj-slot wrapper (page.tsx),
-     which never moves — so the spinning card cannot interrupt its own hover.
-     The transform transition sits ONLY on the :hover rule: entering runs the
-     twirl once, leaving snaps straight back (360deg ≡ 0deg, so just the
-     lift/scale pops — never a reverse spin). Moving card→card therefore
-     shows a single flip: the one you are heading to. ── */
 .pj-card {
   transform-style: preserve-3d;
   transition: box-shadow 0.4s ease;
@@ -686,7 +593,7 @@ body {
   box-shadow: 0 24px 48px -12px rgba(200, 109, 81, 0.25), 0 12px 24px -8px rgba(0, 0, 0, 0.3);
   border-color: rgba(200, 109, 81, 0.4);
 }
-/* tags — warm terracotta accent glyphs (home marquee keeps its cream) */
+
 .projects-ground .tech-chip { color: #c86d51; }
 .projects-ground .group:hover .tech-chip,
 .projects-ground .group:focus-visible .tech-chip { color: #c86d51; }
@@ -695,7 +602,6 @@ body {
   .projects-ground .pj-slot:hover .pj-card { transform: none; transition: none; }
 }
 
-/* Hero copy card — floating glassmorphism over the subtle poster art */
 .hero-card {
   position: relative;
   background: rgba(255, 253, 250, 0.65);
@@ -706,7 +612,7 @@ body {
   padding: 2.5rem;
   box-shadow: 0 20px 40px -15px rgba(60, 40, 30, 0.07);
 }
-/* the live dot stays green inside the card (palette accent renders rose here) */
+
 .hero-card .status-dot {
   background: #10b981;
   animation: status-pulse-live 2s infinite;
@@ -734,8 +640,7 @@ body {
   color: rgb(var(--t-accent));
   background: rgb(var(--t-accent) / 0.1);
 }
-/* Taupe: light text tops out ~3:1 on the mid-tone pill — flip to espresso ink
-   on a lightened (cream-tinted) pill so the label reaches ~4.5:1 */
+
 .section-taupe .tech-pill {
   color: rgb(var(--t-ink));
   background: rgb(var(--t-fg) / 0.3);
@@ -745,7 +650,7 @@ body {
   border-color: rgb(var(--t-ink) / 0.5);
   background: rgb(var(--t-fg) / 0.45);
 }
-/* Taupe cards: keep CTAs at full-strength fg for the palette's best ratio */
+
 .section-taupe .btn-ghost { color: rgb(var(--t-fg)); }
 
 .social-pill {
@@ -768,30 +673,24 @@ body {
   transform: translateY(-2px);
 }
 
-/* ── Experience section: editorial timeline cards ── */
 .exp-card {
   transition:
     border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
-/* The 4px hover lift is done with Framer WhileHover on the motion.article:
-   framer writes an inline transform that would block this CSS rule.
-   Under prefers-reduced-motion there is simply no lift. */
+
 .exp-card:hover {
   border-color: rgb(var(--t-accent) / 0.35);
   background-color: rgb(var(--t-fg) / 0.04);
   box-shadow: 0 18px 48px -34px rgb(var(--t-ink) / 0.5);
 }
 
-/* Custom hand-drawn swoosh arrow (Experience bullets) */
 .exp-arrow {
   flex-shrink: 0;
   display: block;
   width: 26px;
   margin-top: 1px;
-  /* Solid accent (matches the section palette) so the overlapping
-     head/body shapes blend seamlessly instead of double-darkening. */
   color: rgb(var(--t-accent) / 0.75);
   user-select: none;
   transition:
@@ -810,7 +709,6 @@ body {
   filter: drop-shadow(0 0 4px rgb(var(--t-accent) / 0.3));
 }
 
-/* Refined tech tags: muted by default, accent only on hover */
 .exp-tag {
   display: inline-flex;
   align-items: center;
@@ -840,8 +738,6 @@ body {
   .exp-tag:hover { transform: none; }
 }
 
-/* Global reduced-motion: collapse every CSS transition/animation.
-   (Framer Motion instances are guarded via useReducedMotion in components.) */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *,

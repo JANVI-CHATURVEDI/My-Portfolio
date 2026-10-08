@@ -30,7 +30,6 @@ const Headermain = () => {
           {logotext}
         </Link>
 
-        {/* Inline desktop navigation links */}
         <nav className="header-nav-desktop hidden md:flex items-center space-x-6 text-sm">
           <Link
             to="/"
@@ -66,7 +65,6 @@ const Headermain = () => {
         </div>
       </div>
 
-      {/* Mobile overlay menu */}
       <div className={`site__navigation ${!isActive ? "menu__opend" : ""}`}>
         <div className="bg__menu">
           <div className="narrow-container h-full flex flex-col justify-between py-12 px-6">

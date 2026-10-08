@@ -117,7 +117,6 @@ export default function LiquidEther({
     }
 
     const paletteTex = makePaletteTexture(colors);
-    // Hard-code transparent background vector (alpha 0)
     const bgVec4 = new THREE.Vector4(0, 0, 0, 0);
 
     class CommonClass {
@@ -139,7 +138,6 @@ export default function LiquidEther({
         this.pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
         this.resize();
         this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        // Always transparent
         this.renderer.autoClear = false;
         this.renderer.setClearColor(new THREE.Color(0x000000), 0);
         this.renderer.setPixelRatio(this.pixelRatio);
@@ -1090,7 +1088,6 @@ export default function LiquidEther({
             Common.renderer.forceContextLoss();
           }
         } catch {
-          /* noop */
         }
       }
     }
@@ -1166,14 +1163,12 @@ export default function LiquidEther({
         try {
           resizeObserverRef.current.disconnect();
         } catch {
-          /* noop */
         }
       }
       if (intersectionObserverRef.current) {
         try {
           intersectionObserverRef.current.disconnect();
         } catch {
-          /* noop */
         }
       }
       if (webglRef.current) {

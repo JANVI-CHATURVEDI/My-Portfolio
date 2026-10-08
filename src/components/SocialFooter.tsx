@@ -18,7 +18,6 @@ export default function SocialFooter() {
     <footer id="connect" className="relative overflow-hidden pt-24 pb-8">
       <div className="max-w-6xl mx-auto px-6">
 
-        {/* Contact heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -33,7 +32,6 @@ export default function SocialFooter() {
           </h3>
         </motion.div>
 
-        {/* Social pill links */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -59,7 +57,6 @@ export default function SocialFooter() {
           </div>
         </motion.div>
 
-        {/* Quote block */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -78,7 +75,6 @@ export default function SocialFooter() {
           </div>
         </motion.div>
 
-        {/* Bottom */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-[10px] font-mono font-medium text-white/50 border-t border-white/5 pt-6">
           <span>© {new Date().getFullYear()} Janvi Chaturvedi. Built with Next.js, Tailwind &amp; Framer Motion.</span>
           <span>Kanpur, India</span>

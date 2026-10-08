@@ -13,9 +13,6 @@ import {
   SiTailwindcss,
 } from 'react-icons/si';
 
-/* tag → brand glyph (Simple Icons, single-colour so they inherit the
-   card's warm ink tones). Unknown tags fall back to a generic code
-   glyph — the tooltip/aria label always keeps the full name. */
 const ICONS: Record<string, IconType> = {
   Django: SiDjango,
   Python: SiPython,
@@ -28,15 +25,6 @@ const ICONS: Record<string, IconType> = {
   'Leaflet.js': SiLeaflet,
 };
 
-/**
- * Project tech stack as overlapping icon discs that fan apart on card
- * hover (see .tech-chip in globals.css).
- *
- * The flex row always reserves the *fanned* width; the resting overlap
- * is pure transform, so hovering never shifts the card's layout.
- * Each disc carries `title` + `aria-label` — icons never replace the
- * actual name for assistive tech or curious hovers.
- */
 export default function TechStack({ tags }: { tags: string[] }) {
   return (
     <div className="tech-stack mb-4">

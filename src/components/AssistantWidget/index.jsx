@@ -59,7 +59,6 @@ const AssistantWidget = () => {
     setIsOpen(!isOpen);
   };
 
-  // Call Gemini REST API directly using gemini-1.5-flash
   const callGeminiAPI = async (userPrompt) => {
     try {
       const activeKey = apiKey || process.env.REACT_APP_GEMINI_API_KEY;
@@ -94,7 +93,6 @@ const AssistantWidget = () => {
     }
   };
 
-  // Local Grounded Fallback Engine
   const getGroundedResponse = (input) => {
     const lowerInput = input.toLowerCase();
 
@@ -131,10 +129,8 @@ const AssistantWidget = () => {
     setIsLoading(true);
     sound.playPop();
 
-    // Try Gemini API first if key exists
     let botReply = await callGeminiAPI(userMessage);
 
-    // Fall back to grounded engine if no API key or API call returned null
     if (!botReply) {
       botReply = getGroundedResponse(userMessage);
     }
@@ -146,7 +142,6 @@ const AssistantWidget = () => {
 
   return (
     <div className={`assistant-wrapper ${isOpen ? "open" : ""}`}>
-      {/* Chat Window */}
       <div className={`assistant-window ${isOpen ? "active" : ""}`}>
         <div className="assistant-header">
           <div className="assistant-title">
@@ -168,7 +163,6 @@ const AssistantWidget = () => {
           </div>
         </div>
 
-        {/* Gemini Settings Drawer */}
         {showSettings && (
           <div className="settings-drawer">
             <div className="settings-title">
@@ -225,7 +219,6 @@ const AssistantWidget = () => {
         </form>
       </div>
 
-      {/* Floating Action Button */}
       <button
         className={`assistant-fab ${isOpen ? "hidden" : ""}`}
         onClick={toggleChat}

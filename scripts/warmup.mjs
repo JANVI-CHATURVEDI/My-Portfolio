@@ -1,15 +1,4 @@
 #!/usr/bin/env node
-/**
- * Route warm-up for `next dev`.
- *
- * The dev server compiles each route lazily — the first request to a page
- * pays the compile cost (that's the delay you see on the first menu click).
- * This script requests every route once so they are all compiled up front;
- * afterwards the dev server serves them from cache instantly.
- *
- *   npm run warmup         warm an already-running dev server
- *   npm run dev:warm       start `next dev` (if not already up) + warm all routes
- */
 import { spawn } from 'node:child_process';
 import { existsSync, readdirSync } from 'node:fs';
 import { join, sep } from 'node:path';
@@ -20,7 +9,6 @@ const PORT = Number(process.env.PORT || 3000);
 const BASE = `http://localhost:${PORT}`;
 const WITH_DEV = process.argv.includes('--with-dev');
 
-/** Discover every App Router route: a page file under src/app → URL path. */
 function discoverRoutes() {
   const appDir = join(ROOT, 'src', 'app');
   const routes = [];
@@ -43,7 +31,7 @@ function discoverRoutes() {
 async function ping(timeoutMs = 2500) {
   try {
     const res = await fetch(`${BASE}/`, { signal: AbortSignal.timeout(timeoutMs) });
-    return res.status; // any HTTP response means the server is up
+    return res.status;
   } catch {
     return null;
   }
@@ -63,7 +51,7 @@ async function warm(route) {
   const t0 = Date.now();
   try {
     const res = await fetch(BASE + route, { signal: AbortSignal.timeout(120000) });
-    await res.arrayBuffer().catch(() => {}); // drain so the compile finishes
+    await res.arrayBuffer().catch(() => {});
     return { ok: res.ok, status: res.status, ms: Date.now() - t0 };
   } catch (e) {
     return { ok: false, status: 'ERR', ms: Date.now() - t0, err: e.message };
@@ -113,5 +101,4 @@ for (const route of routes) {
 
 console.log('[warmup] done — every page is compiled; menu clicks are instant now.');
 
-// If we spawned the dev server, stay alive and keep forwarding its output.
 if (!child) process.exit(0);

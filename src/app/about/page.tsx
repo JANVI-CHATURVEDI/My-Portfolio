@@ -19,7 +19,6 @@ const interests = [
   { icon: '🌍', label: 'Open Source Advocate' },
 ];
 
-/* Hand-drawn sticker set scattered around the polaroid */
 const stickers = [
   {
     label: 'green-sparkle',
@@ -98,12 +97,10 @@ export default function AboutPage() {
       <LiquidBg />
       <div className="relative z-10 max-w-6xl mx-auto px-6 lg:pl-24 pt-24">
 
-        {/* ── Section 1: scrapbook hero — tilted polaroid + editorial collage ── */}
         <section
           aria-label="Introduction"
           className="relative mb-24 flex flex-col justify-center overflow-hidden pb-4 lg:min-h-[calc(100vh-12rem)]"
         >
-          {/* Oversized marker word — outlined texture behind the composition */}
           <span
             aria-hidden
             style={{ WebkitTextStroke: '2px rgb(var(--t-fg) / 0.14)' }}
@@ -127,7 +124,6 @@ export default function AboutPage() {
                   Wanna{' '}
                   <span className="relative inline-block whitespace-nowrap font-display font-normal italic text-emerald-400">
                     know me?
-                    {/* hand-drawn green underline */}
                     <svg
                       aria-hidden
                       viewBox="0 0 300 12"
@@ -169,7 +165,6 @@ export default function AboutPage() {
                   </a>
                 </div>
 
-                {/* Stat stickers */}
                 <div className="mb-5 mt-5 flex flex-wrap gap-3">
                   {stats.map((s, i) => (
                     <div
@@ -186,7 +181,6 @@ export default function AboutPage() {
                   ))}
                 </div>
 
-                {/* identity tags */}
                 <div className="flex flex-wrap items-center gap-4 font-mono text-[11px] uppercase tracking-wider [&>span]:bg-white/[0.05]">
                   <span className="flex -rotate-[1deg] items-center gap-1.5 border border-dashed border-white/20 px-2.5 py-1.5 text-white/85">
                     <Terminal size={12} className="text-white/70" /> Developer
@@ -200,7 +194,6 @@ export default function AboutPage() {
                 </div>
             </motion.div>
 
-            {/* Polaroid composition — left on desktop, after the text on mobile */}
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -208,18 +201,15 @@ export default function AboutPage() {
               className="order-2 flex flex-col items-center self-start pt-10 lg:order-1 lg:col-span-4 lg:items-start"
             >
               <div className="relative ml-0 w-fit lg:ml-6">
-                {/* backing sheet */}
                 <div
                   aria-hidden
                   className="absolute inset-0 translate-x-3 translate-y-4 rotate-[2.5deg] border border-white/10 bg-white/[0.04]"
                 />
-                {/* washi tape */}
                 <div
                   aria-hidden
                   className="absolute -top-3 left-1/2 z-10 h-7 w-24 -translate-x-1/2 -rotate-[6deg] border-y border-white/10 bg-[var(--tape)]"
                 />
 
-                {/* The polaroid */}
                 <figure className="relative w-[260px] -rotate-[3.5deg] bg-[var(--paper)] px-3 pb-3 pt-3 shadow-[0_20px_50px_-18px_rgba(41,35,34,0.45)] sm:w-[300px]">
                   <div className="aspect-square overflow-hidden bg-[rgb(var(--t-ink))]">
                     <img
@@ -239,7 +229,6 @@ export default function AboutPage() {
                   </figcaption>
                 </figure>
 
-                {/* Scattered stickers */}
                 {stickers.map((st, i) => (
                   <motion.span
                     key={st.label}
@@ -254,7 +243,6 @@ export default function AboutPage() {
                 ))}
               </div>
 
-              {/* handwritten annotation */}
               <div className="mt-3 flex items-start gap-1 self-start pl-1 lg:pl-6">
                 <span className="max-w-[260px] -rotate-3 font-marker text-lg leading-snug text-white/85">
                   Currently building CivicConnect. Stay tuned.
@@ -279,7 +267,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ── Section 2: Experience — editorial timeline ── */}
         <motion.section
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -305,7 +292,6 @@ export default function AboutPage() {
                   key={i}
                   className="relative md:pl-14 pb-8 last:pb-0"
                 >
-                  {/* subtle vertical connector */}
                   {!isLast && (
                     <span
                       aria-hidden="true"
@@ -313,7 +299,6 @@ export default function AboutPage() {
                     />
                   )}
 
-                  {/* rail node: 01 02 03 */}
                   <span
                     aria-hidden="true"
                     className="hidden md:flex absolute left-0 top-6 w-8 h-8 items-center justify-center rounded-full border border-white/15 bg-[rgb(var(--t-surface))] text-[10px] font-mono font-medium text-white/70"
@@ -337,7 +322,6 @@ export default function AboutPage() {
                     }
                     className="exp-card glass rounded-2xl p-6 sm:p-7 lg:p-8"
                   >
-                    {/* NUMBER → ROLE → COMPANY → DATE */}
                     <header className="flex flex-wrap items-start justify-between gap-x-6 gap-y-1 mb-5">
                       <div className="min-w-0">
                         <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
@@ -361,7 +345,6 @@ export default function AboutPage() {
                       </time>
                     </header>
 
-                    {/* DESCRIPTION — custom hand-drawn swoosh arrow */}
                     <ul className="space-y-3.5 mb-6">
                       {item.points.map((point, idx) => {
                         const delay = i * 0.1 + idx * 0.07;
@@ -396,7 +379,6 @@ export default function AboutPage() {
                       })}
                     </ul>
 
-                    {/* STACK */}
                     {item.tech && (
                       <div className="flex flex-wrap gap-1.5 pt-5 border-t border-white/[0.06]">
                         {item.tech.map((t) => (
@@ -413,7 +395,6 @@ export default function AboutPage() {
           </div>
         </motion.section>
 
-        {/* ── Section 3: Education — compact academic timeline ── */}
         <motion.section
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -482,7 +463,6 @@ export default function AboutPage() {
           </div>
         </motion.section>
 
-        {/* ── Section 4: Skills — horizontal ticker style ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -530,7 +510,6 @@ export default function AboutPage() {
           </div>
         </motion.div>
 
-        {/* ── Section 5: Persona — editorial quote-style ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

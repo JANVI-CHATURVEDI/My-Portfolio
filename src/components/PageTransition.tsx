@@ -3,16 +3,6 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { usePathname } from "next/navigation";
 
-/**
- * Fast page-level crossfade keyed by route. Exit is quick (160ms) so
- * navigation never feels slow; enter is a soft 300ms fade.
- * Opacity only — no transform — so scrollbars, fixed children and
- * layout are never disturbed mid-transition. Navbar/Sidebar live in the
- * root layout outside this wrapper and stay put like a persistent shell.
- * The wrapper markup is identical on server and client (never branched
- * on reduced-motion — that would break hydration); reduced motion only
- * collapses the durations, so routes swap instantly with no fade.
- */
 export default function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const reduced = useReducedMotion();

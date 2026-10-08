@@ -17,8 +17,6 @@ const projectImages: Record<number, string> = {
 
 export default function FeaturedProjects() {
   const featured = projects.slice(0, 7);
-  /* duplicated set → seamless -50% loop (see .projects-track in globals.css).
-     The copy is aria-hidden so assistive tech doesn't read projects twice. */
   const loop = [...featured, ...featured];
 
   return (
@@ -37,8 +35,6 @@ export default function FeaturedProjects() {
           <p className="text-white/75 text-sm font-mono font-medium tracking-wide">A selection of things I&apos;ve built</p>
         </motion.div>
 
-        {/* ── Infinite marquee: viewport clips, track glides, slot sizes,
-              card handles its own hover pop-out (all CSS, see globals.css) */}
         <div className="projects-viewport">
           <div className="projects-track">
             {loop.map((project, i) => {
@@ -63,7 +59,6 @@ export default function FeaturedProjects() {
                     tabIndex={duplicate ? -1 : undefined}
                     className="project-card group rounded-2xl overflow-hidden flex flex-col"
                   >
-                    {/* Image plate — contained, rounded by the card's overflow */}
                     <div className="aspect-video overflow-hidden">
                       <img
                         src={projectImages[project.id] || '/images/project-tweet.png'}
@@ -72,7 +67,6 @@ export default function FeaturedProjects() {
                       />
                     </div>
 
-                    {/* Info area — visually separated from the image */}
                     <div className="project-card__body flex flex-1 flex-col p-5">
                       <div className="flex items-center justify-between mb-3">
                         <span className={`project-status text-[10px] font-mono px-2.5 py-1 rounded-full border ${
@@ -116,7 +110,6 @@ export default function FeaturedProjects() {
           </div>
         </div>
 
-        {/* View all CTA */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

@@ -32,12 +32,10 @@ const gitaQuote = {
 };
 
 const skills = [
-  // Backend
   { name: "Python", value: 90, icon: <FaPython size={20} /> },
   { name: "Django", value: 85, icon: <SiDjango size={20} /> },
   { name: "Java", value: 75, icon: <FaJava size={20} /> },
 
-  // Frontend
   { name: "JavaScript", value: 80, icon: <FaJsSquare size={20} /> },
   { name: "React", value: 75, icon: <FaReact size={20} /> },
   { name: "HTML5", value: 95, icon: <FaHtml5 size={20} /> },
@@ -45,11 +43,9 @@ const skills = [
   { name: "Bootstrap", value: 85, icon: <FaBootstrap size={20} /> },
   { name: "Tailwind CSS", value: 80, icon: <SiTailwindcss size={20} /> },
 
-  // Database
   { name: "SQLite", value: 80, icon: <SiSqlite size={20} /> },
   { name: "PostgreSQL", value: 75, icon: <SiPostgresql size={20} /> },
 
-  // Tools
   { name: "Git", value: 85, icon: <FaGitAlt size={20} /> },
   { name: "GitHub", value: 85, icon: <SiGithub size={20} /> },
   { name: "Firebase", value: 80, icon: <SiFirebase size={20} /> },
@@ -138,7 +134,7 @@ const dataportfolio = [
     name: "Travel Destination Explorer",
     img: travelimg,
     description:
-      "Interactive map-based travel explorer with filters, responsive design, rich destination details, and React + Leaflet.js.",
+      "Live-edition explorer: 24 curated places across 6 regions with live photos, weather, and country facts from free public APIs.",
     link: "https://travel-destination-explorer-neon.vercel.app/",
     github: "https://github.com/JANVI-CHATURVEDI/Travel-Destination-Explorer",
     status: "in-progress",

@@ -30,10 +30,6 @@ const IsDevice = (() => {
       OperaMini() {
         return ua.match(/Opera Mini/i)
       },
-  
-      /**
-       * Any Device
-       */
       any() {
         return (
           IsDevice.Android() ||
@@ -69,25 +65,7 @@ function useEventListener(eventName, handler, element = document) {
     }, [eventName, element])
   }
   
-  /**
- * Cursor Core
- * Replaces the native cursor with a custom animated cursor, consisting
- * of an inner and outer dot that scale inversely based on hover or click.
- *
- * @author Stephen Scaff (github.com/stephenscaff)
- *
- * @param {string} color - rgb color value
- * @param {number} outerAlpha - level of alpha transparency for color
- * @param {number} innerSize - inner cursor size in px
- * @param {number} innerScale - inner cursor scale amount
- * @param {number} outerSize - outer cursor size in px
- * @param {number} outerScale - outer cursor scale amount
- * @param {object} outerStyle - style object for outer cursor
- * @param {object} innerStyle - style object for inner cursor
- * @param {array}  clickables - array of clickable selectors
- *
- */
-function CursorCore({
+  function CursorCore({
     outerStyle,
     innerStyle,
     color = '220, 90, 90',
@@ -122,11 +100,6 @@ function CursorCore({
     let endX = useRef(0)
     let endY = useRef(0)
   
-    /**
-     * Primary Mouse move event
-     * @param {number} clientX - MouseEvent.clientx
-     * @param {number} clientY - MouseEvent.clienty
-     */
     const onMouseMove = useCallback(({ clientX, clientY }) => {
       setCoords({ x: clientX, y: clientY })
       cursorInnerRef.current.style.top = `${clientY}px`
@@ -135,7 +108,6 @@ function CursorCore({
       endY.current = clientY
     }, [])
   
-    // Outer Cursor Animation Delay
     const animateOuterCursor = useCallback(
       (time) => {
         if (previousTimeRef.current !== undefined) {
@@ -150,13 +122,11 @@ function CursorCore({
       [requestRef] // eslint-disable-line
     )
   
-    // RAF for animateOuterCursor
     useEffect(() => {
       requestRef.current = requestAnimationFrame(animateOuterCursor)
       return () => cancelAnimationFrame(requestRef.current)
     }, [animateOuterCursor])
   
-    // Mouse Events State updates
     const onMouseDown = useCallback(() => setIsActive(true), [])
     const onMouseUp = useCallback(() => setIsActive(false), [])
     const onMouseEnterViewport = useCallback(() => setIsVisible(true), [])
@@ -168,7 +138,6 @@ function CursorCore({
     useEventListener('mouseover', onMouseEnterViewport)
     useEventListener('mouseout', onMouseLeaveViewport)
   
-    // Cursors Hover/Active State
     useEffect(() => {
       if (isActive) {
         cursorInnerRef.current.style.transform = `translate(-50%, -50%) scale(${innerScale})`
@@ -179,7 +148,6 @@ function CursorCore({
       }
     }, [innerScale, outerScale, isActive])
   
-    // Cursors Click States
     useEffect(() => {
       if (isActiveClickable) {
         cursorInnerRef.current.style.transform = `translate(-50%, -50%) scale(${
@@ -191,7 +159,6 @@ function CursorCore({
       }
     }, [innerScale, outerScale, isActiveClickable])
   
-    // Cursor Visibility State
     useEffect(() => {
       if (isVisible) {
         cursorInnerRef.current.style.opacity = 1
@@ -250,7 +217,6 @@ function CursorCore({
       }
     }, [isActive, clickables])
   
-    // Cursor Styles
     const styles = {
       cursorInner: {
         zIndex: 999,
@@ -279,7 +245,6 @@ function CursorCore({
       }
     }
   
-    // Hide / Show global cursor
     document.body.style.cursor = 'none'
   
     return (
@@ -290,10 +255,6 @@ function CursorCore({
     )
   }
   
-  /**
-   * AnimatedCursor
-   * Calls and passes props to CursorCore if not a touch/mobile device.
-   */
   function AnimatedCursor({
     outerStyle,
     innerStyle,

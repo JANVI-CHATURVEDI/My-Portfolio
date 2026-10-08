@@ -20,7 +20,6 @@ const TechHologram = () => {
     canvas.style.height = `${height}px`;
     ctx.scale(dpr, dpr);
 
-    // Create dual concentric orbital rings with particles
     const particles = [];
     const numParticles = 36;
     const radiusOuter = 75;
@@ -45,7 +44,6 @@ const TechHologram = () => {
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Check current theme
       const isLightMode = document.documentElement.getAttribute("data-theme") === "light";
       const mainColor = isLightMode ? "#0a0a0a" : "#ffffff";
       const strokeColor = isLightMode ? "rgba(0, 0, 0, 0.18)" : "rgba(255, 255, 255, 0.2)";
@@ -58,14 +56,11 @@ const TechHologram = () => {
       const cosY = Math.cos(angleY);
       const sinY = Math.sin(angleY);
 
-      // Project points
       const projected = particles.map((p) => {
-        // Rotate Y
         let x1 = p.x * cosY - p.z * sinY;
         let z1 = p.z * cosY + p.x * sinY;
         let y1 = p.y;
 
-        // Rotate X
         let y2 = y1 * cosX - z1 * sinX;
         let z2 = z1 * cosX + y1 * sinX;
 
@@ -77,7 +72,6 @@ const TechHologram = () => {
         return { x: xProj, y: yProj, z: z2, scale, isOuter: p.isOuter };
       });
 
-      // Draw orbital ring trails
       ctx.beginPath();
       ctx.strokeStyle = strokeColor;
       ctx.lineWidth = 1.2;
@@ -99,7 +93,6 @@ const TechHologram = () => {
       }
       ctx.stroke();
 
-      // Draw nodes
       projected.forEach((p) => {
         ctx.beginPath();
         const nodeRadius = Math.max(0.8, (p.isOuter ? 3 : 2) * p.scale);
@@ -110,7 +103,6 @@ const TechHologram = () => {
         ctx.globalAlpha = 1.0;
       });
 
-      // Draw central core
       ctx.beginPath();
       ctx.arc(width / 2, height / 2, 4, 0, Math.PI * 2);
       ctx.fillStyle = mainColor;

@@ -44,11 +44,11 @@
 }
 
 .stick_follow_icon ul li:hover svg {
-    transform: scale(1.8); /* enlarge hovered icon */
+    transform: scale(1.8);
 }
 
 .stick_follow_icon ul li:hover {
-    margin-bottom: 25px; /* push others smoothly */
+    margin-bottom: 25px;
 }
 
 .stick_follow_icon p:after {
@@ -98,7 +98,7 @@
         margin-bottom: 0;
     }
     .stick_follow_icon ul li:hover svg {
-        transform: scale(1.5); /* slightly smaller on mobile */
+        transform: scale(1.5);
     }
 } 
 

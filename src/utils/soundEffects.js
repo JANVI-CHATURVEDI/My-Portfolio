@@ -1,17 +1,13 @@
-// Web Audio API lightweight synthesizer - Zero external audio files required
 class SoundEffects {
   constructor() {
     this.audioCtx = null;
     this.enabled = true;
-
-    // Check localStorage preference
     try {
       const saved = localStorage.getItem("portfolio_sound_enabled");
       if (saved !== null) {
         this.enabled = saved === "true";
       }
     } catch (e) {
-      // ignore
     }
   }
 
@@ -96,7 +92,7 @@ class SoundEffects {
       if (!this.audioCtx) return;
 
       const now = this.audioCtx.currentTime;
-      const notes = [523.25, 659.25, 783.99, 1046.5]; // C5, E5, G5, C6
+      const notes = [523.25, 659.25, 783.99, 1046.5];
 
       notes.forEach((freq, index) => {
         const osc = this.audioCtx.createOscillator();

@@ -21,8 +21,6 @@ export default function HeroSidebar() {
       transition={{ duration: 0.8, delay: 0.3 }}
       className="fixed left-8 top-0 bottom-0 hidden lg:flex flex-col items-center justify-center z-20"
     >
-      {/* Social icons stack — soft surface pill keeps the rail legible
-          over every section palette (light or dark). */}
       <div className="rail-pill flex flex-col items-center gap-5 px-2 py-3">
         {icons.map((item, i) => (
           <motion.a
@@ -43,10 +41,6 @@ export default function HeroSidebar() {
         ))}
       </div>
 
-      {/* Vertical line + Contact Me (rotated opposite).
-          The label lives in a fixed-size slot matching its rotated
-          footprint, so the line and the pill share one exact center
-          axis and the line can't overlap the rotated text. */}
       <div className="flex flex-col items-center mt-6">
         <div className="w-px h-16 self-center bg-gradient-to-b from-[rgb(var(--t-accent)/0.5)] to-transparent" />
         <div className="relative mt-3 h-32 w-6">

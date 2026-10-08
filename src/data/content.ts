@@ -138,14 +138,14 @@ export const projects: Project[] = [
   {
     id: 5,
     name: "Travel Explorer",
-    description: "Interactive map-based travel explorer.",
-    longDescription: "An interactive map-based travel destination explorer with rich filters, responsive design, detailed destination cards, and optimized performance using React and Leaflet.js.",
+    description: "Discover the world, live as it happens.",
+    longDescription: "Live-edition travel explorer covering 24 curated places across 6 regions. Every photo, story, temperature, and country fact streams fresh from free public APIs (Wikipedia, Open-Meteo), with URL-synced explore filters, detail pages with 5-day forecasts, and an interactive Leaflet map.",
     status: "in-progress",
-    tags: ["React", "Tailwind CSS", "Leaflet.js"],
+    tags: ["React", "Tailwind CSS", "Leaflet.js", "Vanilla JS"],
     link: "https://travel-destination-explorer-neon.vercel.app/",
     github: "https://github.com/JANVI-CHATURVEDI/Travel-Destination-Explorer",
-    features: ["Interactive Leaflet maps", "Destination filtering", "Rich detail cards", "Responsive grid", "Optimized performance"],
-    year: "2025",
+    features: ["Live photos, weather & country facts via public APIs", "Explore page with URL-synced filters & sort", "Detail pages with 5-day forecast & nearby escapes", "Interactive Leaflet map with fit-bounds pins", "Cached responses with graceful offline fallback"],
+    year: "2026",
     role: "Solo Developer",
   },
 ];
@@ -236,9 +236,6 @@ export const education: Education[] = [
   },
 ];
 
-/* Hero rotating tagline — replaces the static "Building Polished
-   Digital Experiences." line. Each entry is two lines: `top` in white
-   serif italic, `accent` in emerald display, matching the old hierarchy. */
 export const heroTaglines: { top: string; accent: string }[] = [
   { top: 'Full-stack development,', accent: 'design to deploy.' },
   { top: 'From database schema', accent: 'to polished interface.' },

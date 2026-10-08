@@ -37,9 +37,6 @@ export default function ProjectsPage() {
           </p>
         </motion.div>
 
-        {/* Compact 2-column grid — the slot owns perspective + :hover and
-            never moves, so the spinning card can't interrupt its own hover;
-            the inner .pj-card is the element that actually twirls. */}
         <div className="grid md:grid-cols-2 gap-5 mb-10">
           {projects.map((project, i) => (
             <motion.div
@@ -50,7 +47,6 @@ export default function ProjectsPage() {
               className="pj-slot group [perspective:1000px]"
             >
               <div className="pj-card glass rounded-3xl overflow-hidden flex flex-col h-full">
-              {/* Compact image */}
               <div className="relative aspect-[16/9] overflow-hidden">
                 <img
                   src={projectImages[project.id] || '/images/project-tweet.png'}
@@ -59,7 +55,6 @@ export default function ProjectsPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink-scrim)] via-transparent to-transparent" />
 
-                {/* Status badge floating */}
                 <span className={`absolute top-3 left-3 text-[10px] font-mono px-2.5 py-1 rounded-full border backdrop-blur-sm ${
                   project.status === 'completed'
                     ? 'bg-emerald-400/75 text-white border-emerald-400/60'
@@ -68,7 +63,6 @@ export default function ProjectsPage() {
                   {project.status === 'completed' ? '● Live' : '● Building'}
                 </span>
 
-                {/* Year + role floating bottom — translucent chip for readability */}
                 <div className="absolute bottom-2 left-3 flex items-center gap-2 text-[10px] font-mono font-medium text-[#C2B8B2] bg-black/35 backdrop-blur-[2px] px-2.5 py-1 rounded-full">
                   <span>{project.year}</span>
                   <span className="w-0.5 h-0.5 rounded-full bg-white/50" />
@@ -76,7 +70,6 @@ export default function ProjectsPage() {
                 </div>
               </div>
 
-              {/* Compact content — warm espresso glass container */}
               <div className="pj-content p-5 flex-1 flex flex-col">
                 <h2 className="text-xl font-bold text-[#FAF7F2] mb-1.5 transition-colors">
                   {project.name}
@@ -88,7 +81,6 @@ export default function ProjectsPage() {
                   {project.longDescription || project.description}
                 </p>
 
-                {/* Key features — compact single line each */}
                 {project.features && (
                   <div className="mb-4 space-y-1">
                     {project.features.slice(0, 3).map((f) => (
@@ -102,12 +94,10 @@ export default function ProjectsPage() {
                   </div>
                 )}
 
-                {/* Tags — overlapping icon stack, fans open on card hover */}
                 <div className="mt-auto">
                   <TechStack tags={project.tags} />
                 </div>
 
-                {/* Actions */}
                 <div className="flex gap-2 pt-3 border-t border-white/5">
                   {project.link && (
                     <a
@@ -137,7 +127,6 @@ export default function ProjectsPage() {
             </motion.div>
           ))}
 
-          {/* "+ More coming" placeholder card */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}

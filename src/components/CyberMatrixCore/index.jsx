@@ -41,7 +41,6 @@ const CyberMatrixCore = () => {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
 
-  // Typewriter effect for code block
   useEffect(() => {
     const fullText = codeSnippets[activeSnippetIdx].code;
     let i = 0;
@@ -59,7 +58,6 @@ const CyberMatrixCore = () => {
     return () => clearInterval(timer);
   }, [activeSnippetIdx]);
 
-  // 3D Canvas Matrix Mesh Animation
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -75,7 +73,6 @@ const CyberMatrixCore = () => {
     canvas.style.height = `${height}px`;
     ctx.scale(dpr, dpr);
 
-    // 3D Polyhedron Nodes (Icosahedron / Quantum Cube)
     const nodes = [
       { x: -1, y: -1, z: -1 }, { x: 1, y: -1, z: -1 },
       { x: 1, y: 1, z: -1 },  { x: -1, y: 1, z: -1 },
@@ -107,12 +104,10 @@ const CyberMatrixCore = () => {
       const nodeColor = isLightMode ? "#000000" : "#ffffff";
 
       const projected = nodes.map(n => {
-        // Rotate Y
         let x1 = n.x * Math.cos(rotY) - n.z * Math.sin(rotY);
         let z1 = n.z * Math.cos(rotY) + n.x * Math.sin(rotY);
         let y1 = n.y;
 
-        // Rotate X
         let y2 = y1 * Math.cos(rotX) - z1 * Math.sin(rotX);
         let z2 = z1 * Math.cos(rotX) + y1 * Math.sin(rotX);
 
@@ -125,7 +120,6 @@ const CyberMatrixCore = () => {
         };
       });
 
-      // Draw Edges
       ctx.beginPath();
       ctx.strokeStyle = strokeColor;
       ctx.lineWidth = 1.2;
@@ -136,7 +130,6 @@ const CyberMatrixCore = () => {
       });
       ctx.stroke();
 
-      // Draw Nodes
       projected.forEach(p => {
         ctx.beginPath();
         ctx.arc(p.x, p.y, Math.max(1, 3 * p.scale), 0, Math.PI * 2);
@@ -152,7 +145,6 @@ const CyberMatrixCore = () => {
     return () => cancelAnimationFrame(animId);
   }, []);
 
-  // Parallax Tilt on Mouse Move
   const handleMouseMove = (e) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
@@ -176,7 +168,6 @@ const CyberMatrixCore = () => {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Floating Status Telemetry Badges */}
       <div className="telemetry-badge telemetry-badge-top">
         <FiCheckCircle className="badge-icon success" />
         <span>API Gateway • 200 OK</span>
@@ -187,7 +178,6 @@ const CyberMatrixCore = () => {
         <span>Django + React • 60 FPS</span>
       </div>
 
-      {/* Terminal Window Header */}
       <div className="workbench-header">
         <div className="window-dots">
           <span className="dot dot-red"></span>
@@ -217,7 +207,6 @@ const CyberMatrixCore = () => {
         </div>
       </div>
 
-      {/* Terminal Content Body */}
       <div className="workbench-body">
         <div className="code-editor-side">
           <div className="code-line-numbers">
@@ -234,7 +223,6 @@ const CyberMatrixCore = () => {
           </pre>
         </div>
 
-        {/* 3D Quantum Mesh Node Side */}
         <div className="workbench-quantum-side">
           <div className="quantum-canvas-wrapper">
             <canvas ref={canvasRef} className="quantum-mesh-canvas" />
@@ -248,7 +236,6 @@ const CyberMatrixCore = () => {
         </div>
       </div>
 
-      {/* Terminal Footer Bar */}
       <div className="workbench-footer">
         <div className="footer-left">
           <span className="status-dot"></span>

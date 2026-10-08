@@ -2,11 +2,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useInView, useReducedMotion } from 'framer-motion';
 
-/**
- * Eased number roll-up: counts from 0 to `to` once the element scrolls into
- * view (ease-out-cubic over `duration` ms). Snaps to the final value under
- * prefers-reduced-motion.
- */
 export default function CountUp({
   to,
   suffix = '',

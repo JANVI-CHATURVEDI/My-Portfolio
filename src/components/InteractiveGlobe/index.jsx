@@ -2,50 +2,33 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import "./InteractiveGlobe.css";
 import { sound } from "../../utils/soundEffects";
 
-// Continental landmass dot cluster coordinates [lat, lon]
 const CONTINENT_DOTS = [
-  // India & South Asia
   [26.45, 80.33], [28.61, 77.21], [19.07, 72.88], [12.97, 77.59], [13.08, 80.27],
   [22.57, 88.36], [17.38, 78.48], [23.02, 72.57], [26.91, 75.79], [31.52, 74.35],
   [24.86, 67.00], [6.92, 79.86], [23.81, 90.41], [27.71, 85.32],
-  
-  // East & Southeast Asia
   [39.9, 116.4], [31.2, 121.5], [22.3, 114.2], [35.7, 139.7], [34.7, 135.5],
   [37.5, 127.0], [1.35, 103.8], [13.75, 100.5], [14.6, 120.98], [10.8, 106.6],
   [-6.2, 106.8], [30.6, 104.0], [36.0, 120.3], [43.8, 87.6], [25.0, 121.5],
   [43.0, 141.3], [33.5, 130.4], [3.14, 101.7],
-
-  // Europe
   [51.5, -0.12], [48.85, 2.35], [52.52, 13.4], [41.9, 12.5], [40.4, -3.7],
   [52.37, 4.9], [50.85, 4.35], [47.37, 8.54], [48.2, 16.37], [50.07, 14.4],
   [55.75, 37.6], [59.33, 18.06], [60.17, 24.94], [59.91, 10.75], [55.67, 12.56],
   [37.98, 23.72], [41.0, 28.98], [38.7, -9.14], [53.34, -6.26], [52.23, 21.01],
-
-  // Middle East
   [25.2, 55.27], [24.7, 46.67], [29.37, 47.97], [32.08, 34.78], [35.68, 51.38],
   [31.95, 35.93], [33.89, 35.5],
-
-  // Africa
   [30.04, 31.23], [36.8, 10.18], [33.57, -7.58], [9.05, 7.49], [6.52, 3.37],
   [-1.29, 36.82], [-4.44, 15.26], [-26.2, 28.04], [-33.92, 18.42], [14.69, -17.44],
   [0.34, 32.58], [-18.9, 47.5], [5.36, -4.0], [7.94, -1.02],
-
-  // North America
   [37.77, -122.42], [34.05, -118.24], [40.71, -74.0], [41.87, -87.62], [47.6, -122.33],
   [30.26, -97.74], [25.76, -80.19], [39.73, -104.99], [45.51, -122.67], [32.77, -96.79],
   [43.65, -79.38], [45.5, -73.56], [49.28, -123.12], [19.43, -99.13], [20.65, -103.34],
   [36.16, -115.14], [33.44, -112.07], [29.76, -95.36], [38.9, -77.03], [42.36, -71.05],
-
-  // South America
   [-23.55, -46.63], [-22.9, -43.17], [-34.6, -58.38], [-33.44, -70.66], [4.71, -74.07],
   [-12.04, -77.04], [-0.18, -78.46], [-16.5, -68.15], [10.48, -66.9], [-25.26, -57.57],
-
-  // Australia & Oceania
   [-33.86, 151.2], [-37.81, 144.96], [-27.47, 153.02], [-31.95, 115.86],
   [-36.84, 174.76], [-41.28, 174.77]
 ];
 
-// Connection Arcs starting from India (Kanpur / Bangalore) to Global Hubs
 const GLOBAL_HUBS = [
   { name: "San Francisco", lat: 37.77, lon: -122.42 },
   { name: "London", lat: 51.5, lon: -0.12 },
@@ -59,11 +42,10 @@ export const InteractiveGlobe = () => {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
 
-  // Rotation angles (degrees/radians)
   const rotationRef = useRef({
-    lon: 250, // Initial view toward Asia / India
+    lon: 250,
     lat: -18,
-    velLon: 0.28, // gentle auto-spin
+    velLon: 0.28,
     velLat: 0,
   });
 
@@ -75,7 +57,6 @@ export const InteractiveGlobe = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [activeHub, setActiveHub] = useState("India (HQ)");
 
-  // Convert lat/lon to 3D Cartesian coordinates on unit sphere
   const latLonToSphere = (latDeg, lonDeg, radius) => {
     const latRad = (latDeg * Math.PI) / 180;
     const lonRad = (lonDeg * Math.PI) / 180;
@@ -86,17 +67,14 @@ export const InteractiveGlobe = () => {
     };
   };
 
-  // 3D rotation matrix application
   const rotatePoint = (p, rotLat, rotLon) => {
     const radLon = (rotLon * Math.PI) / 180;
     const radLat = (rotLat * Math.PI) / 180;
 
-    // Y-axis rotation (longitude)
     const x1 = p.x * Math.cos(radLon) + p.z * Math.sin(radLon);
     const y1 = p.y;
     const z1 = -p.x * Math.sin(radLon) + p.z * Math.cos(radLon);
 
-    // X-axis rotation (latitude tilt)
     const x2 = x1;
     const y2 = y1 * Math.cos(radLat) - z1 * Math.sin(radLat);
     const z2 = y1 * Math.sin(radLat) + z1 * Math.cos(radLat);
@@ -118,7 +96,6 @@ export const InteractiveGlobe = () => {
     rotationRef.current.lon += dx * 0.45;
     rotationRef.current.lat -= dy * 0.45;
 
-    // Clamp latitude tilt so it doesn't flip upside down
     rotationRef.current.lat = Math.max(-65, Math.min(65, rotationRef.current.lat));
 
     rotationRef.current.velLon = dx * 0.15;
@@ -188,10 +165,8 @@ export const InteractiveGlobe = () => {
       const cy = height / 2;
       const radius = (width / 2) * 0.72;
 
-      // Update rotation
       if (!isDraggingRef.current) {
         rotationRef.current.lon += rotationRef.current.velLon;
-        // Damping towards standard auto-spin
         rotationRef.current.velLon += (0.28 - rotationRef.current.velLon) * 0.04;
         rotationRef.current.velLat *= 0.95;
         rotationRef.current.lat += rotationRef.current.velLat;
@@ -203,7 +178,6 @@ export const InteractiveGlobe = () => {
       const rotLon = rotationRef.current.lon;
       const rotLat = rotationRef.current.lat;
 
-      // 1. Draw Atmospheric Glow Behind Globe
       const atmGlow = ctx.createRadialGradient(
         cx,
         cy,
@@ -220,7 +194,6 @@ export const InteractiveGlobe = () => {
       ctx.arc(cx, cy, radius * 1.3, 0, Math.PI * 2);
       ctx.fill();
 
-      // 2. Base Sphere Dark Backdrop
       const sphereFill = ctx.createRadialGradient(
         cx - radius * 0.35,
         cy - radius * 0.35,
@@ -237,13 +210,10 @@ export const InteractiveGlobe = () => {
       ctx.arc(cx, cy, radius, 0, Math.PI * 2);
       ctx.fill();
 
-      // Sphere Outer Rim Ring
       ctx.strokeStyle = "rgba(168, 85, 247, 0.5)";
       ctx.lineWidth = 1.5 * dpr;
       ctx.stroke();
 
-      // 3. Draw Latitude & Longitude Wireframe Rings
-      // Longitude meridians
       for (let lon = 0; lon < 360; lon += 30) {
         ctx.beginPath();
         let started = false;
@@ -269,7 +239,6 @@ export const InteractiveGlobe = () => {
         ctx.stroke();
       }
 
-      // Latitude parallels
       for (let lat = -60; lat <= 60; lat += 30) {
         ctx.beginPath();
         let started = false;
@@ -295,7 +264,6 @@ export const InteractiveGlobe = () => {
         ctx.stroke();
       }
 
-      // 4. Draw Continental Landmass Dots
       CONTINENT_DOTS.forEach(([lat, lon]) => {
         const pt = latLonToSphere(lat, lon, radius);
         const rpt = rotatePoint(pt, rotLat, rotLon);
@@ -315,7 +283,6 @@ export const InteractiveGlobe = () => {
         }
       });
 
-      // 5. Draw Global Connection Arcs (India -> Hubs)
       const indiaPt = latLonToSphere(26.45, 80.33, radius);
       const rIndia = rotatePoint(indiaPt, rotLat, rotLon);
 
@@ -323,7 +290,6 @@ export const InteractiveGlobe = () => {
         const hubPt = latLonToSphere(hub.lat, hub.lon, radius);
         const rHub = rotatePoint(hubPt, rotLat, rotLon);
 
-        // Draw great-circle arched bezier line if both or either is visible
         if (rIndia.z > -radius * 0.3 || rHub.z > -radius * 0.3) {
           ctx.beginPath();
           const segments = 24;
@@ -331,7 +297,6 @@ export const InteractiveGlobe = () => {
 
           for (let s = 0; s <= segments; s++) {
             const t = s / segments;
-            // Interpolate spherical coords with arc loft height
             const currentLat = 26.45 + (hub.lat - 26.45) * t;
             const currentLon = 80.33 + (hub.lon - 80.33) * t;
             const loft = Math.sin(t * Math.PI) * (radius * 0.22);
@@ -357,7 +322,6 @@ export const InteractiveGlobe = () => {
           ctx.lineWidth = 1 * dpr;
           ctx.stroke();
 
-          // Draw travelling pulse packet along the arc
           const pulseT = (arcProgressRef.current + hub.lat * 0.01) % 1;
           const pLat = 26.45 + (hub.lat - 26.45) * pulseT;
           const pLon = 80.33 + (hub.lon - 80.33) * pulseT;
@@ -376,7 +340,6 @@ export const InteractiveGlobe = () => {
           }
         }
 
-        // Draw Hub Marker
         if (rHub.z > 0) {
           const hx = cx + rHub.x;
           const hy = cy + rHub.y;
@@ -387,12 +350,10 @@ export const InteractiveGlobe = () => {
         }
       });
 
-      // 6. Draw Kanpur, India HQ Beacon (Prominent Pulsating Pin)
       if (rIndia.z > 0) {
         const ix = cx + rIndia.x;
         const iy = cy + rIndia.y;
 
-        // Pulsating Radar Waves
         const pulseSize = (Math.sin(pulseRef.current) * 0.5 + 0.5) * 14 * dpr + 4 * dpr;
         const pulseAlpha = 1 - (pulseSize / (18 * dpr));
 
@@ -402,7 +363,6 @@ export const InteractiveGlobe = () => {
         ctx.lineWidth = 1.8 * dpr;
         ctx.stroke();
 
-        // Second ripple
         const pulseSize2 = ((Math.sin(pulseRef.current + 1.5) * 0.5 + 0.5) * 12 * dpr) + 3 * dpr;
         ctx.beginPath();
         ctx.arc(ix, iy, pulseSize2, 0, Math.PI * 2);
@@ -410,7 +370,6 @@ export const InteractiveGlobe = () => {
         ctx.lineWidth = 1.2 * dpr;
         ctx.stroke();
 
-        // Core Center Pin
         ctx.beginPath();
         ctx.arc(ix, iy, 4.5 * dpr, 0, Math.PI * 2);
         ctx.fillStyle = "#ec4899";
@@ -424,7 +383,6 @@ export const InteractiveGlobe = () => {
         ctx.fill();
         ctx.shadowBlur = 0;
 
-        // Glowing Location Badge Tag
         const tagText = "📍 Janvi (Kanpur, India)";
         ctx.font = `bold ${10 * dpr}px sans-serif`;
         const textWidth = ctx.measureText(tagText).width;
@@ -479,7 +437,6 @@ export const InteractiveGlobe = () => {
           title="Click and drag to rotate the 3D Earth"
         />
 
-        {/* Floating Controls & Status Badge */}
         <div className="globe-meta-pill">
           <span className="globe-live-indicator"></span>
           <span>{isHovered ? `Focus: ${activeHub}` : "3D World • Drag to Spin"}</span>

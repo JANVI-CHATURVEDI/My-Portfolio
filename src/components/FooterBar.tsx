@@ -1,9 +1,5 @@
 "use client";
 
-/**
- * Site-wide footer bar — © line + location, aligned to the content column.
- * Rendered once in the root layout so every page ends with it.
- */
 export default function FooterBar() {
   return (
     <footer className="relative z-10 max-w-6xl mx-auto px-6 lg:pl-24 pb-10">

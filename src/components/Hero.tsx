@@ -7,14 +7,11 @@ export default function Hero() {
 
   return (
     <section id="home" className="section-rose hero-ground relative z-10 min-h-screen flex items-center overflow-hidden">
-      {/* Vintage posters/guitar photo — deliberately low opacity (0.18) so it
-          is subtle texture over the warm cream base, never a readability risk */}
       <div className="absolute inset-0 z-0">
         <img
           src="/images/hero-bg.jpg"
           alt=""
           className="w-full h-full object-cover opacity-[0.18]"
-          /* warm sepia tint — keeps the B&W photo inside the creme theme */
           style={{ filter: 'sepia(0.55) saturate(1.05) contrast(1.02)' }}
         />
       </div>
@@ -22,7 +19,6 @@ export default function Hero() {
       <div className="relative z-10 max-w-6xl mx-auto px-6 lg:pl-24 w-full">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center min-h-[80vh]">
 
-          {/* Left: Avatar with glow */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -30,7 +26,6 @@ export default function Hero() {
             className="flex justify-center lg:justify-start"
           >
             <div className="relative group">
-              {/* Warm cream halo — clay + dusty rose, no cool tones */}
               <div className="absolute -inset-4 bg-gradient-to-tr from-[#C18D8D]/30 via-transparent to-[#B08A78]/30 rounded-full blur-2xl group-hover:blur-[60px] transition-all duration-700" />
               <div className="absolute -inset-2 bg-gradient-to-br from-[#C18D8D]/15 to-transparent rounded-full blur-xl" />
 
@@ -44,15 +39,12 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Right: content card — floating glassmorphism (.hero-card) so
-              the copy is 100% readable while the poster art shows through */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: reduced ? 0 : 0.8, delay: reduced ? 0 : 0.15, ease: [0.22, 1, 0.36, 1] }}
             className="hero-card space-y-4"
           >
-            {/* Status */}
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -63,7 +55,6 @@ export default function Hero() {
               <span className="text-sm font-mono font-bold text-[#6B5E57] tracking-wide">Available For Work</span>
             </motion.div>
 
-            {/* Name — 2.5rem / 700 / solid deep charcoal-espresso, one line */}
             <h1 className="whitespace-nowrap text-[2rem] sm:text-[2.5rem] font-bold tracking-tight text-[#231A18]">
               Janvi Chaturvedi
             </h1>
@@ -77,17 +68,14 @@ export default function Hero() {
               Based in India
             </motion.p>
 
-            {/* Tagline — muted terracotta / dusty rose, serif italic, 1.6rem/500 */}
             <h2 className="font-serif italic font-medium text-[1.6rem] leading-[1.3] text-[#A8535A]">
               <TaglineRotator />
             </h2>
 
-            {/* Bio — body copy #4A3E3B */}
             <p className="text-[0.95rem] font-normal leading-[1.6] text-[#4A3E3B] max-w-md">
               Full-stack developer passionate about creating clean, scalable, and user-friendly applications. Specializing in Python, Django, React, and modern web architectures.
             </p>
 
-            {/* Experience hint — one subtle credibility line; details live in About */}
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -100,7 +88,6 @@ export default function Hero() {
               </span>
             </motion.div>
 
-            {/* Location + role */}
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -115,7 +102,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

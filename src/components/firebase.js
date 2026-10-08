@@ -14,7 +14,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 
-// Function to increment and fetch visitor count
 export async function incrementVisitors() {
   const docRef = doc(db, "stats", "visitors");
   const docSnap = await getDoc(docRef);

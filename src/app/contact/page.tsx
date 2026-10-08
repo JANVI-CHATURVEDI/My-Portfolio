@@ -34,7 +34,6 @@ export default function ContactPage() {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-8">
-          {/* Left: Social + Info */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -45,7 +44,6 @@ export default function ContactPage() {
               <h3 className="text-sm font-mono text-emerald-400 tracking-wide mb-4">Direct Channels</h3>
               <p className="text-white/85 text-sm mb-6">Feel free to connect for collaboration, opportunities, or projects.</p>
 
-              {/* Email copy */}
               <div className="flex items-center gap-3 mb-2 p-3 rounded-xl bg-white/[0.02] border border-white/5">
                 <Mail size={16} className="text-emerald-400/80 flex-shrink-0" />
                 <span className="text-sm text-white/85 font-medium font-mono flex-1 min-w-0 break-all">janvichaturvedi82@gmail.com</span>
@@ -59,7 +57,6 @@ export default function ContactPage() {
                 </button>
               </div>
 
-              {/* Social pills */}
               <div className="flex flex-wrap gap-2 mt-6">
                 {socials
                   .filter((s) => s.label !== 'Instagram' && s.label !== 'WhatsApp')
@@ -81,7 +78,6 @@ export default function ContactPage() {
 
           </motion.div>
 
-          {/* Right: Contact form */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -98,8 +94,6 @@ export default function ContactPage() {
               }}
               className="space-y-4"
             >
-              {/* Name + email share a row so the whole form — submit button
-                  included — fits the first screen without scrolling. */}
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-[10px] font-mono font-medium text-white/75 tracking-wider uppercase block mb-2">Your Name</label>

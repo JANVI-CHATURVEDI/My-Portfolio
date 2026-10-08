@@ -7,7 +7,6 @@ export default function HomePage() {
   return (
     <main className="section-nude min-h-screen text-white overflow-hidden relative">
       <Hero />
-      {/* Everything after the hero (the only image background): liquid backdrop */}
       <div>
         <LiquidBg />
         <FeaturedProjects />

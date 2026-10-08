@@ -1,11 +1,3 @@
-/** @type {import('tailwindcss').Config} */
-
-/* Palette-aware color mapping: existing utility names are re-expressed as
-   CSS-channel variables defined by the .section-* classes in globals.css.
-   white  → section foreground (primary text / borders)
-   black  → fixed espresso ink (scrims, photo wells, inverse text)
-   emerald → section accent       cyan → section highlight
-   amber  → section highlight     slate → section secondary tones */
 const ch = (v) => `rgb(var(${v}) / <alpha-value>)`;
 
 module.exports = {

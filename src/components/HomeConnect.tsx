@@ -9,7 +9,6 @@ export default function HomeConnect() {
   return (
     <section className="section-rose contact-ground relative py-20">
       <div className="max-w-6xl mx-auto px-6 lg:pl-24">
-        {/* Connect CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -42,7 +41,6 @@ export default function HomeConnect() {
           </div>
         </motion.div>
 
-        {/* Frosted-glass quote card — aurora, pointer spotlight, word reveal */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

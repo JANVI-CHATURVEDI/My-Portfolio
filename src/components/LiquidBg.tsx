@@ -3,24 +3,10 @@
 import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
 
-// three.js is ~700 kB — load it only after mount, never on the server.
 const LiquidEther = dynamic(() => import('./LiquidEther'), { ssr: false });
 
-// Brand palette sampled by fluid speed: warm rosewood (ambient drift) →
-// dusty rose → muted sage — a muted, printed-feel echo of the editorial
-// palettes. Rendered at very low opacity as a subtle top wash (see below).
 const PALETTE = ['#9B7464', '#C18D8D', '#A4A48F'];
 
-/**
- * Liquid-ether backdrop (React Bits). Renders a fixed, full-viewport layer:
- *
- *  - mounts only while its host region intersects the viewport;
- *  - never renders under prefers-reduced-motion;
- *  - z-30 + pointer-events-none + low opacity: a gentle warm wash drifting
- *    over the color-blocked sections (they paint solid backgrounds, so the
- *    layer sits above them at ~7% intensity — printed/editorial, not neon —
- *    and can never swallow clicks).
- */
 export default function LiquidBg() {
   const hostRef = useRef<HTMLDivElement | null>(null);
   const [active, setActive] = useState(false);
@@ -33,10 +19,6 @@ export default function LiquidBg() {
     let reduced = mq.matches;
     let inView = false;
     const sync = () => setActive(!reduced && inView);
-
-    // -10% bottom rootMargin: the region must reach 90% into the viewport
-    // before mounting — edge contact with the hero would otherwise count as
-    // an intersection and put liquid over the first slide.
     const io = new IntersectionObserver(
       (entries) => {
         inView = entries[0].isIntersecting;

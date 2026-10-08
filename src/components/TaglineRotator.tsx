@@ -9,13 +9,6 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 type Phase = "active" | "exit" | "wait";
 
-/**
- * Rotating hero tagline. Every phrase is stacked in one grid cell so the
- * container height is constant — zero layout shift between rotations.
- * Outgoing phrase slides up and fades first, incoming rises in just after,
- * so two phrases are never legible on top of each other.
- * Reduced motion: stays on the first phrase, no rotation.
- */
 export default function TaglineRotator() {
   const reduced = useReducedMotion();
   const [state, setState] = useState<{ cur: number; prev: number | null }>({

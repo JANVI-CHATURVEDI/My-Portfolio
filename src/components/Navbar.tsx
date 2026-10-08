@@ -31,10 +31,6 @@ export default function Navbar() {
       scrolled ? 'bg-[var(--nav-bg-solid)] backdrop-blur-xl border-b border-white/5' : 'bg-[var(--nav-bg)] backdrop-blur-md'
     }`}>
       <div className="max-w-6xl mx-auto px-6 lg:pl-24 h-16 flex items-center justify-between">
-        {/* Brand lockup: flowing-J monogram + custom JANVI wordmark.
-            Hover → a soft accent trace draws along the J's curve
-            (root → flick, ~360ms); wordmark deepens to full ink and
-            opens its tracking by 1u per gap. No scale, no glow. */}
         <Link href="/" aria-label="Janvi — home" className="group flex items-center gap-2.5">
           <BrandMark size={28} className="text-emerald-400" />
           <BrandWordmark
@@ -43,7 +39,6 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Desktop links */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => {
             const active = pathname === link.href;
