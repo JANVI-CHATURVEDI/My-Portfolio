@@ -1,10 +1,12 @@
 "use client";
 import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { socials } from '../data/content';
+import { SWARM_EASE } from '../utils/swarmMotion';
 
 export default function HeroSidebar() {
+  const reduced = useReducedMotion();
   const getUrl = (label: string) => socials.find(s => s.label === label)?.url || '#';
 
   const icons = [
@@ -16,9 +18,13 @@ export default function HeroSidebar() {
 
   return (
     <motion.aside
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.8, delay: 0.3 }}
+      initial={{ opacity: 0, x: -18, scale: 0.78 }}
+      animate={{ opacity: 1, x: 0, scale: 1 }}
+      transition={{
+        duration: reduced ? 0 : 0.5,
+        delay: reduced ? 0 : 0.3,
+        ease: SWARM_EASE,
+      }}
       className="fixed left-8 top-0 bottom-0 hidden lg:flex flex-col items-center justify-center z-20"
     >
       <div className="rail-pill flex flex-col items-center gap-5 px-2 py-3">
@@ -29,9 +35,13 @@ export default function HeroSidebar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={item.label}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 + i * 0.1 }}
+            initial={{ opacity: 0, scale: 0.4 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              delay: reduced ? 0 : 0.55 + i * 0.09,
+              duration: reduced ? 0 : 0.4,
+              ease: SWARM_EASE,
+            }}
             className="group text-white/75 hover:text-emerald-400 transition-colors duration-300"
           >
             <span className="block transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-[2px]">
@@ -41,7 +51,16 @@ export default function HeroSidebar() {
         ))}
       </div>
 
-      <div className="flex flex-col items-center mt-6">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8, y: 10 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{
+          delay: reduced ? 0 : 1,
+          duration: reduced ? 0 : 0.45,
+          ease: SWARM_EASE,
+        }}
+        className="flex flex-col items-center mt-6"
+      >
         <div className="w-px h-16 self-center bg-gradient-to-b from-[rgb(var(--t-accent)/0.5)] to-transparent" />
         <div className="relative mt-3 h-32 w-6">
           <Link
@@ -51,7 +70,7 @@ export default function HeroSidebar() {
             Contact Me
           </Link>
         </div>
-      </div>
+      </motion.div>
     </motion.aside>
   );
 }

@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { usePathname } from "next/navigation";
+import { SWARM_EASE } from "../utils/swarmMotion";
 
 export default function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -11,14 +12,16 @@ export default function PageTransition({ children }: { children: React.ReactNode
     <AnimatePresence mode="wait" initial={false}>
       <motion.div
         key={pathname}
-        initial={{ opacity: 0 }}
+        initial={{ opacity: 0, scale: 0.96 }}
         animate={{
           opacity: 1,
-          transition: { duration: reduced ? 0 : 0.3, ease: [0.22, 1, 0.36, 1] },
+          scale: 1,
+          transition: { duration: reduced ? 0 : 0.42, ease: SWARM_EASE },
         }}
         exit={{
           opacity: 0,
-          transition: { duration: reduced ? 0 : 0.16, ease: "easeIn" },
+          scale: 1.015,
+          transition: { duration: reduced ? 0 : 0.15, ease: "easeIn" },
         }}
       >
         {children}

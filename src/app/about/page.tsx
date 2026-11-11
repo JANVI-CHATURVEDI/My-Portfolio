@@ -6,6 +6,7 @@ import ExperienceArrow from '../../components/ExperienceArrow';
 import LiquidBg from '../../components/LiquidBg';
 import CountUp from '../../components/CountUp';
 import { education, experience, skillMatrix } from '../../data/content';
+import { SWARM_EASE, DRAW_EASE, POP, popT, build, snap } from '../../utils/swarmMotion';
 
 const stats = [
   { label: 'Merged PRs', value: 6, suffix: '+' },
@@ -95,7 +96,7 @@ export default function AboutPage() {
   return (
     <main className="section-nude min-h-screen text-white">
       <LiquidBg />
-      <div className="relative z-10 max-w-6xl mx-auto px-6 lg:pl-24 pt-24">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:pl-24 pt-24">
 
         <section
           aria-label="Introduction"
@@ -104,23 +105,28 @@ export default function AboutPage() {
           <span
             aria-hidden
             style={{ WebkitTextStroke: '2px rgb(var(--t-fg) / 0.14)' }}
-            className="pointer-events-none absolute bottom-2 right-0 select-none rotate-[-6deg] font-marker text-[6.5rem] leading-none text-transparent sm:text-[9rem] lg:text-[13rem]"
+            className="pointer-events-none absolute bottom-2 right-0 select-none rotate-[-6deg] font-marker text-[5rem] leading-none text-transparent sm:text-[9rem] lg:text-[13rem]"
           >
             ABOUT.
           </span>
 
           <div className="relative z-10 grid w-full items-center gap-y-12 lg:grid-cols-12 lg:gap-x-8">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              initial="hidden"
+              animate="show"
+              variants={build(0.08, 0.1)}
               className="order-1 lg:order-2 lg:col-span-8 lg:ml-10"
             >
-                <p className="inline-block -rotate-[2deg] border border-white/25 bg-white/[0.04] px-3 py-1.5 text-[11px] font-mono uppercase tracking-[0.3em] text-white/80">
-                  01 — A LITTLE ABOUT ME
-                </p>
+                <motion.div variants={snap} className="block">
+                  <p className="inline-block -rotate-[2deg] border border-white/25 bg-white/[0.04] px-3 py-1.5 text-[11px] font-mono uppercase tracking-[0.3em] text-white/80">
+                    01 — A LITTLE ABOUT ME
+                  </p>
+                </motion.div>
 
-                <h1 className="mb-6 mt-6 text-4xl font-extrabold leading-[1.04] tracking-tight text-white sm:text-5xl lg:text-[4.25rem]">
+                <motion.h1
+                  variants={snap}
+                  className="mb-6 mt-6 text-4xl font-extrabold leading-[1.04] tracking-tight text-white sm:text-5xl lg:text-[4.25rem]"
+                >
                   Wanna{' '}
                   <span className="relative inline-block whitespace-nowrap font-display font-normal italic text-emerald-400">
                     know me?
@@ -130,25 +136,35 @@ export default function AboutPage() {
                       preserveAspectRatio="none"
                       className="absolute -bottom-1.5 left-0 h-2.5 w-full overflow-visible"
                     >
-                      <path
+                      {/* Underline draws itself the moment the heading lands. */}
+                      <motion.path
                         d="M3 8 C 62 2, 118 10, 176 5 S 262 3, 297 7"
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="3"
                         strokeLinecap="round"
-                        vectorEffect="non-scaling-stroke"
+                        initial={{ pathLength: reduced ? 1 : 0 }}
+                        animate={{ pathLength: 1 }}
+                        transition={{
+                          duration: reduced ? 0 : 0.7,
+                          delay: reduced ? 0 : 0.55,
+                          ease: DRAW_EASE,
+                        }}
                       />
                     </svg>
                   </span>
-                </h1>
+                </motion.h1>
 
-                <p className="mb-5 max-w-xl text-sm font-[450] leading-relaxed text-white/80 sm:text-base">
+                <motion.p
+                  variants={snap}
+                  className="mb-5 max-w-xl text-sm font-[450] leading-relaxed text-white/80 sm:text-base"
+                >
                   Started as a kid who was curious about how things worked.
                   <br />
                   Now I build things, break things, fix them, and ship them.
-                </p>
+                </motion.p>
 
-                <div className="flex flex-wrap gap-4">
+                <motion.div variants={snap} className="flex flex-wrap gap-4">
                   <Link
                     href="/contact"
                     className="btn-primary px-6 py-3 rounded-full font-bold text-sm hover:-translate-y-[2px] transition-all duration-300"
@@ -163,9 +179,9 @@ export default function AboutPage() {
                   >
                     Hire Me — Resume
                   </a>
-                </div>
+                </motion.div>
 
-                <div className="mb-5 mt-5 flex flex-wrap gap-3">
+                <motion.div variants={snap} className="mb-5 mt-5 flex flex-wrap gap-3">
                   {stats.map((s, i) => (
                     <div
                       key={s.label}
@@ -179,9 +195,9 @@ export default function AboutPage() {
                       </div>
                     </div>
                   ))}
-                </div>
+                </motion.div>
 
-                <div className="flex flex-wrap items-center gap-4 font-mono text-[11px] uppercase tracking-wider [&>span]:bg-white/[0.05]">
+                <motion.div variants={snap} className="flex flex-wrap items-center gap-4 font-mono text-[11px] uppercase tracking-wider [&>span]:bg-white/[0.05]">
                   <span className="flex -rotate-[1deg] items-center gap-1.5 border border-dashed border-white/20 px-2.5 py-1.5 text-white/85">
                     <Terminal size={12} className="text-white/70" /> Developer
                   </span>
@@ -191,13 +207,13 @@ export default function AboutPage() {
                   <span className="flex -rotate-[0.5deg] items-center gap-1.5 border border-dashed border-white/20 px-2.5 py-1.5 text-white/85">
                     <Rocket size={12} className="text-white/70" /> Open Source · Builder
                   </span>
-                </div>
+                </motion.div>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
+              initial={POP.block.initial}
+              animate={POP.block.reveal}
+              transition={popT(0.18, 0.6)}
               className="order-2 flex flex-col items-center self-start pt-10 lg:order-1 lg:col-span-4 lg:items-start"
             >
               <div className="relative ml-0 w-fit lg:ml-6">
@@ -210,20 +226,22 @@ export default function AboutPage() {
                   className="absolute -top-3 left-1/2 z-10 h-7 w-24 -translate-x-1/2 -rotate-[6deg] border-y border-white/10 bg-[var(--tape)]"
                 />
 
-                <figure className="relative w-[260px] -rotate-[3.5deg] bg-[var(--paper)] px-3 pb-3 pt-3 shadow-[0_20px_50px_-18px_rgba(41,35,34,0.45)] sm:w-[300px]">
+                <figure className="relative w-[min(260px,78vw)] -rotate-[3.5deg] bg-[var(--paper)] px-3 pb-3 pt-3 shadow-[0_20px_50px_-18px_rgba(41,35,34,0.45)] sm:w-[300px]">
                   <div className="aspect-square overflow-hidden bg-[rgb(var(--t-ink))]">
                     <img
                       src="/images/about-portrait.jpg"
                       alt="Janvi Chaturvedi"
+                      loading="lazy"
+                      decoding="async"
                       className="h-full w-full object-cover object-[50%_35%]"
                     />
                   </div>
                   <figcaption className="px-1 pt-2.5 text-center">
                     <p className="font-marker text-[1.35rem] leading-tight text-[rgb(var(--t-ink))]">Janvi Chaturvedi</p>
-                    <p className="mt-1 font-mono text-[8.5px] uppercase tracking-[0.16em] text-black/75">
+                    <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.16em] text-black/75">
                       Backend · Full-Stack · Open Source
                     </p>
-                    <p className="mt-1.5 flex items-center justify-center gap-1.5 font-mono text-[9.5px] uppercase tracking-[0.14em] text-black/70">
+                    <p className="mt-1.5 flex items-center justify-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-black/70">
                       <span className="status-dot" /> Available for work
                     </p>
                   </figcaption>
@@ -244,23 +262,45 @@ export default function AboutPage() {
               </div>
 
               <div className="mt-3 flex items-start gap-1 self-start pl-1 lg:pl-6">
-                <span className="max-w-[260px] -rotate-3 font-marker text-lg leading-snug text-white/85">
+                <span className="max-w-[min(260px,58vw)] -rotate-3 font-marker text-lg leading-snug text-white/85">
                   Currently building CivicConnect. Stay tuned.
                 </span>
-                <svg width="34" height="30" viewBox="0 0 34 30" fill="none" aria-hidden className="mb-1 text-white/55">
-                  <path
+                {/* This little arrow is drawn stroke-by-stroke, then keeps
+                    nudging toward the note forever after. */}
+                <motion.svg
+                  width="34"
+                  height="30"
+                  viewBox="0 0 34 30"
+                  fill="none"
+                  aria-hidden
+                  className="mb-1 shrink-0 text-white/55"
+                  initial={{ x: 0 }}
+                  animate={reduced ? { x: 0 } : { x: [0, -5, 0] }}
+                  transition={
+                    reduced
+                      ? { duration: 0 }
+                      : { delay: 0.95, duration: 1.6, repeat: Infinity, ease: 'easeInOut' }
+                  }
+                >
+                  <motion.path
                     d="M31 27 C 24 25, 14 20, 9 8"
                     stroke="currentColor"
                     strokeWidth="2"
                     strokeLinecap="round"
+                    initial={{ pathLength: reduced ? 1 : 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.3, ease: DRAW_EASE }}
                   />
-                  <path
+                  <motion.path
                     d="M9 8 L 12.7 16.2 M9 8 L 17.6 10.4"
                     stroke="currentColor"
                     strokeWidth="2"
                     strokeLinecap="round"
+                    initial={{ pathLength: reduced ? 1 : 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: reduced ? 0 : 0.2, delay: reduced ? 0 : 0.72, ease: 'easeOut' }}
                   />
-                </svg>
+                </motion.svg>
               </div>
 
             </motion.div>
@@ -268,9 +308,9 @@ export default function AboutPage() {
         </section>
 
         <motion.section
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          initial={POP.block.initial}
+          whileInView={POP.block.reveal}
+          transition={popT(0, 0.5)}
           viewport={{ once: true, margin: '-60px' }}
           className="section-graphite bleed py-16 sm:py-20 lg:py-24 mb-24"
           aria-label="Work experience"
@@ -307,12 +347,12 @@ export default function AboutPage() {
                   </span>
 
                   <motion.article
-                    initial={{ opacity: 0, y: 18 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={POP.block.initial}
+                    whileInView={POP.block.reveal}
                     transition={{
                       duration: reduced ? 0 : 0.5,
                       delay: reduced ? 0 : i * 0.1,
-                      ease: [0.22, 1, 0.36, 1],
+                      ease: SWARM_EASE,
                     }}
                     viewport={{ once: true, margin: '-40px' }}
                     whileHover={
@@ -360,14 +400,16 @@ export default function AboutPage() {
                             <ExperienceArrow delay={delay} />
                             <motion.span
                               variants={{
-                                hidden: { opacity: 0, x: -6 },
+                                hidden: { opacity: 0, x: -8, scale: 0.9, filter: 'blur(6px)' },
                                 show: {
                                   opacity: 1,
                                   x: 0,
+                                  scale: 1,
+                                  filter: 'blur(0px)',
                                   transition: {
-                                    duration: reduced ? 0 : 0.45,
-                                    delay: reduced ? 0 : delay + 0.5,
-                                    ease: [0.22, 1, 0.36, 1],
+                                    duration: reduced ? 0 : 0.4,
+                                    delay: reduced ? 0 : delay + 0.45,
+                                    ease: SWARM_EASE,
                                   },
                                 },
                               }}
@@ -396,9 +438,9 @@ export default function AboutPage() {
         </motion.section>
 
         <motion.section
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          initial={POP.block.initial}
+          whileInView={POP.block.reveal}
+          transition={popT(0, 0.5)}
           viewport={{ once: true, margin: '-60px' }}
           className="section-chocolate bleed py-16 sm:py-20 lg:py-24 mb-24"
           aria-label="Education"
@@ -414,12 +456,12 @@ export default function AboutPage() {
             {education.map((item, i) => (
               <motion.article
                 key={item.degree}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={POP.block.initial}
+                whileInView={POP.block.reveal}
                 transition={{
                   duration: reduced ? 0 : 0.5,
                   delay: reduced ? 0 : i * 0.1,
-                  ease: [0.22, 1, 0.36, 1],
+                  ease: SWARM_EASE,
                 }}
                 viewport={{ once: true, margin: '-40px' }}
                 whileHover={
@@ -464,9 +506,9 @@ export default function AboutPage() {
         </motion.section>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          initial={POP.block.initial}
+          whileInView={POP.block.reveal}
+          transition={popT(0, 0.55)}
           viewport={{ once: true }}
           className="section-olive bleed py-16 sm:py-20 lg:py-24 mb-24"
         >
@@ -482,9 +524,9 @@ export default function AboutPage() {
             {skillMatrix.map((cat, ci) => (
               <motion.div
                 key={cat.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: ci * 0.1 }}
+                initial={POP.block.initial}
+                whileInView={POP.block.reveal}
+                transition={popT(ci * 0.1)}
                 viewport={{ once: true }}
                 whileHover={
                   reduced
@@ -511,9 +553,9 @@ export default function AboutPage() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          initial={POP.block.initial}
+          whileInView={POP.block.reveal}
+          transition={popT(0, 0.55)}
           viewport={{ once: true }}
           className="section-cream bleed pt-16 sm:pt-20 lg:pt-24 pb-24"
         >

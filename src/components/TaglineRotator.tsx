@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { heroTaglines } from "../data/content";
+import { SWARM_EASE } from "../utils/swarmMotion";
 
 const HOLD_MS = 3800;
-const EASE = [0.22, 1, 0.36, 1] as const;
 
 type Phase = "active" | "exit" | "wait";
 
@@ -40,10 +40,10 @@ export default function TaglineRotator() {
 
         const transition =
           phase === "active"
-            ? { duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.18, ease: EASE }
+            ? { duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.1, ease: SWARM_EASE }
             : phase === "exit"
-            ? { duration: reduced ? 0 : 0.22, ease: EASE }
-            : { duration: 0.3, ease: EASE };
+            ? { duration: reduced ? 0 : 0.16, ease: SWARM_EASE }
+            : { duration: 0.25, ease: SWARM_EASE };
 
         return (
           <motion.span

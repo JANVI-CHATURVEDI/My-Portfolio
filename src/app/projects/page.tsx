@@ -4,26 +4,27 @@ import { ArrowUpRight, Github, ExternalLink } from 'lucide-react';
 import LiquidBg from '../../components/LiquidBg';
 import TechStack from '../../components/TechStack';
 import { projects } from '../../data/content';
+import { POP, popT } from '../../utils/swarmMotion';
 
 const projectImages: Record<number, string> = {
   1: '/images/project-tweet.png',
-  2: '/images/project-devlinktree.png',
+  2: '/images/project-devlinktree.jpg',
   3: '/images/project-onetime.png',
-  4: '/images/project-coffee.png',
-  5: '/images/project-travel.png',
-  6: '/images/project-swachdrishti.png',
-  7: '/images/project-civicconnect.png',
+  4: '/images/project-coffee.jpg',
+  5: '/images/project-travel.jpg',
+  6: '/images/project-swachdrishti.jpg',
+  7: '/images/project-civicconnect.jpg',
 };
 
 export default function ProjectsPage() {
   return (
     <main className="section-taupe projects-ground min-h-screen text-white">
       <LiquidBg />
-      <div className="relative z-10 max-w-6xl mx-auto px-6 lg:pl-24 pt-28 pb-20">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:pl-24 pt-24 pb-16 md:pb-20">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          initial={POP.block.initial}
+          animate={POP.block.reveal}
+          transition={popT(0, 0.55)}
           className="mb-14"
         >
           <p className="text-xs font-mono tracking-[0.3em] text-[#5A524A] uppercase mb-4">
@@ -41,9 +42,10 @@ export default function ProjectsPage() {
           {projects.map((project, i) => (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i * 0.07 }}
+              initial={POP.block.initial}
+              whileInView={POP.block.reveal}
+              transition={popT(i * 0.09)}
+              viewport={{ once: true, amount: 0.15 }}
               className="pj-slot group [perspective:1000px]"
             >
               <div className="pj-card glass rounded-3xl overflow-hidden flex flex-col h-full">
@@ -51,6 +53,8 @@ export default function ProjectsPage() {
                 <img
                   src={projectImages[project.id] || '/images/project-tweet.png'}
                   alt={project.name}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink-scrim)] via-transparent to-transparent" />
@@ -104,7 +108,7 @@ export default function ProjectsPage() {
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-primary flex-1 items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-semibold text-xs hover:-translate-y-[2px] transition-all duration-300"
+                      className="btn-primary flex-1 items-center justify-center gap-1.5 px-4 py-3 min-h-[44px] rounded-xl font-semibold text-xs hover:-translate-y-[2px] transition-all duration-300"
                     >
                       <ExternalLink size={13} /> Demo
                     </a>
@@ -114,7 +118,7 @@ export default function ProjectsPage() {
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`btn-ghost items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-medium hover:-translate-y-[2px] text-xs transition-all duration-300 ${
+                      className={`btn-ghost items-center justify-center gap-1.5 px-4 py-3 min-h-[44px] rounded-xl font-medium hover:-translate-y-[2px] text-xs transition-all duration-300 ${
                         project.link ? 'flex-1' : 'flex-1'
                       }`}
                     >
@@ -128,9 +132,10 @@ export default function ProjectsPage() {
           ))}
 
           <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            initial={POP.block.initial}
+            whileInView={POP.block.reveal}
+            transition={popT(0.45, 0.55)}
+            viewport={{ once: true, amount: 0.3 }}
             className="glass rounded-2xl flex flex-col items-center justify-center gap-4 min-h-[280px] border-dashed hover:border-emerald-400/20 transition-all"
           >
             <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500/15 to-cyan-500/10 flex items-center justify-center">
@@ -141,7 +146,7 @@ export default function ProjectsPage() {
               href="https://github.com/JANVI-CHATURVEDI"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-mono font-medium text-white hover:text-white transition-colors flex items-center gap-1"
+              className="text-xs font-mono font-medium text-white hover:text-white transition-colors flex items-center gap-1 min-h-[44px] px-2 py-3"
             >
               Follow on GitHub <ArrowUpRight size={12} />
             </a>

@@ -2,6 +2,7 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import { useRef } from 'react';
 import { quote } from '../data/content';
+import { SWARM_EASE } from '../utils/swarmMotion';
 
 export default function QuoteCard() {
   const reduced = useReducedMotion();
@@ -21,7 +22,7 @@ export default function QuoteCard() {
     <div
       ref={cardRef}
       onPointerMove={trackPointer}
-      className="quote-canvas relative rounded-2xl overflow-hidden max-w-3xl mx-auto aspect-[21/9]"
+      className="quote-canvas relative rounded-2xl overflow-hidden max-w-3xl mx-auto aspect-[4/5] sm:aspect-[3/2] lg:aspect-[21/9]"
     >
       <span aria-hidden className="quote-blob quote-blob--emerald" />
       <span aria-hidden className="quote-blob quote-blob--rose" />
@@ -37,7 +38,7 @@ export default function QuoteCard() {
       </span>
 
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center">
-        <blockquote className="text-lg sm:text-xl font-display italic text-[rgb(var(--t-ink)/0.92)] leading-relaxed max-w-lg text-center px-6 mb-2">
+        <blockquote className="text-base sm:text-lg lg:text-xl font-display italic text-[rgb(var(--t-ink)/0.92)] leading-relaxed max-w-lg text-center px-6 mb-3">
           {reduced ? (
             <>&ldquo;{quote.text}&rdquo;</>
           ) : (
@@ -45,13 +46,13 @@ export default function QuoteCard() {
               <motion.span
                 key={`${w}-${i}`}
                 className="inline-block whitespace-pre"
-                initial={{ opacity: 0, y: 14, filter: 'blur(7px)' }}
-                whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                initial={{ opacity: 0, y: 10, scale: 0.9, filter: 'blur(6px)' }}
+                whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{
-                  duration: 0.55,
-                  delay: i * 0.05,
-                  ease: [0.22, 1, 0.36, 1],
+                  duration: 0.42,
+                  delay: i * 0.045,
+                  ease: SWARM_EASE,
                 }}
               >
                 {w}
@@ -61,10 +62,10 @@ export default function QuoteCard() {
           )}
         </blockquote>
         <motion.div
-          initial={reduced ? undefined : { opacity: 0, y: 8 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={reduced ? undefined : { opacity: 0, y: 8, scale: 0.92, filter: 'blur(6px)' }}
+          whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
           viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.5, delay: revealEnd + 0.15 }}
+          transition={{ duration: 0.4, delay: revealEnd + 0.15, ease: SWARM_EASE }}
           className="text-center"
         >
           <div className="text-xs font-mono font-medium text-[rgb(var(--t-ink)/0.7)] mb-1">

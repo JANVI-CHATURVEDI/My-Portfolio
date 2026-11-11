@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight, Mail, Github, Linkedin, Twitter } from 'lucide-react';
 import LiquidBg from '../../components/LiquidBg';
 import { socials } from '../../data/content';
+import { POP, popT } from '../../utils/swarmMotion';
 
 export default function ContactPage() {
   const socialIcons: Record<string, React.ReactNode> = {
@@ -18,14 +19,14 @@ export default function ContactPage() {
   return (
     <main className="section-stone min-h-screen text-white">
       <LiquidBg />
-      <div className="relative z-10 max-w-5xl mx-auto px-6 lg:pl-24 pt-24 pb-20">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:pl-24 pt-24 pb-20">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          initial={POP.leaf.initial}
+          animate={POP.leaf.reveal}
+          transition={popT(0, 0.5)}
           className="mb-8"
         >
-          <h1 className="text-5xl lg:text-6xl font-serif italic text-white leading-[1.1] mb-4">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif italic text-white leading-[1.1] mb-4">
             Let's <span className="font-display text-emerald-400">Connect</span>
           </h1>
           <p className="text-white/85 text-sm font-mono font-medium tracking-wide">
@@ -35,9 +36,9 @@ export default function ContactPage() {
 
         <div className="grid lg:grid-cols-2 gap-8">
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            initial={POP.block.initial}
+            animate={POP.block.reveal}
+            transition={popT(0.12, 0.55)}
             className="space-y-6"
           >
             <div className="glass rounded-2xl p-6 lg:p-8">
@@ -48,10 +49,11 @@ export default function ContactPage() {
                 <Mail size={16} className="text-emerald-400/80 flex-shrink-0" />
                 <span className="text-sm text-white/85 font-medium font-mono flex-1 min-w-0 break-all">janvichaturvedi82@gmail.com</span>
                 <button
+                  type="button"
                   onClick={() => {
                     navigator.clipboard.writeText('janvichaturvedi82@gmail.com');
                   }}
-                  className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-white/5 text-white/85 hover:text-emerald-400 transition-colors border border-white/5"
+                  className="shrink-0 text-[11px] font-mono px-3.5 py-2.5 min-h-[44px] rounded-full bg-white/5 text-white/85 hover:text-emerald-400 transition-colors border border-white/5"
                 >
                   Copy
                 </button>
@@ -66,7 +68,7 @@ export default function ContactPage() {
                     href={s.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="social-pill text-xs px-4 py-2"
+                    className="social-pill text-xs px-4 py-3 min-h-[44px]"
                   >
                     <span className="text-xs">{socialIcons[s.label]}</span>
                     {s.label}
@@ -79,9 +81,9 @@ export default function ContactPage() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            initial={POP.block.initial}
+            animate={POP.block.reveal}
+            transition={popT(0.24, 0.55)}
             className="glass rounded-2xl p-6 lg:p-8"
           >
             <h3 className="text-sm font-mono text-emerald-400 tracking-wide mb-6">Send a Message</h3>
@@ -96,34 +98,39 @@ export default function ContactPage() {
             >
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-[10px] font-mono font-medium text-white/75 tracking-wider uppercase block mb-2">Your Name</label>
+                  <label htmlFor="contact-name" className="text-xs font-mono font-medium text-white/75 tracking-wider uppercase block mb-2">Your Name</label>
                   <input
+                    id="contact-name"
                     name="name"
                     type="text"
+                    autoComplete="name"
                     required
                     placeholder="e.g. Alex Smith"
-                    className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/35 outline-none focus:border-emerald-400/40 transition-colors"
+                    className="w-full min-h-[44px] bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-base text-white placeholder-white/35 outline-none focus:border-emerald-400/40 transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] font-mono font-medium text-white/75 tracking-wider uppercase block mb-2">Your Email</label>
+                  <label htmlFor="contact-email" className="text-xs font-mono font-medium text-white/75 tracking-wider uppercase block mb-2">Your Email</label>
                   <input
+                    id="contact-email"
                     name="email"
                     type="email"
+                    autoComplete="email"
                     required
                     placeholder="alex@example.com"
-                    className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/35 outline-none focus:border-emerald-400/40 transition-colors"
+                    className="w-full min-h-[44px] bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-base text-white placeholder-white/35 outline-none focus:border-emerald-400/40 transition-colors"
                   />
                 </div>
               </div>
               <div>
-                <label className="text-[10px] font-mono font-medium text-white/75 tracking-wider uppercase block mb-2">Message</label>
+                <label htmlFor="contact-message" className="text-xs font-mono font-medium text-white/75 tracking-wider uppercase block mb-2">Message</label>
                 <textarea
+                  id="contact-message"
                   name="message"
                   required
                   rows={4}
                   placeholder="Tell me about your project, role, or idea..."
-                  className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/35 outline-none focus:border-emerald-400/40 transition-colors resize-none"
+                  className="w-full min-h-[120px] bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-base text-white placeholder-white/35 outline-none focus:border-emerald-400/40 transition-colors resize-none"
                 />
               </div>
               <button

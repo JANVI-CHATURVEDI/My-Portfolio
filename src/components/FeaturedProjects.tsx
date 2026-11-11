@@ -4,15 +4,17 @@ import Link from 'next/link';
 import { ArrowUpRight, Github, ExternalLink } from 'lucide-react';
 import { projects } from '../data/content';
 import TechStack from './TechStack';
+import DrawnArrow from './DrawnArrow';
+import { SWARM_EASE, POP, popT, build, snap } from '../utils/swarmMotion';
 
 const projectImages: Record<number, string> = {
   1: '/images/project-tweet.png',
-  2: '/images/project-devlinktree.png',
+  2: '/images/project-devlinktree.jpg',
   3: '/images/project-onetime.png',
-  4: '/images/project-coffee.png',
-  5: '/images/project-travel.png',
-  6: '/images/project-swachdrishti.png',
-  7: '/images/project-civicconnect.png',
+  4: '/images/project-coffee.jpg',
+  5: '/images/project-travel.jpg',
+  6: '/images/project-swachdrishti.jpg',
+  7: '/images/project-civicconnect.jpg',
 };
 
 export default function FeaturedProjects() {
@@ -20,19 +22,24 @@ export default function FeaturedProjects() {
   const loop = [...featured, ...featured];
 
   return (
-    <section id="projects" className="section-chocolate relative py-24 lg:py-32">
-      <div className="max-w-6xl mx-auto px-6 lg:pl-24">
+    <section id="projects" className="section-chocolate relative py-16 md:py-24 lg:py-32">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:pl-24">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="mb-12"
+          initial="hidden"
+          whileInView="show"
+          variants={build(0.09)}
+          viewport={{ once: true, amount: 0.5 }}
+          className="mb-10 md:mb-12"
         >
-          <h2 className="section-title text-4xl sm:text-5xl lg:text-6xl text-white font-serif italic leading-[1.1] mb-4">
+          <motion.h2
+            variants={snap}
+            className="section-title text-4xl sm:text-5xl lg:text-6xl text-white font-serif italic leading-[1.1] mb-4"
+          >
             Featured <span className="font-display text-emerald-400">Projects</span>
-          </h2>
-          <p className="text-white/75 text-sm font-mono font-medium tracking-wide">A selection of things I&apos;ve built</p>
+          </motion.h2>
+          <motion.p variants={snap} className="text-white/75 text-sm font-mono font-medium tracking-wide">
+            A selection of things I&apos;ve built
+          </motion.p>
         </motion.div>
 
         <div className="projects-viewport">
@@ -42,12 +49,12 @@ export default function FeaturedProjects() {
               return (
                 <motion.div
                   key={`${project.id}-${i}`}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, scale: 0.8, y: 34, filter: 'blur(9px)' }}
+                  animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
                   transition={{
                     duration: 0.5,
-                    delay: (i % featured.length) * 0.08,
-                    ease: [0.22, 1, 0.36, 1],
+                    delay: (i % featured.length) * 0.1,
+                    ease: SWARM_EASE,
                   }}
                   className="projects-slot"
                 >
@@ -63,6 +70,8 @@ export default function FeaturedProjects() {
                       <img
                         src={projectImages[project.id] || '/images/project-tweet.png'}
                         alt={project.name}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
                       />
                     </div>
@@ -111,12 +120,22 @@ export default function FeaturedProjects() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          initial={POP.block.initial}
+          whileInView={POP.block.reveal}
+          transition={popT(0.12, 0.5)}
           viewport={{ once: true }}
           className="mt-10 text-center"
         >
+          <div className="mb-3 flex justify-center">
+            <DrawnArrow
+              direction="down"
+              delay={0.3}
+              size={36}
+              strokeWidth={4}
+              trigger="view"
+              className="text-[#F1E8DF]"
+            />
+          </div>
           <Link
             href="/projects"
             className="btn-ghost px-6 py-3 rounded-full text-sm font-medium hover:-translate-y-[2px] transition-all duration-300"
