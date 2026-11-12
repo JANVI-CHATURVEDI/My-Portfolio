@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { ArrowUpRight, Github, ExternalLink } from 'lucide-react';
 import { projects } from '../data/content';
 import TechStack from './TechStack';
-import DrawnArrow from './DrawnArrow';
 import { SWARM_EASE, POP, popT, build, snap } from '../utils/swarmMotion';
 
 const projectImages: Record<number, string> = {
@@ -126,16 +125,6 @@ export default function FeaturedProjects() {
           viewport={{ once: true }}
           className="mt-10 text-center"
         >
-          <div className="mb-3 flex justify-center">
-            <DrawnArrow
-              direction="down"
-              delay={0.3}
-              size={36}
-              strokeWidth={4}
-              trigger="view"
-              className="text-[#F1E8DF]"
-            />
-          </div>
           <Link
             href="/projects"
             className="btn-ghost px-6 py-3 rounded-full text-sm font-medium hover:-translate-y-[2px] transition-all duration-300"

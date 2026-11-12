@@ -1,7 +1,6 @@
 "use client";
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
 import TaglineRotator from './TaglineRotator';
-import DrawnArrow from './DrawnArrow';
 import { SWARM_EASE, build, snap, snapBig, charSnap } from '../utils/swarmMotion';
 
 const FULL_NAME = 'Janvi Chaturvedi';
@@ -10,10 +9,8 @@ export default function Hero() {
   const reduced = useReducedMotion();
   const d = (v: number) => (reduced ? 0 : v);
 
-  /** Construction stage: portrait, then card — snap in one after another. */
   const stage = build(d(0.1), d(0.12));
 
-  /** The card lands as one block, then its contents are built inside it. */
   const cardOuter: Variants = {
     hidden: { opacity: 0, scale: 0.9, y: 26 },
     show: {
@@ -29,7 +26,6 @@ export default function Hero() {
     },
   };
 
-  /** The name is typed out character by character. */
   const nameStage = build(d(0.035), d(0.06));
 
   return (
@@ -54,7 +50,6 @@ export default function Hero() {
           animate="show"
           className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center lg:min-h-[80vh]"
         >
-          {/* Portrait — snaps into place, then floats gently forever after. */}
           <motion.div
             variants={snapBig}
             className="flex justify-center lg:justify-start order-2 lg:order-1"
@@ -75,21 +70,10 @@ export default function Hero() {
                 />
               </div>
 
-              {/* An invisible agent draws this arrow at the portrait while the
-                  rest of the hero is being constructed. */}
-              <span className="absolute -right-10 top-1/2 hidden lg:flex -translate-y-1/2">
-                <DrawnArrow
-                  direction="left"
-                  delay={0.75}
-                  size={44}
-                  strokeWidth={4}
-                  className="text-[#2C221E]"
-                />
-              </span>
+
             </div>
           </motion.div>
 
-          {/* Hero card — lands as a block, then its contents are built. */}
           <motion.div variants={cardOuter}>
             <div className="hero-card swarm-breathe space-y-4">
               <motion.div
@@ -100,7 +84,6 @@ export default function Hero() {
                 <span className="text-sm font-mono font-bold text-[#6B5E57] tracking-wide">Available For Work</span>
               </motion.div>
 
-              {/* The name is typed out, character by character. */}
               <motion.h1
                 variants={nameStage}
                 className="whitespace-nowrap text-[1.5rem] sm:text-[1.85rem] lg:text-[2.5rem] font-bold tracking-tight text-[#231A18]"
@@ -156,24 +139,7 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* The main scroll arrow — drawn FIRST, then bounces forever after. */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: d(0.35), delay: d(0.05) }}
-        className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 hidden sm:flex"
-      >
-        <div className="w-9 h-14 rounded-full border border-black/30 flex items-start justify-center p-1">
-          <DrawnArrow
-            direction="down"
-            delay={0.1}
-            size={26}
-            strokeWidth={5}
-            drawDuration={0.6}
-            className="text-[#2C221E]"
-          />
-        </div>
-      </motion.div>
+
     </section>
   );
 }

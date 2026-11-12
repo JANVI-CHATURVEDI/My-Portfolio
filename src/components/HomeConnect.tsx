@@ -4,10 +4,8 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import Magnetic from './Magnetic';
 import QuoteCard from './QuoteCard';
-import DrawnArrow from './DrawnArrow';
 import { SWARM_EASE, POP, popT, snap } from '../utils/swarmMotion';
 
-/** The glass card lands as a block, then its contents are built inside it. */
 const ctaCard: Variants = {
   hidden: { opacity: 0, scale: 0.9, y: 34 },
   show: {
@@ -43,17 +41,7 @@ export default function HomeConnect() {
             <span className="font-display text-emerald-400">extraordinary together.</span>
           </motion.h2>
 
-          {/* Built live between the headline and the buttons — points the way. */}
-          <motion.div variants={snap} className="relative z-10 -mt-3 mb-1 flex justify-center">
-            <DrawnArrow
-              direction="down"
-              delay={0.25}
-              size={40}
-              strokeWidth={4}
-              trigger="view"
-              className="text-[#2C221E]"
-            />
-          </motion.div>
+
 
           <motion.div variants={snap} className="flex flex-wrap justify-center gap-4 relative z-10">
             <Magnetic>

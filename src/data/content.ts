@@ -13,10 +13,6 @@ export interface Project {
   role?: string;
 }
 
-export interface SkillCategory {
-  title: string;
-  skills: { name: string; level: number; icon?: string }[];
-}
 
 export interface Experience {
   title: string;
@@ -55,7 +51,7 @@ export const portfolio = {
   location: "Kanpur, India",
   status: "Available for new opportunities",
   email: "janvichaturvedi82@gmail.com",
-  resume: "https://drive.google.com/file/d/1HyZ1PbW3TBUVSlSIu6PLxsqDcvfjVzdm/view",
+  resume: "https://drive.google.com/file/d/15Ib6Xr4-UN7ON3BZvNLy9jFr9yXYiLLq/view?usp=sharing",
 };
 
 export const projects: Project[] = [
@@ -150,43 +146,14 @@ export const projects: Project[] = [
   },
 ];
 
-export const skillMatrix: SkillCategory[] = [
-  {
-    title: "Frontend",
-    skills: [
-      { name: "React", level: 85 },
-      { name: "JavaScript", level: 80 },
-      { name: "HTML5 / CSS3", level: 95 },
-      { name: "Tailwind CSS", level: 80 },
-    ],
-  },
-  {
-    title: "Backend & Cloud",
-    skills: [
-      { name: "Python", level: 90 },
-      { name: "Django", level: 85 },
-      { name: "PostgreSQL", level: 75 },
-      { name: "SQLite", level: 80 },
-      { name: "Firebase", level: 80 },
-    ],
-  },
-  {
-    title: "Design & Tools",
-    skills: [
-      { name: "Figma", level: 70 },
-      { name: "Git / GitHub", level: 85 },
-      { name: "Leaflet.js", level: 70 },
-      { name: "Bootstrap", level: 85 },
-    ],
-  },
-];
+
 
 export const experience: Experience[] = [
   {
     title: "Software Developer Intern",
     company: "Ayursh",
-    period: "Mar 2026 — Present",
-    current: true,
+    period: "Mar 2026 — Oct 2026",
+    current: false,
     points: [
       "Engineered production REST APIs and integrated Razorpay payments and Delhivery logistics into real application workflows.",
       "Contributed to 2+ applications and 3 backend services, building features from scratch, implementing dynamic filtering, and resolving production issues.",
@@ -249,12 +216,67 @@ export const quote: Quote = {
   source: "Bhagavad Gita, Chapter 6, Verse 6",
 };
 
+export type SkillMeta = { category: string };
+
+export const skillMeta: Record<string, SkillMeta> = {
+  Python: { category: 'Programming languages' },
+  Java: { category: 'Programming languages' },
+  JavaScript: { category: 'Programming languages' },
+  HTML5: { category: 'Programming languages' },
+  CSS3: { category: 'Programming languages' },
+  'React.js': { category: 'Frontend development' },
+  'Next.js': { category: 'Frontend development' },
+  'Tailwind CSS': { category: 'Frontend development' },
+  Bootstrap: { category: 'Frontend development' },
+  'Responsive Web Design': { category: 'Frontend development' },
+  'UI Development': { category: 'Frontend development' },
+  Figma: { category: 'Frontend development' },
+  Django: { category: 'Backend development' },
+  'Django REST Framework': { category: 'Backend development' },
+  'REST API Development': { category: 'Backend development' },
+  'Python Backend Development': { category: 'Backend development' },
+  'Node.js (familiarity)': { category: 'Backend development' },
+  SQLite: { category: 'Databases' },
+  PostgreSQL: { category: 'Databases' },
+  MongoDB: { category: 'Databases' },
+  Firebase: { category: 'Databases' },
+  Appwrite: { category: 'Backend services & BaaS' },
+  Git: { category: 'Tools & platforms' },
+  GitHub: { category: 'Tools & platforms' },
+  'VS Code': { category: 'Tools & platforms' },
+  PyCharm: { category: 'Tools & platforms' },
+  Postman: { category: 'Tools & platforms' },
+  Vercel: { category: 'Tools & platforms' },
+  'Docker (learning/setup experience)': { category: 'Tools & platforms' },
+  'Leaflet.js (maps and geolocation)': { category: 'Other technologies' },
+  'Flutter (exposure through project work)': { category: 'Other technologies' },
+  'Neon Database': { category: 'Other technologies' },
+  'API Integration': { category: 'Other technologies' },
+};
+
+export const skillCategories = [
+  'All',
+  'Programming languages',
+  'Frontend development',
+  'Backend development',
+  'Databases',
+  'Backend services & BaaS',
+  'Tools & platforms',
+  'Other technologies',
+] as const;
+export type SkillCategory = typeof skillCategories[number];
+
+export function skillsByCategory(cat: SkillCategory): string[] {
+  if (cat === 'All') return Object.keys(skillMeta);
+  return Object.keys(skillMeta).filter((k) => skillMeta[k].category === cat);
+}
+
 export const socials: SocialLink[] = [
   { label: "GitHub", url: "https://github.com/JANVI-CHATURVEDI" },
   { label: "LinkedIn", url: "https://linkedin.com/in/janvi1010" },
   { label: "X / Twitter", url: "https://x.com/janvi_0x" },
   { label: "Instagram", url: "https://instagram.com" },
   { label: "Email", url: "mailto:janvichaturvedi82@gmail.com" },
-  { label: "Resume", url: "https://drive.google.com/file/d/1HyZ1PbW3TBUVSlSIu6PLxsqDcvfjVzdm/view" },
+  { label: "Resume", url: "https://drive.google.com/file/d/15Ib6Xr4-UN7ON3BZvNLy9jFr9yXYiLLq/view?usp=sharing" },
   { label: "WhatsApp", url: "https://wa.me/918000000000" },
 ];

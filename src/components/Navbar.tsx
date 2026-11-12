@@ -10,7 +10,6 @@ import { SWARM_EASE } from '../utils/swarmMotion';
 
 const navLinks = [
   { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
   { label: 'Projects', href: '/projects' },
   { label: 'Contact', href: '/contact' },
 ];
@@ -27,8 +26,6 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Close the mobile menu with Escape, and drop it if the viewport grows to
-  // the desktop breakpoint while it's open.
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
