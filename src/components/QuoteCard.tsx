@@ -1,5 +1,5 @@
 "use client";
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { useRef } from 'react';
 import { quote } from '../data/content';
 import { SWARM_EASE } from '../utils/swarmMotion';
@@ -7,6 +7,7 @@ import { SWARM_EASE } from '../utils/swarmMotion';
 export default function QuoteCard() {
   const reduced = useReducedMotion();
   const cardRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(cardRef, { once: true, amount: 0.3 });
   const words = quote.text.split(' ');
   const revealEnd = Math.min(words.length * 0.05, 1.4);
 
@@ -46,9 +47,11 @@ export default function QuoteCard() {
               <motion.span
                 key={`${w}-${i}`}
                 className="inline-block whitespace-pre"
-                initial={{ opacity: 0, y: 10, scale: 0.9, filter: 'blur(6px)' }}
-                whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-                viewport={{ once: true, margin: '-40px' }}
+                animate={
+                  inView
+                    ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }
+                    : { opacity: 0, y: 10, scale: 0.9, filter: 'blur(6px)' }
+                }
                 transition={{
                   duration: 0.42,
                   delay: i * 0.045,
@@ -62,9 +65,11 @@ export default function QuoteCard() {
           )}
         </blockquote>
         <motion.div
-          initial={reduced ? undefined : { opacity: 0, y: 8, scale: 0.92, filter: 'blur(6px)' }}
-          whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-          viewport={{ once: true, margin: '-40px' }}
+          animate={
+            inView
+              ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }
+              : { opacity: 0, y: 8, scale: 0.92, filter: 'blur(6px)' }
+          }
           transition={{ duration: 0.4, delay: revealEnd + 0.15, ease: SWARM_EASE }}
           className="text-center"
         >
@@ -81,9 +86,7 @@ export default function QuoteCard() {
         <motion.span
           aria-hidden
           className="quote-sheen"
-          initial={{ x: '-130%', rotate: 10 }}
-          whileInView={{ x: '130%', rotate: 10 }}
-          viewport={{ once: true, margin: '-40px' }}
+          animate={inView ? { x: '130%', rotate: 10 } : { x: '-130%', rotate: 10 }}
           transition={{ duration: 1.5, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
         />
       )}

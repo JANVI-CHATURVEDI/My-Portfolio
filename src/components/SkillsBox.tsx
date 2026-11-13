@@ -1,6 +1,7 @@
 "use client";
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Reveal from './Reveal';
 import {
   SiPython,
   SiOpenjdk,
@@ -28,9 +29,9 @@ import {
   SiLeaflet,
   SiFlutter,
 } from 'react-icons/si';
-import { FaMobileAlt, FaPaintBrush, FaPlug, FaCode, FaDatabase, FaNetworkWired } from 'react-icons/fa';
-import { skillCategories, skillMeta, skillsByCategory, type SkillCategory } from '../data/content';
-import { SWARM_EASE, POP, popT, build, snap } from '../utils/swarmMotion';
+import { FaMobileAlt, FaPaintBrush, FaPlug, FaCode, FaNetworkWired } from 'react-icons/fa';
+import { skillCategories, skillGroupCount, skillMeta, skillsByCategory, type SkillCategory } from '../data/content';
+import { REVEAL_EASE } from '../utils/swarmMotion';
 
 const ICONS: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   Python: SiPython,
@@ -75,31 +76,20 @@ export default function SkillsBox() {
   return (
     <section id="skills" className="py-10 md:py-14 lg:py-16 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:pl-24">
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          variants={build(0.09)}
-          viewport={{ once: true, amount: 0.4 }}
-          className="mb-6 md:mb-8"
-        >
-          <motion.h2
-            variants={snap}
-            className="section-title text-3xl sm:text-4xl lg:text-5xl text-white font-serif italic leading-[1.1] mb-2"
-          >
-            Technical <span className="font-display text-emerald-400">Arsenal</span>
-          </motion.h2>
-          <motion.p variants={snap} className="text-white/75 text-xs font-mono font-medium tracking-wide">
-            {Object.keys(skillMeta).length} skills across {skillCategories.length - 1} areas
-          </motion.p>
-        </motion.div>
+        <div className="mb-6 md:mb-8">
+          <Reveal>
+            <h2 className="section-title text-3xl sm:text-4xl lg:text-5xl text-white font-serif italic leading-[1.1] mb-2">
+              Technical <span className="font-display text-emerald-400">Arsenal</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1} y={40} duration={0.9}>
+            <p className="text-white/75 text-xs font-mono font-medium tracking-wide">
+              {Object.keys(skillMeta).length} skills across {skillGroupCount} areas
+            </p>
+          </Reveal>
+        </div>
 
-        <motion.div
-          initial={POP.block.initial}
-          whileInView={POP.block.reveal}
-          transition={popT(0, 0.5)}
-          viewport={{ once: true }}
-          className="glass rounded-2xl p-4 sm:p-5 relative overflow-hidden"
-        >
+        <Reveal y={60} duration={0.9} className="glass rounded-2xl p-4 sm:p-5 relative overflow-hidden">
           <div className="flex flex-wrap gap-1.5 mb-4 justify-center">
             {skillCategories.map((cat) => (
               <button
@@ -120,31 +110,38 @@ export default function SkillsBox() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={active}
-                initial={{ opacity: 0, x: 20 }}
+                initial={{ opacity: 0, x: 80 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.25, ease: SWARM_EASE }}
+                exit={{ opacity: 0, x: -80 }}
+                transition={{ duration: 0.6, ease: REVEAL_EASE }}
                 className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3 justify-items-center"
               >
-                {skills.map((name) => {
+                {skills.map((name, i) => {
                   const Icon = ICONS[name] ?? FaCode;
                   return (
-                    <div
+                    <Reveal
                       key={name}
-                      title={name}
-                      aria-label={name}
+                      delay={i * 0.06}
+                      y={40}
+                      scale={0.85}
+                      duration={0.7}
                       className="group flex items-center justify-center"
                     >
-                      <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center transition-all duration-300 group-hover:border-emerald-400/40 group-hover:bg-emerald-400/[0.08] group-hover:-translate-y-0.5">
+                      <div
+                        role="img"
+                        title={name}
+                        aria-label={name}
+                        className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center transition-all duration-300 group-hover:border-emerald-400/40 group-hover:bg-emerald-400/[0.08] group-hover:-translate-y-0.5"
+                      >
                         <Icon size={22} className="text-white/80 group-hover:text-emerald-300 transition-colors" />
                       </div>
-                    </div>
+                    </Reveal>
                   );
                 })}
               </motion.div>
             </AnimatePresence>
           </div>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   );

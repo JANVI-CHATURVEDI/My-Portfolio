@@ -1,18 +1,17 @@
 export interface Project {
   id: number;
   name: string;
+  image: string;
   description: string;
   longDescription?: string;
-  status: "completed" | "in-progress" | "featured";
+  status: "completed" | "in-progress";
   tags: string[];
-  image?: string;
   link?: string;
   github?: string;
   features?: string[];
   year?: string;
   role?: string;
 }
-
 
 export interface Experience {
   title: string;
@@ -40,24 +39,13 @@ export interface Quote {
 export interface SocialLink {
   label: string;
   url: string;
-  icon?: string;
 }
-
-export const portfolio = {
-  name: "Janvi Chaturvedi",
-  title: "Full-Stack Software Architect",
-  tagline: "Crafting digital products & high-performance web architecture.",
-  bio: "Passionate full-stack developer specializing in Python/Django, React, and modern web technologies. I bridge ambitious ideas with scalable, user-centric digital products.",
-  location: "Kanpur, India",
-  status: "Available for new opportunities",
-  email: "janvichaturvedi82@gmail.com",
-  resume: "https://drive.google.com/file/d/15Ib6Xr4-UN7ON3BZvNLy9jFr9yXYiLLq/view?usp=sharing",
-};
 
 export const projects: Project[] = [
   {
     id: 6,
     name: "SwachDrishti",
+    image: "/images/project-swachdrishti.jpg",
     description: "See the waste. Spark the action.",
     longDescription: "Full-stack civic-tech platform: citizens report garbage with GPS + photo, AI triages and scores it, supervisors dispatch workers from a live map, workers resolve with photo proof, citizens verify, and admins steer the city with insights and forecasts.",
     status: "completed",
@@ -71,6 +59,7 @@ export const projects: Project[] = [
   {
     id: 7,
     name: "CivicConnect AI",
+    image: "/images/project-civicconnect.jpg",
     description: "Report civic issues. Get them fixed.",
     longDescription: "Civic reporting platform with transparent AI triage. Citizens file issues with photo + Hindi/Hinglish/English + voice, Gemini vision scores priority 0-100 with reasons, and staff resolve through a full lifecycle with SLA tracking, duplicates detection, and audit trail.",
     status: "in-progress",
@@ -83,6 +72,7 @@ export const projects: Project[] = [
   {
     id: 1,
     name: "TWEET",
+    image: "/images/project-tweet.png",
     description: "Speak Freely. Stay Anonymous.",
     longDescription: "A full-stack microblogging platform built with Django and PostgreSQL. Supports posts, likes, follows, authentication, media uploads, and optimized database filtering for performance at scale.",
     status: "completed",
@@ -95,6 +85,7 @@ export const projects: Project[] = [
   {
     id: 2,
     name: "Dev LinkTree",
+    image: "/images/project-devlinktree.jpg",
     description: "Drag-and-drop link builder with instant preview.",
     longDescription: "A link-in-bio builder with a drag-and-drop interface, live preview, and instant saving via localStorage. Backend integration in progress for cloud persistence.",
     status: "in-progress",
@@ -108,6 +99,7 @@ export const projects: Project[] = [
   {
     id: 3,
     name: "One-Time Secret",
+    image: "/images/project-onetime.png",
     description: "Send Secrets That Only Live Once.",
     longDescription: "A secure messaging app where each message can be read only once. Includes safe media storage, automatic expiry logic, and Appwrite backend integration for robust security.",
     status: "completed",
@@ -121,6 +113,7 @@ export const projects: Project[] = [
   {
     id: 4,
     name: "Coffee Shop",
+    image: "/images/project-coffee.jpg",
     description: "Modern responsive landing page.",
     longDescription: "A modern, responsive landing page for a coffee shop with clean typography, mobile-first optimization, and smooth scroll-based user experience.",
     status: "completed",
@@ -134,6 +127,7 @@ export const projects: Project[] = [
   {
     id: 5,
     name: "Travel Explorer",
+    image: "/images/project-travel.jpg",
     description: "Discover the world, live as it happens.",
     longDescription: "Live-edition travel explorer covering 24 curated places across 6 regions. Every photo, story, temperature, and country fact streams fresh from free public APIs (Wikipedia, Open-Meteo), with URL-synced explore filters, detail pages with 5-day forecasts, and an interactive Leaflet map.",
     status: "in-progress",
@@ -145,8 +139,6 @@ export const projects: Project[] = [
     role: "Solo Developer",
   },
 ];
-
-
 
 export const experience: Experience[] = [
   {
@@ -216,9 +208,19 @@ export const quote: Quote = {
   source: "Bhagavad Gita, Chapter 6, Verse 6",
 };
 
-export type SkillMeta = { category: string };
+const skillGroups = [
+  'Programming languages',
+  'Frontend development',
+  'Backend development',
+  'Databases',
+  'Backend services & BaaS',
+  'Tools & platforms',
+  'Other technologies',
+] as const;
 
-export const skillMeta: Record<string, SkillMeta> = {
+type SkillGroup = (typeof skillGroups)[number];
+
+export const skillMeta: Record<string, { category: SkillGroup }> = {
   Python: { category: 'Programming languages' },
   Java: { category: 'Programming languages' },
   JavaScript: { category: 'Programming languages' },
@@ -254,21 +256,13 @@ export const skillMeta: Record<string, SkillMeta> = {
   'API Integration': { category: 'Other technologies' },
 };
 
-export const skillCategories = [
-  'All',
-  'Programming languages',
-  'Frontend development',
-  'Backend development',
-  'Databases',
-  'Backend services & BaaS',
-  'Tools & platforms',
-  'Other technologies',
-] as const;
-export type SkillCategory = typeof skillCategories[number];
+export const skillCategories = ['All', ...skillGroups] as const;
+export const skillGroupCount = skillGroups.length;
+export type SkillCategory = (typeof skillCategories)[number];
 
 export function skillsByCategory(cat: SkillCategory): string[] {
-  if (cat === 'All') return Object.keys(skillMeta);
-  return Object.keys(skillMeta).filter((k) => skillMeta[k].category === cat);
+  const names = Object.keys(skillMeta);
+  return cat === 'All' ? names : names.filter((name) => skillMeta[name].category === cat);
 }
 
 export const socials: SocialLink[] = [

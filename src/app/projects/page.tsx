@@ -3,18 +3,9 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight, Github, ExternalLink } from 'lucide-react';
 import LiquidBg from '../../components/LiquidBg';
 import TechStack from '../../components/TechStack';
+import Reveal from '../../components/Reveal';
 import { projects } from '../../data/content';
 import { POP, popT } from '../../utils/swarmMotion';
-
-const projectImages: Record<number, string> = {
-  1: '/images/project-tweet.png',
-  2: '/images/project-devlinktree.jpg',
-  3: '/images/project-onetime.png',
-  4: '/images/project-coffee.jpg',
-  5: '/images/project-travel.jpg',
-  6: '/images/project-swachdrishti.jpg',
-  7: '/images/project-civicconnect.jpg',
-};
 
 export default function ProjectsPage() {
   return (
@@ -31,7 +22,7 @@ export default function ProjectsPage() {
             01 — Work
           </p>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#1F1A17] leading-[1.05] tracking-tight mb-5">
-            Things I've <span className="font-display italic font-normal text-emerald-400">shipped.</span>
+            Things I&apos;ve <span className="font-display italic font-normal text-emerald-400">shipped.</span>
           </h1>
           <p className="text-[#5A524A] text-sm font-mono font-medium tracking-wide">
             Selected work — built end-to-end, from schema to interface.
@@ -40,102 +31,97 @@ export default function ProjectsPage() {
 
         <div className="grid md:grid-cols-2 gap-5 mb-10">
           {projects.map((project, i) => (
-            <motion.div
+            <Reveal
               key={project.id}
-              initial={POP.block.initial}
-              whileInView={POP.block.reveal}
-              transition={popT(i * 0.09)}
-              viewport={{ once: true, amount: 0.15 }}
+              delay={i * 0.09}
               className="pj-slot group [perspective:1000px]"
             >
               <div className="pj-card glass rounded-3xl overflow-hidden flex flex-col h-full">
-              <div className="relative aspect-[16/9] overflow-hidden">
-                <img
-                  src={projectImages[project.id] || '/images/project-tweet.png'}
-                  alt={project.name}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink-scrim)] via-transparent to-transparent" />
+                <div className="relative aspect-[16/9] overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.name}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink-scrim)] via-transparent to-transparent" />
 
-                <span className={`absolute top-3 left-3 text-[10px] font-mono px-2.5 py-1 rounded-full border backdrop-blur-sm ${
-                  project.status === 'completed'
-                    ? 'bg-emerald-400/75 text-white border-emerald-400/60'
-                    : 'bg-amber-400/80 text-[rgb(var(--t-ink))] border-amber-400/70'
-                }`}>
-                  {project.status === 'completed' ? '● Live' : '● Building'}
-                </span>
+                  <span
+                    className={`absolute top-3 left-3 text-[10px] font-mono px-2.5 py-1 rounded-full border backdrop-blur-sm ${
+                      project.status === 'completed'
+                        ? 'bg-emerald-400/75 text-white border-emerald-400/60'
+                        : 'bg-amber-400/80 text-[rgb(var(--t-ink))] border-amber-400/70'
+                    }`}
+                  >
+                    {project.status === 'completed' ? '● Live' : '● Building'}
+                  </span>
 
-                <div className="absolute bottom-2 left-3 flex items-center gap-2 text-[10px] font-mono font-medium text-[#C2B8B2] bg-black/35 backdrop-blur-[2px] px-2.5 py-1 rounded-full">
-                  <span>{project.year}</span>
-                  <span className="w-0.5 h-0.5 rounded-full bg-white/50" />
-                  <span>{project.role}</span>
+                  <div className="absolute bottom-2 left-3 flex items-center gap-2 text-[10px] font-mono font-medium text-[#C2B8B2] bg-black/35 backdrop-blur-[2px] px-2.5 py-1 rounded-full">
+                    <span>{project.year}</span>
+                    <span className="w-0.5 h-0.5 rounded-full bg-white/50" />
+                    <span>{project.role}</span>
+                  </div>
                 </div>
-              </div>
 
-              <div className="pj-content p-5 flex-1 flex flex-col">
-                <h2 className="text-xl font-bold text-[#FAF7F2] mb-1.5 transition-colors">
-                  {project.name}
-                </h2>
-                <p className="text-xs text-[#C2B8B2] font-display italic mb-3">
-                  {project.description}
-                </p>
-                <p className="text-sm text-[#C2B8B2] leading-relaxed mb-4 line-clamp-2">
-                  {project.longDescription || project.description}
-                </p>
+                <div className="pj-content p-5 flex-1 flex flex-col">
+                  <h2 className="text-xl font-bold text-[#FAF7F2] mb-1.5">{project.name}</h2>
+                  <p className="text-xs text-[#C2B8B2] font-display italic mb-3">
+                    {project.description}
+                  </p>
+                  <p className="text-sm text-[#C2B8B2] leading-relaxed mb-4 line-clamp-2">
+                    {project.longDescription || project.description}
+                  </p>
 
-                {project.features && (
-                  <div className="mb-4 space-y-1">
-                    {project.features.slice(0, 3).map((f) => (
-                      <div key={f} className="flex items-center gap-2 text-xs text-[#C2B8B2]">
-                        <span>{f}</span>
-                      </div>
-                    ))}
-                    {project.features.length > 3 && (
-                      <span className="text-[10px] font-mono text-[#C2B8B2]">+{project.features.length - 3} more</span>
+                  {project.features && (
+                    <div className="mb-4 space-y-1">
+                      {project.features.slice(0, 3).map((feature) => (
+                        <div key={feature} className="flex items-center gap-2 text-xs text-[#C2B8B2]">
+                          <span>{feature}</span>
+                        </div>
+                      ))}
+                      {project.features.length > 3 && (
+                        <span className="text-[10px] font-mono text-[#C2B8B2]">
+                          +{project.features.length - 3} more
+                        </span>
+                      )}
+                    </div>
+                  )}
+
+                  <div className="mt-auto">
+                    <TechStack tags={project.tags} />
+                  </div>
+
+                  <div className="flex gap-2 pt-3 border-t border-white/5">
+                    {project.link && (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-primary flex-1 items-center justify-center gap-1.5 px-4 py-3 min-h-[44px] rounded-xl font-semibold text-xs hover:-translate-y-[2px] transition-all duration-300"
+                      >
+                        <ExternalLink size={13} /> Demo
+                      </a>
+                    )}
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-ghost flex-1 items-center justify-center gap-1.5 px-4 py-3 min-h-[44px] rounded-xl font-medium hover:-translate-y-[2px] text-xs transition-all duration-300"
+                      >
+                        <Github size={13} /> Code
+                      </a>
                     )}
                   </div>
-                )}
-
-                <div className="mt-auto">
-                  <TechStack tags={project.tags} />
-                </div>
-
-                <div className="flex gap-2 pt-3 border-t border-white/5">
-                  {project.link && (
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-primary flex-1 items-center justify-center gap-1.5 px-4 py-3 min-h-[44px] rounded-xl font-semibold text-xs hover:-translate-y-[2px] transition-all duration-300"
-                    >
-                      <ExternalLink size={13} /> Demo
-                    </a>
-                  )}
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`btn-ghost items-center justify-center gap-1.5 px-4 py-3 min-h-[44px] rounded-xl font-medium hover:-translate-y-[2px] text-xs transition-all duration-300 ${
-                        project.link ? 'flex-1' : 'flex-1'
-                      }`}
-                    >
-                      <Github size={13} /> Code
-                    </a>
-                  )}
                 </div>
               </div>
-              </div>
-            </motion.div>
+            </Reveal>
           ))}
 
-          <motion.div
-            initial={POP.block.initial}
-            whileInView={POP.block.reveal}
-            transition={popT(0.45, 0.55)}
-            viewport={{ once: true, amount: 0.3 }}
+          <Reveal
+            delay={0.45}
+            y={60}
             className="glass rounded-2xl flex flex-col items-center justify-center gap-4 min-h-[280px] border-dashed hover:border-emerald-400/20 transition-all"
           >
             <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500/15 to-cyan-500/10 flex items-center justify-center">
@@ -146,11 +132,11 @@ export default function ProjectsPage() {
               href="https://github.com/JANVI-CHATURVEDI"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-mono font-medium text-white hover:text-white transition-colors flex items-center gap-1 min-h-[44px] px-2 py-3"
+              className="text-xs font-mono font-medium text-white hover:text-emerald-400 transition-colors flex items-center gap-1 min-h-[44px] px-2 py-3"
             >
               Follow on GitHub <ArrowUpRight size={12} />
             </a>
-          </motion.div>
+          </Reveal>
         </div>
       </div>
     </main>

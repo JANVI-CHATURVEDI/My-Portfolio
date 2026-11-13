@@ -2,7 +2,6 @@ import type { Transition, Variants } from 'framer-motion';
 
 export const SWARM_EASE: [number, number, number, number] = [0.18, 1.35, 0.28, 1];
 export const SNAP_EASE: [number, number, number, number] = [0.2, 1.3, 0.2, 1];
-export const DRAW_EASE: [number, number, number, number] = [0.65, 0, 0.35, 1];
 
 export const build = (staggerChildren = 0.085, delayChildren = 0.08): Variants => ({
   hidden: {},
@@ -50,3 +49,5 @@ export const popT = (delay = 0, duration = 0.5): Transition => ({
   delay,
   ease: SWARM_EASE,
 });
+
+export const REVEAL_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];

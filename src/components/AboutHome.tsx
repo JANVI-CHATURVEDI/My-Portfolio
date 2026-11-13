@@ -1,9 +1,8 @@
 "use client";
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import CountUp from './CountUp';
-import { SWARM_EASE, DRAW_EASE, POP, popT, build, snap } from '../utils/swarmMotion';
+import Reveal from './Reveal';
 
 const stats = [
   { label: 'Merged PRs', value: 6, suffix: '+' },
@@ -30,32 +29,21 @@ export default function AboutHome() {
   return (
     <section id="about" className="section-nude relative py-16 md:py-24 lg:py-32">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:pl-24">
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          variants={build(0.09)}
-          viewport={{ once: true, amount: 0.4 }}
-          className="mb-10 md:mb-12"
-        >
-          <motion.h2
-            variants={snap}
-            className="section-title text-4xl sm:text-5xl lg:text-6xl text-white font-serif italic leading-[1.1] mb-4"
-          >
-            A little <span className="font-display text-emerald-400">about me</span>
-          </motion.h2>
-          <motion.p variants={snap} className="text-white/75 text-sm font-mono font-medium tracking-wide">
-            Curious mind. Builder at heart.
-          </motion.p>
-        </motion.div>
+        <div className="mb-10 md:mb-12">
+          <Reveal>
+            <h2 className="section-title text-4xl sm:text-5xl lg:text-6xl text-white font-serif italic leading-[1.1] mb-4">
+              A little <span className="font-display text-emerald-400">about me</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1} y={40} duration={0.9}>
+            <p className="text-white/75 text-sm font-mono font-medium tracking-wide">
+              Curious mind. Builder at heart.
+            </p>
+          </Reveal>
+        </div>
 
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-          <motion.div
-            initial={POP.block.initial}
-            whileInView={POP.block.reveal}
-            transition={popT(0, 0.5)}
-            viewport={{ once: true }}
-            className="lg:col-span-4 flex flex-col items-center lg:items-start"
-          >
+          <Reveal className="lg:col-span-4 flex flex-col items-center lg:items-start">
             <div className="relative ml-0 w-fit lg:ml-6">
               <div
                 aria-hidden
@@ -106,15 +94,9 @@ export default function AboutHome() {
                 Currently building CivicConnect. Stay tuned.
               </span>
             </div>
-          </motion.div>
+          </Reveal>
 
-          <motion.div
-            initial={POP.block.initial}
-            whileInView={POP.block.reveal}
-            transition={popT(0.12, 0.5)}
-            viewport={{ once: true }}
-            className="lg:col-span-8 space-y-6"
-          >
+          <Reveal delay={0.15} className="lg:col-span-8 space-y-6">
             <p className="text-base sm:text-lg font-[450] leading-relaxed text-white/85 max-w-2xl">
               Started as a kid who was curious about how things worked. Now I build things, break
               things, fix them, and ship them. Passionate full-stack developer specializing in
@@ -158,7 +140,7 @@ export default function AboutHome() {
                 Resume <ArrowUpRight size={14} />
               </a>
             </div>
-          </motion.div>
+          </Reveal>
         </div>
       </div>
     </section>

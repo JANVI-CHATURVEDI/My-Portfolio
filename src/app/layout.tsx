@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import HeroSidebar from '../components/HeroSidebar';
 import PageTransition from '../components/PageTransition';
 import MotionProvider from '../components/MotionProvider';
+import SmoothScroll from '../components/SmoothScroll';
 import CustomCursor from '../components/CustomCursor';
 import FooterBar from '../components/FooterBar';
 
@@ -27,13 +28,6 @@ const marker = Permanent_Marker({ weight: '400', subsets: ['latin'], variable: '
 export const metadata: Metadata = {
   title: 'Janvi Chaturvedi — Full-Stack Software Architect',
   description: 'Crafting digital products & high-performance web architecture.',
-  icons: {
-    icon: [
-      { url: '/icon.svg', type: 'image/svg+xml', sizes: 'any' },
-      { url: '/icon.png', type: 'image/png', sizes: '32x32' },
-    ],
-    apple: '/apple-icon.png',
-  },
 };
 
 export default function RootLayout({
@@ -42,10 +36,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${manrope.variable} ${cormorant.variable} ${fraunces.variable} ${jetbrains.variable} ${marker.variable}`}>
+    <html
+      lang="en"
+      className={`${manrope.variable} ${cormorant.variable} ${fraunces.variable} ${jetbrains.variable} ${marker.variable}`}
+    >
       <body className={`${manrope.className} antialiased`}>
+        <SmoothScroll />
         <div className="fixed inset-0 z-[-1] pointer-events-none opacity-10">
-          <div className="fixed inset-0 bg-gradient-to-br from-[#D8C8BC] via-[#E8DDD3] to-[#C9B0AE]" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#D8C8BC] via-[#E8DDD3] to-[#C9B0AE]" />
         </div>
         <MotionProvider>
           <CustomCursor />

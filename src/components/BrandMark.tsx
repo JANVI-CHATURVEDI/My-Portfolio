@@ -3,9 +3,10 @@ interface BrandMarkProps {
   className?: string;
 }
 
-export default function BrandMark({ size = 28, className = "" }: BrandMarkProps) {
+export default function BrandMark({ size = 28, className = '' }: BrandMarkProps) {
   const width = Math.round(size * 0.632);
-  const d = "M32 6 V31 A8 8 0 1 1 16.31 28.8 C17.2 25.73 16.22 22.29 17.7 20.4";
+  const path = 'M32 6 V31 A8 8 0 1 1 16.31 28.8 C17.2 25.73 16.22 22.29 17.7 20.4';
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -18,14 +19,14 @@ export default function BrandMark({ size = 28, className = "" }: BrandMarkProps)
       fill="none"
     >
       <path
-        d={d}
+        d={path}
         stroke="currentColor"
         strokeWidth={6}
         strokeLinecap="butt"
         strokeLinejoin="round"
       />
       <path
-        d={d}
+        d={path}
         style={{ stroke: 'rgb(var(--t-hi))' }}
         strokeWidth={5}
         strokeLinecap="butt"

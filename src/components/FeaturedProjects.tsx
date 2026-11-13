@@ -1,20 +1,9 @@
 "use client";
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowUpRight, Github, ExternalLink } from 'lucide-react';
 import { projects } from '../data/content';
 import TechStack from './TechStack';
-import { SWARM_EASE, POP, popT, build, snap } from '../utils/swarmMotion';
-
-const projectImages: Record<number, string> = {
-  1: '/images/project-tweet.png',
-  2: '/images/project-devlinktree.jpg',
-  3: '/images/project-onetime.png',
-  4: '/images/project-coffee.jpg',
-  5: '/images/project-travel.jpg',
-  6: '/images/project-swachdrishti.jpg',
-  7: '/images/project-civicconnect.jpg',
-};
+import Reveal from './Reveal';
 
 export default function FeaturedProjects() {
   const featured = projects.slice(0, 7);
@@ -23,38 +12,27 @@ export default function FeaturedProjects() {
   return (
     <section id="projects" className="section-chocolate relative py-16 md:py-24 lg:py-32">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:pl-24">
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          variants={build(0.09)}
-          viewport={{ once: true, amount: 0.5 }}
-          className="mb-10 md:mb-12"
-        >
-          <motion.h2
-            variants={snap}
-            className="section-title text-4xl sm:text-5xl lg:text-6xl text-white font-serif italic leading-[1.1] mb-4"
-          >
-            Featured <span className="font-display text-emerald-400">Projects</span>
-          </motion.h2>
-          <motion.p variants={snap} className="text-white/75 text-sm font-mono font-medium tracking-wide">
-            A selection of things I&apos;ve built
-          </motion.p>
-        </motion.div>
+        <div className="mb-10 md:mb-12">
+          <Reveal>
+            <h2 className="section-title text-4xl sm:text-5xl lg:text-6xl text-white font-serif italic leading-[1.1] mb-4">
+              Featured <span className="font-display text-emerald-400">Projects</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1} y={40} duration={0.9}>
+            <p className="text-white/75 text-sm font-mono font-medium tracking-wide">
+              A selection of things I&apos;ve built
+            </p>
+          </Reveal>
+        </div>
 
         <div className="projects-viewport">
           <div className="projects-track">
             {loop.map((project, i) => {
               const duplicate = i >= featured.length;
               return (
-                <motion.div
+                <Reveal
                   key={`${project.id}-${i}`}
-                  initial={{ opacity: 0, scale: 0.8, y: 34, filter: 'blur(9px)' }}
-                  animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
-                  transition={{
-                    duration: 0.5,
-                    delay: (i % featured.length) * 0.1,
-                    ease: SWARM_EASE,
-                  }}
+                  delay={(i % featured.length) * 0.15}
                   className="projects-slot"
                 >
                   <a
@@ -67,7 +45,7 @@ export default function FeaturedProjects() {
                   >
                     <div className="aspect-video overflow-hidden">
                       <img
-                        src={projectImages[project.id] || '/images/project-tweet.png'}
+                        src={project.image}
                         alt={project.name}
                         loading="lazy"
                         decoding="async"
@@ -97,7 +75,7 @@ export default function FeaturedProjects() {
 
                       <TechStack tags={project.tags} />
 
-                      <div className="mt-auto flex items-center gap-4 border-t border-[#ecDCD0]/10 pt-4 text-xs font-medium">
+                      <div className="mt-auto flex items-center gap-4 border-t border-[#ecdcd0]/10 pt-4 text-xs font-medium">
                         {project.link && (
                           <span className="flex items-center gap-1 text-[#c0b0a5] group-hover:text-[#d2a992] transition-colors">
                             Live Demo
@@ -105,33 +83,27 @@ export default function FeaturedProjects() {
                           </span>
                         )}
                         {project.github && (
-                          <span className="flex items-center gap-1 text-[#c0b0a5] group-hover:text-[#ecDCD0] transition-colors">
+                          <span className="flex items-center gap-1 text-[#c0b0a5] group-hover:text-[#ecdcd0] transition-colors">
                             <Github size={12} /> Code
                           </span>
                         )}
                       </div>
                     </div>
                   </a>
-                </motion.div>
+                </Reveal>
               );
             })}
           </div>
         </div>
 
-        <motion.div
-          initial={POP.block.initial}
-          whileInView={POP.block.reveal}
-          transition={popT(0.12, 0.5)}
-          viewport={{ once: true }}
-          className="mt-10 text-center"
-        >
+        <Reveal delay={0.1} y={40} duration={0.9} className="mt-10 text-center">
           <Link
             href="/projects"
             className="btn-ghost px-6 py-3 rounded-full text-sm font-medium hover:-translate-y-[2px] transition-all duration-300"
           >
             View All Projects <ArrowUpRight size={14} />
           </Link>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 "use client";
-import { motion, useReducedMotion, type Variants } from 'framer-motion';
+import { motion, useReducedMotion, useScroll, useTransform, type Variants } from 'framer-motion';
+import { useRef } from 'react';
 import TaglineRotator from './TaglineRotator';
 import { SWARM_EASE, build, snap, snapBig, charSnap } from '../utils/swarmMotion';
 
@@ -7,6 +8,10 @@ const FULL_NAME = 'Janvi Chaturvedi';
 
 export default function Hero() {
   const reduced = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
+  const portraitY = useTransform(scrollYProgress, [0, 1], ['0%', '25%']);
   const d = (v: number) => (reduced ? 0 : v);
 
   const stage = build(d(0.1), d(0.12));
@@ -29,8 +34,8 @@ export default function Hero() {
   const nameStage = build(d(0.035), d(0.06));
 
   return (
-    <section id="home" className="section-rose hero-ground relative z-10 min-h-screen lg:min-h-screen flex items-center overflow-hidden">
-      <div className="absolute inset-0 z-0">
+    <section ref={sectionRef} id="home" className="section-rose hero-ground relative z-10 min-h-screen lg:min-h-screen flex items-center overflow-hidden">
+      <motion.div className="absolute inset-0 z-0" style={{ y: bgY }}>
         <img
           src="/images/hero-bg.jpg"
           alt=""
@@ -38,10 +43,10 @@ export default function Hero() {
           loading="eager"
           fetchPriority="high"
           decoding="async"
-          className="w-full h-full object-cover opacity-[0.18]"
+          className="w-full h-full object-cover opacity-[0.18] scale-110"
           style={{ filter: 'sepia(0.55) saturate(1.05) contrast(1.02)' }}
         />
-      </div>
+      </motion.div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:pl-24 w-full pt-20 pb-16 lg:pt-24 lg:pb-20">
         <motion.div
@@ -52,14 +57,13 @@ export default function Hero() {
         >
           <motion.div
             variants={snapBig}
+            style={{ y: portraitY }}
             className="flex justify-center lg:justify-start order-2 lg:order-1"
           >
             <div className="relative group">
               <div className="absolute -inset-4 bg-gradient-to-tr from-[#C18D8D]/30 via-transparent to-[#B08A78]/30 rounded-full blur-2xl group-hover:blur-[60px] transition-all duration-700" />
               <div className="absolute -inset-2 bg-gradient-to-br from-[#C18D8D]/15 to-transparent rounded-full blur-xl" />
 
-              {/* 288px at base overflowed a 320px viewport (only ~272px of room
-                  after px-4/px-6). Start at 224px and scale up. */}
               <div className="relative w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-96 lg:h-96 rounded-full overflow-hidden border border-white/[0.06] shadow-2xl swarm-float">
                 <img
                   src="/images/about-portrait.jpg"
@@ -69,8 +73,6 @@ export default function Hero() {
                   className="w-full h-full object-cover scale-105 hover:scale-110 transition-transform duration-700"
                 />
               </div>
-
-
             </div>
           </motion.div>
 
@@ -138,8 +140,6 @@ export default function Hero() {
           </motion.div>
         </motion.div>
       </div>
-
-
     </section>
   );
 }

@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { experience } from '../data/content';
 import { ChevronDown } from 'lucide-react';
-import { SWARM_EASE, build, snap } from '../utils/swarmMotion';
+import { REVEAL_EASE } from '../utils/swarmMotion';
+import Reveal from './Reveal';
 
 export default function ExperienceSlider() {
   const [open, setOpen] = useState<number | null>(0);
@@ -11,34 +12,26 @@ export default function ExperienceSlider() {
   return (
     <section id="experience" className="section-graphite relative py-16 md:py-24 lg:py-32">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:pl-24">
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          variants={build(0.09)}
-          viewport={{ once: true, amount: 0.4 }}
-          className="mb-10 md:mb-12"
-        >
-          <motion.h2
-            variants={snap}
-            className="section-title text-4xl sm:text-5xl lg:text-6xl text-white font-serif italic leading-[1.1] mb-4"
-          >
-            Career <span className="font-display text-emerald-400">Milestones</span>
-          </motion.h2>
-          <motion.p variants={snap} className="text-white/75 text-sm font-mono font-medium tracking-wide">
-            Professional experience &amp; contributions — tap to expand
-          </motion.p>
-        </motion.div>
+        <div className="mb-10 md:mb-12">
+          <Reveal>
+            <h2 className="section-title text-4xl sm:text-5xl lg:text-6xl text-white font-serif italic leading-[1.1] mb-4">
+              Career <span className="font-display text-emerald-400">Milestones</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1} y={40} duration={0.9}>
+            <p className="text-white/75 text-sm font-mono font-medium tracking-wide">
+              Professional experience &amp; contributions — tap to expand
+            </p>
+          </Reveal>
+        </div>
 
         <div className="space-y-4">
           {experience.map((item, i) => {
             const isOpen = open === i;
             return (
-              <motion.div
+              <Reveal
                 key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: i * 0.08, ease: SWARM_EASE }}
-                viewport={{ once: true }}
+                delay={i * 0.12}
                 className="exp-card glass rounded-2xl overflow-hidden"
               >
                 <button
@@ -74,7 +67,7 @@ export default function ExperienceSlider() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.35, ease: SWARM_EASE }}
+                      transition={{ duration: 0.45, ease: REVEAL_EASE }}
                       className="overflow-hidden"
                     >
                       <div className="px-6 lg:px-7 pb-6 lg:pb-7 pt-0">
@@ -99,7 +92,7 @@ export default function ExperienceSlider() {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.div>
+              </Reveal>
             );
           })}
         </div>

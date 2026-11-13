@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
-import { heroTaglines } from "../data/content";
-import { SWARM_EASE } from "../utils/swarmMotion";
+import { useEffect, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { heroTaglines } from '../data/content';
+import { SWARM_EASE } from '../utils/swarmMotion';
 
 const HOLD_MS = 3800;
 
-type Phase = "active" | "exit" | "wait";
+type Phase = 'active' | 'exit' | 'wait';
 
 export default function TaglineRotator() {
   const reduced = useReducedMotion();
@@ -29,26 +29,26 @@ export default function TaglineRotator() {
   return (
     <span className="grid">
       {heroTaglines.map((line, idx) => {
-        const phase: Phase = idx === cur ? "active" : idx === prev ? "exit" : "wait";
+        const phase: Phase = idx === cur ? 'active' : idx === prev ? 'exit' : 'wait';
 
         const animate =
-          phase === "active"
+          phase === 'active'
             ? { opacity: 1, y: 0 }
-            : phase === "exit"
+            : phase === 'exit'
             ? { opacity: 0, y: -14 }
             : { opacity: 0, y: 14 };
 
         const transition =
-          phase === "active"
+          phase === 'active'
             ? { duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.1, ease: SWARM_EASE }
-            : phase === "exit"
+            : phase === 'exit'
             ? { duration: reduced ? 0 : 0.16, ease: SWARM_EASE }
             : { duration: 0.25, ease: SWARM_EASE };
 
         return (
           <motion.span
             key={line.top}
-            aria-hidden={phase !== "active"}
+            aria-hidden={phase !== 'active'}
             className="col-start-1 row-start-1 block"
             initial={false}
             animate={animate}

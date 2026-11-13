@@ -1,38 +1,28 @@
 "use client";
-import { motion } from 'framer-motion';
 import { education } from '../data/content';
-import { SWARM_EASE, POP, popT, build, snap } from '../utils/swarmMotion';
+import Reveal from './Reveal';
 
 export default function EducationHome() {
   return (
     <section id="education" className="section-cream relative py-16 md:py-24 lg:py-32">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:pl-24">
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          variants={build(0.09)}
-          viewport={{ once: true, amount: 0.4 }}
-          className="mb-10 md:mb-12"
-        >
-          <motion.h2
-            variants={snap}
-            className="section-title text-4xl sm:text-5xl lg:text-6xl text-white font-serif italic leading-[1.1] mb-4"
-          >
-            Education, <span className="font-display text-emerald-400">so far.</span>
-          </motion.h2>
-          <motion.p variants={snap} className="text-white/75 text-sm font-mono font-medium tracking-wide">
-            Where I studied
-          </motion.p>
-        </motion.div>
+        <div className="mb-10 md:mb-12">
+          <Reveal>
+            <h2 className="section-title text-4xl sm:text-5xl lg:text-6xl text-white font-serif italic leading-[1.1] mb-4">
+              Education, <span className="font-display text-emerald-400">so far.</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1} y={40} duration={0.9}>
+            <p className="text-white/75 text-sm font-mono font-medium tracking-wide">Where I studied</p>
+          </Reveal>
+        </div>
 
         <div className="grid gap-5 sm:gap-6 md:grid-cols-2">
           {education.map((item, i) => (
-            <motion.article
+            <Reveal
+              as="article"
               key={item.degree}
-              initial={POP.block.initial}
-              whileInView={POP.block.reveal}
-              transition={{ duration: 0.5, delay: i * 0.1, ease: SWARM_EASE }}
-              viewport={{ once: true }}
+              delay={i * 0.15}
               className="exp-card glass rounded-2xl p-6 sm:p-7"
             >
               <header className="mb-4 flex items-start justify-between gap-x-4 gap-y-2">
@@ -62,7 +52,7 @@ export default function EducationHome() {
                   </span>
                 )}
               </footer>
-            </motion.article>
+            </Reveal>
           ))}
         </div>
       </div>

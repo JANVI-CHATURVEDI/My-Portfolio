@@ -1,28 +1,39 @@
-# My Portfolio
+# Janvi Chaturvedi — Portfolio
 
-Welcome to my personal portfolio website! I'm Janvi Chaturvedi, an aspiring Software Development Engineer passionate about building meaningful tech solutions. This portfolio showcases my skills, projects, and journey in the world of software development.
+Personal portfolio site built with Next.js 14, TypeScript, Tailwind CSS, Framer Motion and Lenis.
 
-###  [View Live](https://janvi-chaturvedi.vercel.app)
+[Live site](https://janvi-chaturvedi.vercel.app)
 
----
+## Stack
 
-## 🚀 Features
+- **Framework** — Next.js 14 (App Router)
+- **Styling** — Tailwind CSS + custom CSS tokens in `src/app/globals.css`
+- **Motion** — Framer Motion, Lenis smooth scroll
+- **Icons** — lucide-react, react-icons
+- **Background effect** — three.js shader on the projects and contact pages
 
-- **Responsive Design**: Optimized for all devices.
-- **Interactive UI**: Engaging user experience with smooth animations.
-- **Project Showcases**: Highlighting key projects and achievements.
-- **Contact Form**: Reach out to me directly through the website.
-- **Technologies Used**: React, Vercel, and more.
+## Structure
 
----
+```
+src/
+  app/            routes, layout, global styles, icons
+  components/     page sections and UI primitives
+  data/content.ts single source of truth for all copy and content
+  utils/          shared motion primitives
+public/images/    project shots, portrait and hero background
+```
 
-## 🛠️ Technologies
+## Scripts
 
-- **Frontend**: React
-- **Deployment**: Vercel
-- **Styling**: CSS Modules / Styled Components
-- **Hosting**: Vercel
+| Command        | Description                                                     |
+| -------------- | --------------------------------------------------------------- |
+| `npm run dev`  | Start the dev server on http://localhost:3000                    |
+| `npm run build`| Production build                                                 |
+| `npm start`    | Serve the production build                                       |
+| `npm run warmup` | Pre-compile routes on a running dev server                     |
+| `npm run dev:warm` | Start dev and pre-compile every route                       |
 
----
+## Content
 
-
+All text, projects, experience, education, skills and links live in `src/data/content.ts`.
+Update that file and every section follows.
