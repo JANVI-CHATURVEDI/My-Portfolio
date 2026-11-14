@@ -14,10 +14,10 @@ import {
   SiBootstrap,
   SiFigma,
   SiDjango,
-  SiNodedotjs,
   SiSqlite,
   SiPostgresql,
   SiMongodb,
+  SiNeon,
   SiFirebase,
   SiAppwrite,
   SiGit,
@@ -29,7 +29,8 @@ import {
   SiLeaflet,
   SiFlutter,
 } from 'react-icons/si';
-import { FaMobileAlt, FaPaintBrush, FaPlug, FaCode, FaNetworkWired } from 'react-icons/fa';
+import { Code } from 'lucide-react';
+import { FaMobileAlt, FaPlug, FaNetworkWired } from 'react-icons/fa';
 import { skillCategories, skillGroupCount, skillMeta, skillsByCategory, type SkillCategory } from '../data/content';
 import { REVEAL_EASE } from '../utils/swarmMotion';
 
@@ -44,104 +45,102 @@ const ICONS: Record<string, React.ComponentType<{ size?: number; className?: str
   'Tailwind CSS': SiTailwindcss,
   Bootstrap: SiBootstrap,
   'Responsive Web Design': FaMobileAlt,
-  'UI Development': FaPaintBrush,
-  Figma: SiFigma,
   Django: SiDjango,
   'Django REST Framework': SiDjango,
   'REST API Development': FaPlug,
-  'Python Backend Development': SiPython,
-  'Node.js (familiarity)': SiNodedotjs,
-  SQLite: SiSqlite,
+  'API Integration': FaNetworkWired,
   PostgreSQL: SiPostgresql,
+  SQLite: SiSqlite,
   MongoDB: SiMongodb,
+  Neon: SiNeon,
   Firebase: SiFirebase,
   Appwrite: SiAppwrite,
   Git: SiGit,
   GitHub: SiGithub,
-  'VS Code': FaCode,
+  'VS Code': Code,
   PyCharm: SiPycharm,
   Postman: SiPostman,
   Vercel: SiVercel,
-  'Docker (learning/setup experience)': SiDocker,
-  'Leaflet.js (maps and geolocation)': SiLeaflet,
-  'Flutter (exposure through project work)': SiFlutter,
-  'Neon Database': SiPostgresql,
-  'API Integration': FaNetworkWired,
+  Figma: SiFigma,
+  Docker: SiDocker,
+  Flutter: SiFlutter,
+  'Leaflet.js': SiLeaflet,
 };
+
+const total = Object.keys(skillMeta).length;
 
 export default function SkillsBox() {
   const [active, setActive] = useState<SkillCategory>('All');
   const skills = skillsByCategory(active);
 
   return (
-    <section id="skills" className="py-10 md:py-14 lg:py-16 relative">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:pl-24">
-        <div className="mb-6 md:mb-8">
-          <Reveal>
-            <h2 className="section-title text-3xl sm:text-4xl lg:text-5xl text-white font-serif italic leading-[1.1] mb-2">
-              Technical <span className="font-display text-emerald-400">Arsenal</span>
-            </h2>
-          </Reveal>
-          <Reveal delay={0.1} y={40} duration={0.9}>
-            <p className="text-white/75 text-xs font-mono font-medium tracking-wide">
-              {Object.keys(skillMeta).length} skills across {skillGroupCount} areas
-            </p>
-          </Reveal>
+    <section id="skills" className="theme-paper relative py-20 sm:py-28 lg:py-36">
+      <div className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-12">
+        <div className="flex flex-wrap items-end justify-between gap-4 border-b border-line pb-4">
+          <span className="eyebrow accent-label">05 — Technical arsenal</span>
+          <span className="eyebrow text-muted">
+            {total} skills · {skillGroupCount} areas
+          </span>
         </div>
 
-        <Reveal y={60} duration={0.9} className="glass rounded-2xl p-4 sm:p-5 relative overflow-hidden">
-          <div className="flex flex-wrap gap-1.5 mb-4 justify-center">
+        <Reveal y={36} scale={1} duration={0.9}>
+          <h2 className="t-display mt-8">
+            Technical <span className="accent-italic">arsenal</span>
+          </h2>
+        </Reveal>
+        <Reveal y={20} scale={1} delay={0.1} duration={0.8}>
+          <p className="mt-4 max-w-md text-sm leading-relaxed text-muted">
+            The languages, frameworks and tools I reach for — filtered by where they sit in the stack.
+          </p>
+        </Reveal>
+
+        <Reveal y={24} scale={1} delay={0.15} duration={0.8}>
+          <div className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-2.5 border-y border-line py-3.5">
             {skillCategories.map((cat) => (
               <button
                 key={cat}
+                type="button"
                 onClick={() => setActive(cat)}
-                className={`px-3 py-1 rounded-full text-xs font-mono font-medium transition-all duration-300 border ${
+                aria-pressed={active === cat}
+                className={`eyebrow tracking-[0.08em] transition-colors duration-300 ${
                   active === cat
-                    ? 'bg-emerald-400/15 text-emerald-300 border-emerald-400/40'
-                    : 'bg-white/[0.04] text-white/60 border-white/10 hover:text-white hover:border-white/20'
+                    ? 'text-[rgb(var(--t-accent-ink))]'
+                    : 'text-muted hover:text-[rgb(var(--t-fg))]'
                 }`}
               >
                 {cat}
               </button>
             ))}
           </div>
+        </Reveal>
 
-          <div className="relative min-h-[120px]">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={active}
-                initial={{ opacity: 0, x: 80 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -80 }}
-                transition={{ duration: 0.6, ease: REVEAL_EASE }}
-                className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3 justify-items-center"
-              >
-                {skills.map((name, i) => {
-                  const Icon = ICONS[name] ?? FaCode;
+        <div className="mt-8 min-h-[300px]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3, ease: REVEAL_EASE }}
+            >
+              <div className="skill-grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
+                {skills.map((name) => {
+                  const Icon = ICONS[name] ?? Code;
                   return (
-                    <Reveal
-                      key={name}
-                      delay={i * 0.06}
-                      y={40}
-                      scale={0.85}
-                      duration={0.7}
-                      className="group flex items-center justify-center"
-                    >
-                      <div
-                        role="img"
-                        title={name}
-                        aria-label={name}
-                        className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center transition-all duration-300 group-hover:border-emerald-400/40 group-hover:bg-emerald-400/[0.08] group-hover:-translate-y-0.5"
-                      >
-                        <Icon size={22} className="text-white/80 group-hover:text-emerald-300 transition-colors" />
-                      </div>
-                    </Reveal>
+                    <div key={name} className="skill-cell" title={name}>
+                      <Icon size={20} className="shrink-0" />
+                      <span className="text-[13px] leading-tight">{name}</span>
+                    </div>
                   );
                 })}
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </Reveal>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        <p className="eyebrow mt-4 text-muted">
+          {skills.length} shown / {total} total
+        </p>
       </div>
     </section>
   );

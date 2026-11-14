@@ -56,7 +56,7 @@ export default function TaglineRotator() {
           >
             {line.top}
             <br />
-            <span className="font-display text-[#B45D67]">{line.accent}</span>
+            <span className="accent-italic">{line.accent}</span>
           </motion.span>
         );
       })}

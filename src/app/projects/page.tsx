@@ -1,106 +1,117 @@
 "use client";
-import { motion } from 'framer-motion';
-import { ArrowUpRight, Github, ExternalLink } from 'lucide-react';
-import LiquidBg from '../../components/LiquidBg';
-import TechStack from '../../components/TechStack';
+import { ExternalLink, Github, ArrowUpRight } from 'lucide-react';
 import Reveal from '../../components/Reveal';
 import { projects } from '../../data/content';
-import { POP, popT } from '../../utils/swarmMotion';
 
 export default function ProjectsPage() {
   return (
-    <main className="section-taupe projects-ground min-h-screen text-white">
-      <LiquidBg />
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:pl-24 pt-24 pb-16 md:pb-20">
-        <motion.div
-          initial={POP.block.initial}
-          animate={POP.block.reveal}
-          transition={popT(0, 0.55)}
-          className="mb-14"
-        >
-          <p className="text-xs font-mono tracking-[0.3em] text-[#5A524A] uppercase mb-4">
-            01 — Work
-          </p>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#1F1A17] leading-[1.05] tracking-tight mb-5">
-            Things I&apos;ve <span className="font-display italic font-normal text-emerald-400">shipped.</span>
+    <main className="theme-paper min-h-screen">
+      <div className="mx-auto max-w-[1280px] px-5 pb-20 pt-28 sm:px-8 sm:pt-36 lg:px-12">
+        <Reveal y={28} scale={1} duration={0.8}>
+          <div className="flex flex-wrap items-end justify-between gap-4 border-b border-line pb-4">
+            <span className="eyebrow accent-label">Index — Work</span>
+            <span className="eyebrow text-muted">{projects.length} projects · 2024 — 2026</span>
+          </div>
+        </Reveal>
+
+        <Reveal y={36} scale={1} duration={0.9}>
+          <h1 className="t-display mt-8">
+            Things I&apos;ve <span className="accent-italic">shipped.</span>
           </h1>
-          <p className="text-[#5A524A] text-sm font-mono font-medium tracking-wide">
+        </Reveal>
+        <Reveal y={20} scale={1} delay={0.1} duration={0.8}>
+          <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted">
             Selected work — built end-to-end, from schema to interface.
           </p>
-        </motion.div>
+        </Reveal>
 
-        <div className="grid md:grid-cols-2 gap-5 mb-10">
-          {projects.map((project, i) => (
-            <Reveal
-              key={project.id}
-              delay={i * 0.09}
-              className="pj-slot group [perspective:1000px]"
-            >
-              <div className="pj-card glass rounded-3xl overflow-hidden flex flex-col h-full">
-                <div className="relative aspect-[16/9] overflow-hidden">
-                  <img
-                    src={project.image}
-                    alt={project.name}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink-scrim)] via-transparent to-transparent" />
-
-                  <span
-                    className={`absolute top-3 left-3 text-[10px] font-mono px-2.5 py-1 rounded-full border backdrop-blur-sm ${
-                      project.status === 'completed'
-                        ? 'bg-emerald-400/75 text-white border-emerald-400/60'
-                        : 'bg-amber-400/80 text-[rgb(var(--t-ink))] border-amber-400/70'
+        <div className="mt-12 border-t border-line">
+          {projects.map((project, i) => {
+            const flipped = i % 2 === 1;
+            return (
+              <Reveal
+                as="article"
+                key={project.id}
+                y={32}
+                scale={1}
+                duration={0.8}
+                className="grid gap-6 border-b border-line py-10 lg:grid-cols-12 lg:items-center lg:gap-10 lg:py-14"
+              >
+                <div className={`lg:col-span-5 ${flipped ? 'lg:order-2' : ''}`}>
+                  <div
+                    className={`group relative overflow-hidden border border-line bg-surface-2 transition-transform duration-500 hover:rotate-0 ${
+                      flipped ? '-rotate-[1.4deg]' : 'rotate-[1.4deg]'
                     }`}
                   >
-                    {project.status === 'completed' ? '● Live' : '● Building'}
-                  </span>
-
-                  <div className="absolute bottom-2 left-3 flex items-center gap-2 text-[10px] font-mono font-medium text-[#C2B8B2] bg-black/35 backdrop-blur-[2px] px-2.5 py-1 rounded-full">
-                    <span>{project.year}</span>
-                    <span className="w-0.5 h-0.5 rounded-full bg-white/50" />
-                    <span>{project.role}</span>
+                    <img
+                      src={project.image}
+                      alt={project.name}
+                      loading="lazy"
+                      decoding="async"
+                      className="aspect-[11/5] w-full object-contain"
+                    />
+                    <span className="absolute -left-3 -top-3 bg-[rgb(var(--t-bg))] px-2.5 py-1.5">
+                      <span className="eyebrow">0{i + 1}</span>
+                    </span>
                   </div>
+
+                  <p className="eyebrow mt-4 text-muted">
+                    {project.year} · {project.role}
+                  </p>
                 </div>
 
-                <div className="pj-content p-5 flex-1 flex flex-col">
-                  <h2 className="text-xl font-bold text-[#FAF7F2] mb-1.5">{project.name}</h2>
-                  <p className="text-xs text-[#C2B8B2] font-display italic mb-3">
+                <div className={`lg:col-span-7 ${flipped ? 'lg:order-1' : ''}`}>
+                  <div className="flex items-center gap-3">
+                    <span
+                      className={`h-1.5 w-1.5 rounded-full ${
+                        project.status === 'completed'
+                          ? 'bg-[rgb(var(--t-accent))]'
+                          : 'bg-[rgb(var(--t-fg)/0.4)]'
+                      }`}
+                    />
+                    <span className="eyebrow text-muted">
+                      {project.status === 'completed' ? 'Live' : 'Building'} · {project.tags[0]}
+                    </span>
+                  </div>
+
+                  <h2 className="t-display mt-3 text-[clamp(2rem,4.4vw,3.4rem)]">
+                    {project.name}
+                  </h2>
+                  <p className="mt-2 font-serif text-lg italic leading-snug text-[rgb(var(--t-accent-ink))]">
                     {project.description}
                   </p>
-                  <p className="text-sm text-[#C2B8B2] leading-relaxed mb-4 line-clamp-2">
+
+                  <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">
                     {project.longDescription || project.description}
                   </p>
 
                   {project.features && (
-                    <div className="mb-4 space-y-1">
-                      {project.features.slice(0, 3).map((feature) => (
-                        <div key={feature} className="flex items-center gap-2 text-xs text-[#C2B8B2]">
+                    <ul className="mt-5 grid gap-1.5 sm:grid-cols-2">
+                      {project.features.map((feature) => (
+                        <li
+                          key={feature}
+                          className="flex gap-2.5 text-xs leading-relaxed text-muted"
+                        >
+                          <span aria-hidden className="mt-1.5 text-[rgb(var(--t-accent))]">
+                            +
+                          </span>
                           <span>{feature}</span>
-                        </div>
+                        </li>
                       ))}
-                      {project.features.length > 3 && (
-                        <span className="text-[10px] font-mono text-[#C2B8B2]">
-                          +{project.features.length - 3} more
-                        </span>
-                      )}
-                    </div>
+                    </ul>
                   )}
 
-                  <div className="mt-auto">
-                    <TechStack tags={project.tags} />
-                  </div>
+                  <p className="eyebrow mt-6 text-muted">{project.tags.join(' · ')}</p>
 
-                  <div className="flex gap-2 pt-3 border-t border-white/5">
+                  <div className="mt-6 flex flex-wrap items-center gap-3">
                     {project.link && (
                       <a
                         href={project.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn-primary flex-1 items-center justify-center gap-1.5 px-4 py-3 min-h-[44px] rounded-xl font-semibold text-xs hover:-translate-y-[2px] transition-all duration-300"
+                        className="btn btn-solid"
                       >
-                        <ExternalLink size={13} /> Demo
+                        <ExternalLink size={14} /> Live demo
                       </a>
                     )}
                     {project.github && (
@@ -108,36 +119,36 @@ export default function ProjectsPage() {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn-ghost flex-1 items-center justify-center gap-1.5 px-4 py-3 min-h-[44px] rounded-xl font-medium hover:-translate-y-[2px] text-xs transition-all duration-300"
+                        className="btn btn-outline"
                       >
-                        <Github size={13} /> Code
+                        <Github size={14} /> Source
                       </a>
                     )}
                   </div>
                 </div>
-              </div>
-            </Reveal>
-          ))}
-
-          <Reveal
-            delay={0.45}
-            y={60}
-            className="glass rounded-2xl flex flex-col items-center justify-center gap-4 min-h-[280px] border-dashed hover:border-emerald-400/20 transition-all"
-          >
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500/15 to-cyan-500/10 flex items-center justify-center">
-              <ArrowUpRight size={24} className="text-white" />
-            </div>
-            <p className="text-sm text-white font-mono">More experiments brewing</p>
-            <a
-              href="https://github.com/JANVI-CHATURVEDI"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs font-mono font-medium text-white hover:text-emerald-400 transition-colors flex items-center gap-1 min-h-[44px] px-2 py-3"
-            >
-              Follow on GitHub <ArrowUpRight size={12} />
-            </a>
-          </Reveal>
+              </Reveal>
+            );
+          })}
         </div>
+
+        <Reveal
+          y={24}
+          scale={1}
+          className="mt-12 flex flex-col items-start justify-between gap-6 border border-dashed border-line-strong p-8 sm:flex-row sm:items-center"
+        >
+          <div>
+            <p className="t-title">More experiments brewing.</p>
+            <p className="eyebrow mt-2 text-muted">Half-formed ideas, prototypes and open source.</p>
+          </div>
+          <a
+            href="https://github.com/JANVI-CHATURVEDI"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-outline"
+          >
+            Follow on GitHub <ArrowUpRight size={14} />
+          </a>
+        </Reveal>
       </div>
     </main>
   );

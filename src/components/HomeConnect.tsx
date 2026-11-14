@@ -7,40 +7,58 @@ import Reveal from './Reveal';
 
 export default function HomeConnect() {
   return (
-    <section className="section-rose contact-ground relative py-14 md:py-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:pl-24">
-        <Reveal y={60} duration={0.9} className="glass rounded-3xl p-6 sm:p-10 lg:p-14 text-center mb-12 md:mb-16 relative overflow-hidden">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl" />
-          <Reveal delay={0.15} y={40} duration={0.9}>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif italic text-[#231A18] relative z-10 mb-6">
-              Let's build something <br />
-              <span className="font-display text-emerald-400">extraordinary together.</span>
-            </h2>
-          </Reveal>
+    <section id="contact" className="theme-paper relative overflow-hidden py-20 sm:py-28 lg:py-32">
+      <div className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-12">
+        <div className="flex flex-wrap items-end justify-between gap-4 border-b border-line pb-4">
+          <span className="eyebrow accent-label">07 — Contact</span>
+          <span className="eyebrow text-muted">Open for work · 2026</span>
+        </div>
 
-          <Reveal delay={0.25} y={30} duration={0.8} className="flex flex-wrap justify-center gap-4 relative z-10">
-            <Magnetic>
-              <Link
-                href="/contact"
-                className="btn-primary px-6 py-3 rounded-full font-semibold text-sm hover:-translate-y-[2px] transition-all duration-300"
-              >
-                Get In Touch <ArrowUpRight size={14} />
-              </Link>
-            </Magnetic>
-            <Magnetic>
-              <Link
-                href="/projects"
-                className="btn-ghost px-6 py-3 rounded-full font-medium hover:-translate-y-[2px] transition-all duration-300"
-              >
-                View Projects <ArrowUpRight size={14} />
-              </Link>
-            </Magnetic>
-          </Reveal>
-        </Reveal>
+        <div className="mt-10 grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-7">
+            <Reveal y={36} scale={1} duration={0.9}>
+              <h2 className="t-display">
+                Let&apos;s build something <span className="accent-italic">extraordinary</span>{' '}
+                together.
+              </h2>
+            </Reveal>
 
-        <Reveal delay={0.2} y={60} duration={0.9} className="mb-10">
-          <QuoteCard />
-        </Reveal>
+            <Reveal y={20} scale={1} delay={0.1} duration={0.8}>
+              <p className="mt-6 max-w-md text-sm leading-relaxed text-muted">
+                Have a project in mind, a role to fill, or just want to discuss tech? My inbox is
+                always open.
+              </p>
+
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <Magnetic>
+                  <Link href="/contact" className="btn btn-solid">
+                    Get in touch <ArrowUpRight size={15} />
+                  </Link>
+                </Magnetic>
+                <Magnetic>
+                  <Link href="/projects" className="btn btn-outline">
+                    View projects <ArrowUpRight size={15} />
+                  </Link>
+                </Magnetic>
+              </div>
+            </Reveal>
+          </div>
+
+          <div className="lg:col-span-5">
+            <Reveal y={30} scale={1} delay={0.15} duration={0.85}>
+              <QuoteCard />
+            </Reveal>
+          </div>
+        </div>
+
+        <div className="mt-16 overflow-hidden border-t border-line pt-6">
+          <span
+            aria-hidden
+            className="outline-type block whitespace-nowrap font-display text-[clamp(2rem,7.6vw,6.5rem)] font-semibold uppercase leading-[0.85] tracking-[-0.03em]"
+          >
+            Janvi Chaturvedi
+          </span>
+        </div>
       </div>
     </section>
   );

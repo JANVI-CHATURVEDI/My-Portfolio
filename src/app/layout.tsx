@@ -1,8 +1,7 @@
 import './globals.css';
-import { Manrope, Cormorant_Garamond, Fraunces, JetBrains_Mono, Permanent_Marker } from 'next/font/google';
+import { Manrope, Cormorant_Garamond, Fraunces, JetBrains_Mono } from 'next/font/google';
 import type { Metadata } from 'next';
 import Navbar from '../components/Navbar';
-import HeroSidebar from '../components/HeroSidebar';
 import PageTransition from '../components/PageTransition';
 import MotionProvider from '../components/MotionProvider';
 import SmoothScroll from '../components/SmoothScroll';
@@ -23,11 +22,10 @@ const fraunces = Fraunces({
   variable: '--font-fraunces',
 });
 const jetbrains = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains' });
-const marker = Permanent_Marker({ weight: '400', subsets: ['latin'], variable: '--font-marker' });
 
 export const metadata: Metadata = {
-  title: 'Janvi Chaturvedi — Full-Stack Software Architect',
-  description: 'Crafting digital products & high-performance web architecture.',
+  title: 'Janvi Chaturvedi — Full-Stack Developer',
+  description: 'Full-stack developer building clean, scalable products from database to interface.',
 };
 
 export default function RootLayout({
@@ -38,17 +36,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${cormorant.variable} ${fraunces.variable} ${jetbrains.variable} ${marker.variable}`}
+      className={`${manrope.variable} ${cormorant.variable} ${fraunces.variable} ${jetbrains.variable}`}
     >
       <body className={`${manrope.className} antialiased`}>
         <SmoothScroll />
-        <div className="fixed inset-0 z-[-1] pointer-events-none opacity-10">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#D8C8BC] via-[#E8DDD3] to-[#C9B0AE]" />
-        </div>
         <MotionProvider>
           <CustomCursor />
           <Navbar />
-          <HeroSidebar />
           <PageTransition>{children}</PageTransition>
           <FooterBar />
         </MotionProvider>

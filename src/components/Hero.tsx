@@ -1,143 +1,189 @@
 "use client";
-import { motion, useReducedMotion, useScroll, useTransform, type Variants } from 'framer-motion';
+import Link from 'next/link';
 import { useRef } from 'react';
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
 import TaglineRotator from './TaglineRotator';
-import { SWARM_EASE, build, snap, snapBig, charSnap } from '../utils/swarmMotion';
+import { REVEAL_EASE } from '../utils/swarmMotion';
 
-const FULL_NAME = 'Janvi Chaturvedi';
+const MARQUEE = [
+  'Full-Stack Developer',
+  'Python · Django',
+  'React · Next.js',
+  'PostgreSQL',
+  'Open Source',
+  'Kanpur, India',
+];
 
 export default function Hero() {
   const reduced = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
-  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
-  const portraitY = useTransform(scrollYProgress, [0, 1], ['0%', '25%']);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  });
+  const stripY = useTransform(scrollYProgress, [0, 1], ['0%', '-16%']);
   const d = (v: number) => (reduced ? 0 : v);
 
-  const stage = build(d(0.1), d(0.12));
-
-  const cardOuter: Variants = {
-    hidden: { opacity: 0, scale: 0.9, y: 26 },
-    show: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: {
-        duration: d(0.55),
-        ease: SWARM_EASE,
-        staggerChildren: d(0.075),
-        delayChildren: d(0.18),
-      },
-    },
+  const line = {
+    hidden: { opacity: 0, y: 28 },
+    show: { opacity: 1, y: 0 },
   };
 
-  const nameStage = build(d(0.035), d(0.06));
-
   return (
-    <section ref={sectionRef} id="home" className="section-rose hero-ground relative z-10 min-h-screen lg:min-h-screen flex items-center overflow-hidden">
-      <motion.div className="absolute inset-0 z-0" style={{ y: bgY }}>
-        <img
-          src="/images/hero-bg.jpg"
-          alt=""
-          aria-hidden="true"
-          loading="eager"
-          fetchPriority="high"
-          decoding="async"
-          className="w-full h-full object-cover opacity-[0.18] scale-110"
-          style={{ filter: 'sepia(0.55) saturate(1.05) contrast(1.02)' }}
-        />
+    <section
+      ref={sectionRef}
+      id="home"
+      className="theme-paper relative overflow-hidden pt-24 sm:pt-28 lg:pt-32"
+    >
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: d(0.7), delay: d(0.05) }}
+        className="mx-auto flex max-w-[1280px] flex-wrap items-center justify-between gap-x-6 gap-y-2 border-b border-line px-5 pb-4 sm:px-8 lg:px-12"
+      >
+        <span className="eyebrow">Portfolio — 2026</span>
+        <span className="eyebrow flex items-center gap-2">
+          <span className="status-dot" /> Available for work
+        </span>
+        <span className="eyebrow text-muted">Kanpur, India</span>
       </motion.div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:pl-24 w-full pt-20 pb-16 lg:pt-24 lg:pb-20">
+      <div className="relative mx-auto mt-8 grid max-w-[1280px] grid-cols-1 gap-y-8 px-5 sm:mt-10 sm:px-8 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-10 lg:px-12">
         <motion.div
-          variants={stage}
           initial="hidden"
           animate="show"
-          className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center lg:min-h-[80vh]"
+          variants={{ hidden: {}, show: { transition: { staggerChildren: d(0.12), delayChildren: d(0.15) } } }}
+          className="relative z-10 lg:col-start-1 lg:col-end-9"
         >
-          <motion.div
-            variants={snapBig}
-            style={{ y: portraitY }}
-            className="flex justify-center lg:justify-start order-2 lg:order-1"
-          >
-            <div className="relative group">
-              <div className="absolute -inset-4 bg-gradient-to-tr from-[#C18D8D]/30 via-transparent to-[#B08A78]/30 rounded-full blur-2xl group-hover:blur-[60px] transition-all duration-700" />
-              <div className="absolute -inset-2 bg-gradient-to-br from-[#C18D8D]/15 to-transparent rounded-full blur-xl" />
+          <h1 className="t-hero">
+            <motion.span
+              variants={line}
+              transition={{ duration: d(0.8), ease: REVEAL_EASE }}
+              className="block"
+            >
+              Janvi
+            </motion.span>
+            <motion.span
+              variants={line}
+              transition={{ duration: d(0.8), ease: REVEAL_EASE }}
+              className="block"
+            >
+              Chaturvedi<span className="text-accent">.</span>
+            </motion.span>
+          </h1>
 
-              <div className="relative w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-96 lg:h-96 rounded-full overflow-hidden border border-white/[0.06] shadow-2xl swarm-float">
+          <motion.div variants={line} className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2">
+            <span className="eyebrow accent-label">Full-Stack Developer</span>
+            <span className="eyebrow text-muted">Python · Django · React</span>
+          </motion.div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30, rotate: 0 }}
+          animate={{ opacity: 1, y: 0, rotate: reduced ? 0 : 4 }}
+          transition={{ duration: d(0.9), delay: d(0.4), ease: REVEAL_EASE }}
+          className="relative z-20 mx-auto w-52 sm:w-60 lg:col-start-9 lg:col-end-13 lg:row-start-1 lg:row-end-3 lg:mx-0 lg:w-full lg:max-w-[340px] lg:justify-self-end"
+        >
+          <div className="border border-line-strong bg-surface p-2 shadow-[14px_16px_0_0_rgba(18,16,14,0.09)]">
+            <div className="relative">
+              <div className="aspect-square overflow-hidden bg-surface-2">
                 <img
                   src="/images/about-portrait.jpg"
                   alt="Janvi Chaturvedi"
                   loading="eager"
+                  fetchPriority="high"
                   decoding="async"
-                  className="w-full h-full object-cover scale-105 hover:scale-110 transition-transform duration-700"
+                  className="h-full w-full object-cover object-[50%_32%] grayscale-[20%] contrast-[1.04]"
                 />
               </div>
+              <span
+                aria-hidden
+                className="stamp absolute -bottom-2 -left-3 -rotate-6"
+              >
+                Full-stack
+                <br />
+                developer
+              </span>
             </div>
-          </motion.div>
+            <div className="flex items-center justify-between gap-2 px-0.5 pt-3">
+              <span className="eyebrow">Janvi C.</span>
+              <span className="eyebrow text-muted">Kanpur · IN</span>
+            </div>
+          </div>
+        </motion.div>
 
-          <motion.div variants={cardOuter}>
-            <div className="hero-card swarm-breathe space-y-4">
-              <motion.div
-                variants={snap}
-                className="flex items-center gap-2"
-              >
-                <span className="status-dot" />
-                <span className="text-sm font-mono font-bold text-[#6B5E57] tracking-wide">Available For Work</span>
-              </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: d(0.8), delay: d(0.55), ease: REVEAL_EASE }}
+          className="lg:col-start-1 lg:col-end-8 lg:row-start-2"
+        >
+          <p className="eyebrow text-muted">Design to deploy</p>
+          <div className="mt-3 font-serif text-[clamp(1.6rem,3vw,2.4rem)] italic leading-[1.12]">
+            <TaglineRotator />
+          </div>
+          <p className="mt-5 max-w-md text-[15px] leading-relaxed text-muted">
+            Full-stack developer passionate about creating clean, scalable, and user-friendly
+            applications. Specializing in Python, Django, React, and modern web architectures.
+          </p>
+          <div className="mt-7 flex flex-wrap items-center gap-3">
+            <Link href="/projects" className="btn btn-solid">
+              Selected work <ArrowUpRight size={15} />
+            </Link>
+            <Link href="/contact" className="btn btn-outline">
+              Start a project
+            </Link>
+          </div>
+          <p className="eyebrow mt-8 flex items-center gap-3">
+            <span aria-hidden className="inline-block h-px w-10 bg-[rgb(var(--t-fg)/0.35)]" />
+            Real-world experience — production backend work &amp; open source
+          </p>
+        </motion.div>
 
-              <motion.h1
-                variants={nameStage}
-                className="whitespace-nowrap text-[1.5rem] sm:text-[1.85rem] lg:text-[2.5rem] font-bold tracking-tight text-[#231A18]"
-              >
-                {FULL_NAME.split('').map((ch, i) => (
-                  <motion.span key={`${ch}-${i}`} variants={charSnap} className="inline-block">
-                    {ch === ' ' ? '\u00A0' : ch}
-                  </motion.span>
+        <span
+          aria-hidden
+          className="outline-type pointer-events-none absolute bottom-0 right-0 hidden select-none font-display text-[clamp(7rem,15vw,14rem)] font-semibold leading-none tracking-[-0.04em] lg:right-12 lg:block"
+        >
+          01
+        </span>
+      </div>
+
+      <div className="mt-14 sm:mt-20 lg:mt-24">
+        <motion.div style={reduced ? undefined : { y: stripY }} className="relative">
+          <div className="relative h-[120px] overflow-hidden sm:h-[150px]">
+            <img
+              src="/images/hero-bg.jpg"
+              alt=""
+              aria-hidden="true"
+              loading="eager"
+              decoding="async"
+              className="h-full w-full scale-110 object-cover"
+              style={{ filter: 'grayscale(1) contrast(1.15) brightness(0.72)' }}
+            />
+            <div aria-hidden className="absolute inset-0 bg-[#0D0C0B]/40" />
+            <div className="marquee absolute inset-0 flex items-center">
+              <div className="marquee-track">
+                {[0, 1].map((copy) => (
+                  <span key={copy} aria-hidden={copy === 1} className="flex items-center">
+                    {MARQUEE.map((item) => (
+                      <span key={item} className="flex items-center">
+                        <span className="font-display text-[clamp(1.1rem,2.4vw,1.9rem)] uppercase tracking-[-0.01em] text-[#F7F4EE]">
+                          {item}
+                        </span>
+                        <span className="mx-6 h-1.5 w-1.5 rounded-full bg-[#E2542C] sm:mx-9" />
+                      </span>
+                    ))}
+                  </span>
                 ))}
-              </motion.h1>
-
-              <motion.p
-                variants={snap}
-                className="text-sm font-mono font-bold text-[#2C221E] tracking-[0.18em] uppercase"
-              >
-                Based in India
-              </motion.p>
-
-              <motion.h2
-                variants={snap}
-                className="font-serif italic font-medium text-[1.35rem] leading-[1.3] sm:text-[1.6rem] text-[#A8535A]"
-              >
-                <TaglineRotator />
-              </motion.h2>
-
-              <motion.p
-                variants={snap}
-                className="text-base font-normal leading-[1.6] text-[#4A3E3B] max-w-md hidden sm:block"
-              >
-                Full-stack developer passionate about creating clean, scalable, and user-friendly applications. Specializing in Python, Django, React, and modern web architectures.
-              </motion.p>
-
-              <motion.div
-                variants={snap}
-                className="flex items-center gap-2.5 text-[11px] font-mono font-bold text-[#4A3E3B] tracking-wide"
-              >
-                <span aria-hidden="true" className="inline-block w-4 h-px bg-[#4A3E3B]/40" />
-                <span>
-                  Real-world experience — production backend work &amp; open source
-                </span>
-              </motion.div>
-
-              <motion.div
-                variants={snap}
-                className="flex w-fit flex-wrap items-center gap-x-3 gap-y-1 text-xs font-mono font-bold text-[#2C221E] bg-[rgb(0_0_0_/_0.04)] px-3 py-2 rounded-full"
-              >
-                <span>Kanpur, India</span>
-                <span className="w-1 h-1 rounded-full bg-emerald-400/90" />
-                <span>Full-Stack Developer</span>
-              </motion.div>
+              </div>
             </div>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

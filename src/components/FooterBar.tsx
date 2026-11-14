@@ -1,11 +1,12 @@
-"use client";
-
 export default function FooterBar() {
   return (
-    <footer className="relative z-10 max-w-6xl mx-auto px-6 lg:pl-24 pb-10">
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono font-medium text-white/80 border-t border-white/5 pt-6 text-center">
-        <span>© {new Date().getFullYear()} Janvi Chaturvedi. Built with Next.js, Tailwind &amp; Motion.</span>
-        <span>Kanpur, India</span>
+    <footer className="theme-paper relative border-t border-line">
+      <div className="mx-auto flex max-w-[1280px] flex-col gap-3 px-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12">
+        <span className="eyebrow">
+          © {new Date().getFullYear()} Janvi Chaturvedi
+        </span>
+        <span className="eyebrow text-muted">Kanpur, India</span>
+        <span className="eyebrow text-muted">Next.js · Tailwind · Motion</span>
       </div>
     </footer>
   );

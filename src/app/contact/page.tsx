@@ -1,104 +1,124 @@
 "use client";
-import { motion } from 'framer-motion';
-import { ArrowUpRight, Mail, Github, Linkedin, Twitter } from 'lucide-react';
-import LiquidBg from '../../components/LiquidBg';
+import { useEffect, useState } from 'react';
+import { ArrowUpRight, Mail, Github, Linkedin, Twitter, FileText } from 'lucide-react';
+import Reveal from '../../components/Reveal';
 import { socials } from '../../data/content';
-import { POP, popT } from '../../utils/swarmMotion';
+
+const EMAIL = 'janvichaturvedi82@gmail.com';
 
 export default function ContactPage() {
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (!copied) return;
+    const timer = window.setTimeout(() => setCopied(false), 2000);
+    return () => window.clearTimeout(timer);
+  }, [copied]);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      setCopied(true);
+    } catch {
+      setCopied(false);
+    }
+  };
+
   const socialIcons: Record<string, React.ReactNode> = {
-    GitHub: <Github size={16} />,
-    LinkedIn: <Linkedin size={16} />,
-    'X / Twitter': <Twitter size={16} />,
-    Instagram: <span>📸</span>,
-    Email: <Mail size={16} />,
-    Resume: <span>📄</span>,
-    WhatsApp: <span>💬</span>,
+    GitHub: <Github size={15} />,
+    LinkedIn: <Linkedin size={15} />,
+    'X / Twitter': <Twitter size={15} />,
+    Email: <Mail size={15} />,
+    Resume: <FileText size={15} />,
   };
 
   return (
-    <main className="section-stone min-h-screen text-white">
-      <LiquidBg />
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:pl-24 pt-24 pb-20">
-        <motion.div
-          initial={POP.leaf.initial}
-          animate={POP.leaf.reveal}
-          transition={popT(0, 0.5)}
-          className="mb-8"
-        >
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif italic text-white leading-[1.1] mb-4">
-            Let's <span className="font-display text-emerald-400">Connect</span>
+    <main className="theme-paper min-h-screen">
+      <div className="mx-auto max-w-[1180px] px-5 pb-20 pt-28 sm:px-8 sm:pt-36 lg:px-12">
+        <Reveal y={28} scale={1} duration={0.8}>
+          <div className="flex flex-wrap items-end justify-between gap-4 border-b border-line pb-4">
+            <span className="eyebrow accent-label">Contact</span>
+            <span className="eyebrow text-muted">Kanpur, India</span>
+          </div>
+        </Reveal>
+
+        <Reveal y={36} scale={1} duration={0.9}>
+          <h1 className="t-display mt-8">
+            Let&apos;s <span className="accent-italic">connect.</span>
           </h1>
-          <p className="text-white/85 text-sm font-mono font-medium tracking-wide">
+        </Reveal>
+        <Reveal y={20} scale={1} delay={0.1} duration={0.8}>
+          <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted">
             Have a project in mind or just want to discuss tech? My inbox is always open.
           </p>
-        </motion.div>
+        </Reveal>
 
-        <div className="grid lg:grid-cols-2 gap-8">
-          <motion.div
-            initial={POP.block.initial}
-            animate={POP.block.reveal}
-            transition={popT(0.12, 0.55)}
-            className="space-y-6"
-          >
-            <div className="glass rounded-2xl p-6 lg:p-8">
-              <h3 className="text-sm font-mono text-emerald-400 tracking-wide mb-4">Direct Channels</h3>
-              <p className="text-white/85 text-sm mb-6">Feel free to connect for collaboration, opportunities, or projects.</p>
+        <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <Reveal y={28} scale={1} delay={0.1} className="lg:col-span-5">
+            <p className="eyebrow accent-label">Direct channels</p>
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
+              Feel free to connect for collaboration, opportunities, or projects.
+            </p>
 
-              <div className="flex items-center gap-3 mb-2 p-3 rounded-xl bg-white/[0.02] border border-white/5">
-                <Mail size={16} className="text-emerald-400/80 flex-shrink-0" />
-                <span className="text-sm text-white/85 font-medium font-mono flex-1 min-w-0 break-all">janvichaturvedi82@gmail.com</span>
-                <button
-                  type="button"
-                  onClick={() => {
-                    navigator.clipboard.writeText('janvichaturvedi82@gmail.com');
-                  }}
-                  className="shrink-0 text-[11px] font-mono px-3.5 py-2.5 min-h-[44px] rounded-full bg-white/5 text-white/85 hover:text-emerald-400 transition-colors border border-white/5"
+            <a
+              href={`mailto:${EMAIL}`}
+              className="mt-8 block break-all font-display text-[clamp(1.15rem,2.2vw,1.6rem)] font-medium leading-tight underline decoration-1 underline-offset-4 transition-colors duration-300 hover:text-[rgb(var(--t-accent-ink))]"
+            >
+              {EMAIL}
+            </a>
+
+            <button type="button" onClick={copyEmail} className="btn btn-outline mt-5">
+              {copied ? 'Copied' : 'Copy address'}
+            </button>
+
+            <div className="mt-10 border-t border-line">
+              {socials.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center justify-between gap-4 border-b border-line py-4 transition-colors duration-300 hover:text-[rgb(var(--t-accent-ink))]"
                 >
-                  Copy
-                </button>
-              </div>
-
-              <div className="flex flex-wrap gap-2 mt-6">
-                {socials
-                  .filter((s) => s.label !== 'Instagram' && s.label !== 'WhatsApp')
-                  .map((s) => (
-                  <a
-                    key={s.label}
-                    href={s.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="social-pill text-xs px-4 py-3 min-h-[44px]"
-                  >
-                    <span className="text-xs">{socialIcons[s.label]}</span>
-                    {s.label}
-                    <ArrowUpRight size={10} className="opacity-70" />
-                  </a>
-                ))}
-              </div>
+                  <span className="flex items-center gap-3 text-sm font-medium">
+                    <span className="text-muted">{socialIcons[social.label]}</span>
+                    {social.label}
+                  </span>
+                  <ArrowUpRight
+                    size={15}
+                    aria-hidden
+                    className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  />
+                </a>
+              ))}
             </div>
+          </Reveal>
 
-          </motion.div>
-
-          <motion.div
-            initial={POP.block.initial}
-            animate={POP.block.reveal}
-            transition={popT(0.24, 0.55)}
-            className="glass rounded-2xl p-6 lg:p-8"
-          >
-            <h3 className="text-sm font-mono text-emerald-400 tracking-wide mb-6">Send a Message</h3>
+          <Reveal y={28} scale={1} delay={0.2} className="lg:col-span-7">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 const form = e.target as HTMLFormElement;
                 const data = new FormData(form);
-                window.open(`mailto:janvichaturvedi82@gmail.com?subject=From ${data.get('name')}&body=${data.get('message')}`);
+                window.open(
+                  `mailto:${EMAIL}?subject=From ${data.get('name')}&body=${data.get('message')}`
+                );
               }}
-              className="space-y-4"
+              className="border border-line-strong bg-surface p-6 sm:p-8"
             >
-              <div className="grid sm:grid-cols-2 gap-4">
+              <div className="flex flex-wrap items-end justify-between gap-3 border-b border-line pb-4">
+                <p className="eyebrow accent-label">Send a message</p>
+                <span className="eyebrow text-muted">Opens your mail app</span>
+              </div>
+
+              <div className="mt-6 grid gap-6 sm:grid-cols-2">
                 <div>
-                  <label htmlFor="contact-name" className="text-xs font-mono font-medium text-white/75 tracking-wider uppercase block mb-2">Your Name</label>
+                  <label
+                    htmlFor="contact-name"
+                    className="eyebrow block text-muted"
+                  >
+                    Your name
+                  </label>
                   <input
                     id="contact-name"
                     name="name"
@@ -106,11 +126,16 @@ export default function ContactPage() {
                     autoComplete="name"
                     required
                     placeholder="e.g. Alex Smith"
-                    className="w-full min-h-[44px] bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-base text-white placeholder-white/35 outline-none focus:border-emerald-400/40 transition-colors"
+                    className="mt-2 w-full border-b border-line bg-transparent pb-2 text-base text-fg placeholder:text-[rgb(var(--t-fg)/0.35)] transition-colors duration-300 focus:border-[rgb(var(--t-accent))]"
                   />
                 </div>
                 <div>
-                  <label htmlFor="contact-email" className="text-xs font-mono font-medium text-white/75 tracking-wider uppercase block mb-2">Your Email</label>
+                  <label
+                    htmlFor="contact-email"
+                    className="eyebrow block text-muted"
+                  >
+                    Your email
+                  </label>
                   <input
                     id="contact-email"
                     name="email"
@@ -118,29 +143,30 @@ export default function ContactPage() {
                     autoComplete="email"
                     required
                     placeholder="alex@example.com"
-                    className="w-full min-h-[44px] bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-base text-white placeholder-white/35 outline-none focus:border-emerald-400/40 transition-colors"
+                    className="mt-2 w-full border-b border-line bg-transparent pb-2 text-base text-fg placeholder:text-[rgb(var(--t-fg)/0.35)] transition-colors duration-300 focus:border-[rgb(var(--t-accent))]"
                   />
                 </div>
               </div>
-              <div>
-                <label htmlFor="contact-message" className="text-xs font-mono font-medium text-white/75 tracking-wider uppercase block mb-2">Message</label>
+
+              <div className="mt-6">
+                <label htmlFor="contact-message" className="eyebrow block text-muted">
+                  Message
+                </label>
                 <textarea
                   id="contact-message"
                   name="message"
                   required
-                  rows={4}
+                  rows={5}
                   placeholder="Tell me about your project, role, or idea..."
-                  className="w-full min-h-[120px] bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-base text-white placeholder-white/35 outline-none focus:border-emerald-400/40 transition-colors resize-none"
+                  className="mt-2 w-full resize-none border-b border-line bg-transparent pb-2 text-base text-fg placeholder:text-[rgb(var(--t-fg)/0.35)] transition-colors duration-300 focus:border-[rgb(var(--t-accent))]"
                 />
               </div>
-              <button
-                type="submit"
-                className="btn-primary w-full justify-center py-3 rounded-xl font-semibold text-sm hover:-translate-y-[2px] transition-all duration-300"
-              >
-                Send Message
+
+              <button type="submit" className="btn btn-solid mt-8 w-full">
+                Send message <ArrowUpRight size={15} />
               </button>
             </form>
-          </motion.div>
+          </Reveal>
         </div>
       </div>
     </main>

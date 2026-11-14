@@ -49,13 +49,13 @@ export default function CustomCursor() {
     <div aria-hidden className="pointer-events-none fixed inset-0 z-[9999]">
       <motion.span
         style={{ x, y, translateX: '-50%', translateY: '-50%' }}
-        className="absolute left-0 top-0 block h-1.5 w-1.5 rounded-full bg-emerald-400"
+        className="absolute left-0 top-0 block h-1.5 w-1.5 rounded-full bg-[#E2542C]"
       />
       <motion.span
         style={{ x: ringX, y: ringY, translateX: '-50%', translateY: '-50%', mixBlendMode: 'difference' }}
         animate={{ scale: hot ? 1.9 : 1, opacity: hot ? 0.95 : 0.6 }}
         transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute left-0 top-0 block h-8 w-8 rounded-full border border-white"
+        className="absolute left-0 top-0 block h-8 w-8 rounded-full border border-[#fff]"
       />
     </div>
   );

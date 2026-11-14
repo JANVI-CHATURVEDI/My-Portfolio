@@ -27,7 +27,8 @@ export default function BrandMark({ size = 28, className = '' }: BrandMarkProps)
       />
       <path
         d={path}
-        style={{ stroke: 'rgb(var(--t-hi))' }}
+        stroke="currentColor"
+        opacity={0.45}
         strokeWidth={5}
         strokeLinecap="butt"
         strokeLinejoin="round"

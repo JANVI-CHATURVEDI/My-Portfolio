@@ -8,16 +8,14 @@ import HomeConnect from '../components/HomeConnect';
 
 export default function HomePage() {
   return (
-    <main className="section-nude min-h-screen text-white overflow-hidden relative">
+    <main className="relative min-h-screen overflow-x-clip">
       <Hero />
-      <div>
-        <AboutHome />
-        <FeaturedProjects />
-        <ExperienceSlider />
-        <SkillsBox />
-        <EducationHome />
-        <HomeConnect />
-      </div>
+      <AboutHome />
+      <FeaturedProjects />
+      <ExperienceSlider />
+      <SkillsBox />
+      <EducationHome />
+      <HomeConnect />
     </main>
   );
 }
