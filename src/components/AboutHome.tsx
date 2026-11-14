@@ -91,18 +91,31 @@ export default function AboutHome() {
 
             <div className="mt-3 flex items-start gap-1 self-start pl-1 lg:pl-6">
               <span className="max-w-[min(260px,58vw)] -rotate-3 font-marker text-lg leading-snug text-white/85">
-                Currently building CivicConnect. Stay tuned.
+                Always in the middle of something.
               </span>
             </div>
           </Reveal>
 
           <Reveal delay={0.15} className="lg:col-span-8 space-y-6">
-            <p className="text-base sm:text-lg font-[450] leading-relaxed text-white/85 max-w-2xl">
-              Started as a kid who was curious about how things worked. Now I build things, break
-              things, fix them, and ship them. Passionate full-stack developer specializing in
-              Python/Django, React, and modern web technologies — I bridge ambitious ideas with
-              scalable, user-centric digital products.
-            </p>
+            <div className="max-w-2xl space-y-4 text-base sm:text-lg font-[450] leading-relaxed text-white/85">
+              <p>
+                I build practical products end to end: the interface someone actually touches, and
+                the backend quietly holding it together. Most of that work runs on Python, Django,
+                React and PostgreSQL. I care about the unglamorous parts — clean architecture
+                underneath, interfaces that never make anyone think twice.
+              </p>
+              <p>
+                Right now most of my attention is on CivicConnect, working out how technology can
+                make civic problem-solving easier to take part in. Alongside it I&apos;m going deeper
+                into Java and data structures, and reading up on system design: the fundamentals
+                that decide whether a product survives its own growth.
+              </p>
+              <p>
+                I contribute to open source in Zulip, CircuitVerse and wger, where the problems are
+                real and the feedback is immediate. Away from the keyboard I&apos;m usually testing
+                some new technology, or following a half-formed idea to see if it earns a project.
+              </p>
+            </div>
 
             <div className="flex flex-wrap gap-3">
               {stats.map((s, i) => (
